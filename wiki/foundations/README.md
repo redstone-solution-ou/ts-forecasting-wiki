@@ -13,7 +13,7 @@ TS-FM wave of 2023–2025.
   is, the axes along which problems vary, and the canonical loss
   functions.
 - [classical-methods.md](classical-methods.md) — ARIMA, ETS, Theta,
-  Prophet, state-space and TBATS; strengths, weaknesses, and the Monash
+  Prophet, state-space and TBATS; strengths, weaknesses, and the [Monash](../datasets-benchmarks/monash-archive.md)
   archive as empirical bedrock.
 - [deep-learning-era.md](deep-learning-era.md) — DeepAR, N-BEATS, the
   Transformer adaptations, PatchTST, TSMixer, and why none of them quite

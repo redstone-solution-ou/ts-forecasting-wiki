@@ -52,7 +52,7 @@ Channel independence combines naturally with masked encoding: each channel's pat
 
 The main drawback is the *training-inference mismatch* that bidirectional pretraining introduces for forecasting. During pretraining, the model sees randomly masked positions surrounded by visible context on both sides; during forecasting, the future is *entirely masked* with no right-side visible context. Training recipes partially compensate by deliberately masking long trailing blocks, but the mismatch can still hurt long-horizon accuracy relative to decoder-only models that were trained exactly for rollout.
 
-Masked encoders are also less sample-efficient per token than decoder-only models: only a fraction (typically 15–40%) of positions contribute to the loss at each step, whereas a decoder-only model scores every position. This is partly why MOIRAI needs LOTSA (~27B observations) to train competitively.
+Masked encoders are also less sample-efficient per token than decoder-only models: only a fraction (typically 15–40%) of positions contribute to the loss at each step, whereas a decoder-only model scores every position. This is partly why MOIRAI needs [LOTSA](../datasets-benchmarks/lotsa.md) (~27B observations) to train competitively.
 
 Channel independence itself is a trade-off. It is the reason for the architecture's flexibility, but it discards cross-variate structure — a dominant variate's information cannot directly inform another variate's forecast unless something like MOIRAI's any-variate attention is layered on top.
 
@@ -62,7 +62,7 @@ Compared to `[Decoder-only autoregressive](decoder-only-autoregressive.md)`, mas
 
 ## Design choices in the literature
 
-- `[MOMENT](../papers/moment.md)` — T5-initialized encoder weights + PatchTST patching + RevIN, masked reconstruction pretraining on the Time Series Pile, task-specific heads for forecast/classify/anomaly/impute. Three sizes (40M/125M/385M) demonstrating a dense masked-encoder scaling curve.
+- `[MOMENT](../papers/moment.md)` — T5-initialized encoder weights + PatchTST patching + RevIN, masked reconstruction pretraining on the [Time Series Pile](../datasets-benchmarks/time-series-pile.md), task-specific heads for forecast/classify/anomaly/impute. Three sizes (40M/125M/385M) demonstrating a dense masked-encoder scaling curve.
 - `[MOIRAI](../papers/moirai.md)` — built from scratch on LOTSA (~27B observations), introduces multi-patch-size projections for frequency specialization and any-variate attention for unified univariate/multivariate/covariate inputs; mixture-of-Student-t head for calibrated probabilistic output.
 - `[Moirai-MoE](../papers/moirai-moe.md)` — drops the frequency-keyed multi-projection in favor of a *single* projection plus sparse token-level routing, arguing that frequency specialization is better discovered than engineered. Reports SOTA on 39 datasets while activating fewer parameters per token than dense Moirai-Large.
 
@@ -72,7 +72,7 @@ Compared to `[Decoder-only autoregressive](decoder-only-autoregressive.md)`, mas
 - **Optimal masking ratio for forecasting-first masked encoders.** BERT uses 15%; PatchTST uses higher ratios; no systematic study for TS FMs.
 - **Any-variate attention scaling.** How does the same mechanism behave with hundreds or thousands of variates? Most experiments top out at ~tens.
 - **Cross-variate information flow.** Channel independence is safe but leaves information on the table; any-variate and Moirai-MoE start to address this but without clean ablations.
-- **Bidirectional pretraining vs causal pretraining for zero-shot transfer.** MOIRAI and TimesFM are close on benchmarks; which prior is better is domain-dependent.
+- **Bidirectional pretraining vs causal pretraining for zero-shot transfer.** MOIRAI and [TimesFM](../papers/timesfm.md) are close on benchmarks; which prior is better is domain-dependent.
 
 ## Related wiki pages
 

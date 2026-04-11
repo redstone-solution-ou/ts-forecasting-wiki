@@ -72,8 +72,8 @@ Compared to `[Decoder-only autoregressive](decoder-only-autoregressive.md)`, enc
 
 ## Open questions
 
-- **Is encoder-decoder worth the parameter overhead?** Decoder-only FMs (TimesFM, Timer) close the performance gap with simpler architectures and lower FLOPs.
-- **Quantile head vs sampling.** Chronos-2 argues quantile regression is cleaner than categorical sampling; the CRPS comparison at matched compute has not been published cleanly.
+- **Is encoder-decoder worth the parameter overhead?** Decoder-only FMs ([TimesFM](../papers/timesfm.md), [Timer](../papers/timer.md)) close the performance gap with simpler architectures and lower FLOPs.
+- **Quantile head vs sampling.** Chronos-2 argues quantile regression is cleaner than categorical sampling; the [CRPS](../evaluation/metrics.md#21-crps--continuous-ranked-probability-score) comparison at matched compute has not been published cleanly.
 - **Group attention and scale.** Can group attention extend to hundreds of siblings, or does the `O((SN)^2)` cost limit it to small panels?
 - **Fine-tuning recipes.** Chronos's 710M variant is still small by LLM standards; whether fine-tuning it to domain data is worthwhile vs zero-shot is under-studied.
 - **Continuous-output encoder-decoder.** What happens if you replace Chronos's quantizer with a flow-matching head — encoder-decoder continuous TS models are almost unexplored.

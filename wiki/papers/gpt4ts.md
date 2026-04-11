@@ -27,7 +27,7 @@ GPT4TS is the canonical early demonstration that large language models can be re
 
 ## Limitations and open critiques
 - Tan et al. ("Are Language Models Actually Useful for Time Series Forecasting?", 2024) show that ablating attention or replacing the GPT-2 weights with random initialisation yields essentially the same accuracy, directly challenging the claim that language pretraining contributes useful TS structure.
-- The paper evaluates on the TSLib benchmark suite (ETT, Weather, ECL, Traffic, ILI, UEA), whose saturation and potential leakage are now widely discussed; more recent zero-shot benchmarks (GIFT-Eval, Chronos zero-shot suite) are not covered.
+- The paper evaluates on the TSLib benchmark suite (ETT, Weather, ECL, Traffic, ILI, UEA), whose saturation and potential leakage are now widely discussed; more recent zero-shot benchmarks ([GIFT-Eval](../datasets-benchmarks/gift-eval.md), Chronos zero-shot suite) are not covered.
 - Uses GPT2(6) but does not systematically study how many layers to keep, or why six is the right number; the choice is empirical.
 - Deployment footprint is still that of a GPT-2 forward pass for every window, with no discussion of CPU inference or latency.
 - The frozen backbone limits the method's ability to specialise to new modalities, as later TS-native foundation models demonstrate with much smaller parameter counts.

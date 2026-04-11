@@ -9,7 +9,7 @@ LLMTime shows that off-the-shelf large language models such as GPT-3 and LLaMA-2
 
 ## Key contributions
 - Numbers-as-text tokenisation scheme (digit-by-digit with explicit separators) designed to avoid BPE-induced misalignment between numerical characters and tokens.
-- Change-of-variables construction that turns a hierarchical softmax over digit strings into a flexible continuous mixture density, enabling proper NLL and CRPS evaluation.
+- Change-of-variables construction that turns a hierarchical softmax over digit strings into a flexible continuous mixture density, enabling proper NLL and [CRPS](../evaluation/metrics.md#21-crps--continuous-ranked-probability-score) evaluation.
 - Evidence that vanilla GPT-3 and LLaMA-2 match or exceed purpose-built TS models zero-shot on Darts, M4, and Informer benchmarks.
 - Observation that GPT-4 sometimes underperforms GPT-3, attributed to its number tokenizer and to alignment/RLHF artefacts; base models fit the MMLU-to-forecasting scaling curve, chat-tuned models do not.
 - Demonstrations that LLMs can handle missing values via textual markers (`NaN`) and accept textual side information.
@@ -28,7 +28,7 @@ LLMTime provided a provocative zero-shot baseline showing that language models t
 - Natural path to text-conditioned forecasting, where textual side information is concatenated in the prompt, which most TS-FMs cannot do at all.
 
 ## Limitations and open critiques
-- The per-step cost is enormous: each forecast horizon step requires sampling several digit tokens from a 7B-70B LLM, so LLMTime is one to three orders of magnitude slower than purpose-built forecasters (the TTM paper reports LLMTime at thousands of seconds on CPU for benchmarks where TTM runs in milliseconds).
+- The per-step cost is enormous: each forecast horizon step requires sampling several digit tokens from a 7B-70B LLM, so LLMTime is one to three orders of magnitude slower than purpose-built forecasters (the [TTM](./ttm.md) paper reports LLMTime at thousands of seconds on CPU for benchmarks where TTM runs in milliseconds).
 - Digit-level text tokenisation is brittle: GPT-4 performs worse than GPT-3 because its tokenizer merges digit groups differently, and LLaMA needs the opposite space handling from GPT. This is fundamentally a tokenizer hack, not a principled encoder.
 - Zero-shot accuracy saturates at the level of a decent PatchTST on standard TSLib benchmarks; Chronos and later TS-native models substantially exceed it with purpose-built vocabularies.
 - Uncertainty calibration degrades under RLHF/chat alignment, so the approach is incompatible with most production LLM endpoints.
@@ -40,7 +40,7 @@ LLMTime provided a provocative zero-shot baseline showing that language models t
 ## Reproducibility
 - **Open weights:** not applicable — the method uses off-the-shelf public LLMs (LLaMA-2, LLaMA, GPT-3/4) plus a serialiser.
 - **Code:** public repo referenced in paper at `https://github.com/ngruver/llmtime`.
-- **Training data:** none — LLMTime is fully zero-shot. Evaluation uses the Darts, Monash, and Informer benchmark collections.
+- **Training data:** none — LLMTime is fully zero-shot. Evaluation uses the Darts, [Monash](../datasets-benchmarks/monash-archive.md), and Informer benchmark collections.
 - **Compute to retrain:** no training; inference cost is dominated by LLM API calls / local forward passes of a 7B-70B model per serialised window.
 - **Deployment footprint:** bounded by the underlying LLM; the paper evaluates up to LLaMA-2 70B and GPT-4. Latency is high relative to purpose-built TS models — the TTM paper measures ~2500 s CPU for a comparable evaluation setting.
 

@@ -31,7 +31,7 @@ context window) and present the two canonical recipes.
    *Why next:* contrast with TimesFM on tokenization (quantized vocab
    vs continuous patches) and objective (cross-entropy vs point loss).
 5. [../papers/moirai.md](../papers/moirai.md) — Salesforce MOIRAI,
-   masked encoder on the LOTSA corpus.
+   masked encoder on the [LOTSA](../datasets-benchmarks/lotsa.md) corpus.
    *Why next:* introduces multi-patch-size projections, any-variate
    attention, and the Student-t mixture output head — three ideas you
    will see reused.
@@ -46,7 +46,7 @@ These papers pick a single design dimension and push it. Read them as a
 set of ablations against the canonical recipes above.
 
 1. [../papers/moment.md](../papers/moment.md) — masked reconstruction
-   with a T5-initialized encoder, the Time Series Pile corpus, and a
+   with a T5-initialized encoder, the [Time Series Pile](../datasets-benchmarks/time-series-pile.md) corpus, and a
    multi-task head.
    *Why next:* shows that a single pretrained encoder can serve
    forecast, classification, imputation and anomaly jobs.
@@ -57,7 +57,7 @@ set of ablations against the canonical recipes above.
    "TimeAttention", which is the first serious open attempt at genuinely
    multivariate long-context TS-FM.
 3. [../papers/chronos-2.md](../papers/chronos-2.md) — a 120M
-   patch-based encoder with group attention for in-context learning
+   patch-based encoder with group attention for [in-context learning](../concepts/in-context-learning.md)
    over related series.
    *Why next:* Chronos-2 directly argues that multivariate /
    covariate-informed forecasting, not scale, is the next bottleneck.
@@ -66,7 +66,7 @@ set of ablations against the canonical recipes above.
    *Why next:* sharp contrast with the billion-parameter models and a
    reminder that capacity is not always the right axis.
 5. [../papers/time-moe.md](../papers/time-moe.md) — a 2.4B-parameter
-   sparse MoE decoder-only model trained on Time-300B.
+   sparse MoE decoder-only model trained on [Time-300B](../datasets-benchmarks/time-300b.md).
    *Why next:* the clearest data point on "what happens if we just
    scale a TS-FM like an LLM".
 6. [../papers/lag-llama.md](../papers/lag-llama.md).
@@ -82,8 +82,8 @@ set of ablations against the canonical recipes above.
    zero-shot / rolling-origin / context-length protocol conventions,
    every table in the papers above collapses into undifferentiated
    numbers. Read these before the advanced track so that the
-   contrarian claims there (Moirai-MoE vs Chronos on Monash, Sundial
-   vs Chronos-2 on GIFT-Eval) are legible.
+   contrarian claims there (Moirai-MoE vs Chronos on [Monash](../datasets-benchmarks/monash-archive.md), Sundial
+   vs Chronos-2 on [GIFT-Eval](../datasets-benchmarks/gift-eval.md)) are legible.
 
 ## Advanced track — "what are people arguing about?"
 
@@ -100,7 +100,7 @@ direction. Each one is best read with the counter-argument in mind.
    *Why next:* two bets at once — synthetic-only data and non-transformer
    backbone. Both are open questions.
 3. [../papers/sundial.md](../papers/sundial.md) — flow matching as the
-   generative head on the TimeBench ~1T-point corpus.
+   generative head on the [TimeBench](../datasets-benchmarks/timebench.md) ~1T-point corpus.
    *Why next:* the first flow-matching TS-FM to read, contrast with
    Chronos's categorical sampling and MOIRAI's Student-t mixture.
 4. [../papers/units.md](../papers/units.md) and

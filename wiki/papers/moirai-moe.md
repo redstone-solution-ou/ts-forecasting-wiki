@@ -31,7 +31,7 @@ Moirai-MoE argues that specialization in TS foundation models is better handled 
 ## Limitations and open critiques
 - Still relies on LOTSA for pretraining; any LOTSA biases and leakage into downstream datasets carry over — see [../research/reproducibility.md](../research/reproducibility.md).
 - Expert count (32) and top-k (2) are fixed by design choice; no ablation in the main text over expert count or sparsity ratio at multiple scales, so the MoE-specific scaling law for time series is still not mapped.
-- Evaluation is dominated by normalized aggregate MAE across 39 datasets; probabilistic metrics (CRPS, WQL) are reported less thoroughly than point metrics, which makes head-to-head probabilistic comparisons with [chronos](./chronos.md) or [lag-llama](./lag-llama.md) less clean.
+- Evaluation is dominated by normalized aggregate MAE across 39 datasets; probabilistic metrics ([CRPS](../evaluation/metrics.md#21-crps--continuous-ranked-probability-score), [WQL](../evaluation/metrics.md#23-wql--weighted-quantile-loss)) are reported less thoroughly than point metrics, which makes head-to-head probabilistic comparisons with [chronos](./chronos.md) or [lag-llama](./lag-llama.md) less clean.
 - The cluster-centroid gate is seeded from a pretrained MOIRAI model, so MOIRAI-MoE inherits a dependency on a two-stage pretraining pipeline that a greenfield practitioner cannot reproduce in a single run.
 - Switch to a decoder-only backbone is a substantial architectural change on top of the MoE story, and the ablation does not fully isolate how much of the reported gain is due to MoE vs. the training-objective change from masked-encoder to causal decoder.
 

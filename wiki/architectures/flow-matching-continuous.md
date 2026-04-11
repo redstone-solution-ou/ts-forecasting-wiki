@@ -47,7 +47,7 @@ The `context` here is the TS foundation model's encoding of the history — typi
 
 ## Why it works
 
-Flow matching inherits two deep advantages from continuous normalizing flows. First, **no distributional commitment**: the learned transport can represent any smooth distribution, so multimodal, skewed, and heavy-tailed predictive distributions are handled automatically without picking a family. This sidesteps the single-Gaussian-vs-mixture-vs-Student-t debate that dominates parametric-head design. Second, **no precision ceiling**: outputs live on the continuous real line, not on a discrete bin grid, so there is no equivalent of Chronos's vocabulary cutoff.
+Flow matching inherits two deep advantages from continuous normalizing flows. First, **no distributional commitment**: the learned transport can represent any smooth distribution, so multimodal, skewed, and heavy-tailed predictive distributions are handled automatically without picking a family. This sidesteps the single-Gaussian-vs-mixture-vs-Student-t debate that dominates parametric-head design. Second, **no precision ceiling**: outputs live on the continuous real line, not on a discrete bin grid, so there is no equivalent of [Chronos](../papers/chronos.md)'s vocabulary cutoff.
 
 The intellectual difference from diffusion is that flow matching regresses against a *known* velocity (derived from the chosen interpolation path) rather than a score function that must be estimated via stochastic differential equations. This makes the training objective a clean supervised regression — stable, easy to tune, no noise-schedule finagling — while preserving the expressiveness of score-based generative modeling.
 
@@ -63,11 +63,11 @@ Finally, debugging flow-matching models is harder than debugging point forecaste
 
 ## Siblings and design space
 
-Compared to `[Value quantization](../concepts/value-quantization.md)` + categorical sampling (Chronos), flow matching removes the precision ceiling and the vocabulary, at the cost of an ODE integration at inference. Compared to parametric heads on `[Masked encoder](masked-encoder.md)` (MOIRAI's mixture of Student-t), flow matching removes the distributional commitment at the cost of non-closed-form density. Compared to `[Decoder-only autoregressive](decoder-only-autoregressive.md)` rollout, flow matching emits the full horizon in one integration, avoiding autoregressive compounding error — but paying for `K` integration steps instead.
+Compared to `[Value quantization](../concepts/value-quantization.md)` + categorical sampling (Chronos), flow matching removes the precision ceiling and the vocabulary, at the cost of an ODE integration at inference. Compared to parametric heads on `[Masked encoder](masked-encoder.md)` ([MOIRAI](../papers/moirai.md)'s mixture of Student-t), flow matching removes the distributional commitment at the cost of non-closed-form density. Compared to `[Decoder-only autoregressive](decoder-only-autoregressive.md)` rollout, flow matching emits the full horizon in one integration, avoiding autoregressive compounding error — but paying for `K` integration steps instead.
 
 ## Design choices in the literature
 
-- `[Sundial](../papers/sundial.md)` — the reference TS foundation model in this family. Uses a **TimeFlow** flow-matching objective so the model outputs native continuous values, trains on **TimeBench** (~1T points) combining real and synthetic components, and delivers probabilistic multi-horizon forecasts by drawing multiple noise seeds and integrating the learned flow. The paper reports outperforming Time-MoE on several benchmarks despite using fewer parameters, attributed both to the more expressive continuous objective and to the scale and diversity of TimeBench. Tsinghua, 2502.00816.
+- `[Sundial](../papers/sundial.md)` — the reference TS foundation model in this family. Uses a **TimeFlow** flow-matching objective so the model outputs native continuous values, trains on **[TimeBench](../datasets-benchmarks/timebench.md)** (~1T points) combining real and synthetic components, and delivers probabilistic multi-horizon forecasts by drawing multiple noise seeds and integrating the learned flow. The paper reports outperforming [Time-MoE](../papers/time-moe.md) on several benchmarks despite using fewer parameters, attributed both to the more expressive continuous objective and to the scale and diversity of TimeBench. Tsinghua, 2502.00816.
 
 ## Open questions
 

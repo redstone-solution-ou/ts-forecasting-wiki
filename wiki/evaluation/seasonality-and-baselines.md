@@ -21,7 +21,7 @@ This is why MASE (see [metrics.md](metrics.md)) is built around
 Seasonal Naive: by construction, `MASE = 1` is "you tied the free
 baseline" and `MASE > 1` is "a statistician with no model could have
 done better." Skill-score formulations used by fev-bench,
-Chronos Benchmark II and GIFT-Eval work the same way: a model with
+[Chronos](../papers/chronos.md) Benchmark II and [GIFT-Eval](../datasets-benchmarks/gift-eval.md) work the same way: a model with
 skill score 0 did nothing, and a model with negative skill score
 actively lost to Seasonal Naive.
 
@@ -77,7 +77,7 @@ produce different denominators, and the difference is not small.
 Classical methods like TBATS handle multi-seasonality in the model
 itself; for scaled metrics the convention is to pick the longest
 period that has measurable support in the in-sample window. Chronos
-and MOIRAI both follow Monash's choice where Monash covers the
+and [MOIRAI](../papers/moirai.md) both follow Monash's choice where Monash covers the
 dataset.
 
 **Detecting `m` from data.** Autocorrelation-based heuristics
@@ -162,15 +162,15 @@ the reader should assume the omitted deep baselines are stronger.
    ARIMA but is not compared to PatchTST, the reader should assume
    PatchTST wins. This is especially common in papers that are
    trying to demonstrate universality rather than raw accuracy
-   (UniTS, TOTEM, MOMENT).
+   ([UniTS](../papers/units.md), [TOTEM](../papers/totem.md), [MOMENT](../papers/moment.md)).
 4. **Reporting against Seasonal Naive with no period.** Setting
    `m = 1` on a monthly series silently turns Seasonal Naive into
    Naive and the MASE denominator becomes the first-difference MAE.
    Papers that report MASE without stating `m` are not reproducible.
 5. **Baseline drift.** Benchmark code repositories sometimes ship
-   stale baseline scores. Chronos-2's Table 4 showing Chronos-Bolt
+   stale baseline scores. [Chronos-2](../papers/chronos-2.md)'s Table 4 showing Chronos-Bolt
    at 42.6 WQL-skill is from the fev-bench leaderboard's *October
-   2025* snapshot; Sundial's Feb 2025 table ranks the same model
+   2025* snapshot; [Sundial](../papers/sundial.md)'s Feb 2025 table ranks the same model
    differently because the leaderboard itself moved. See
    [../benchmarks/methodology-caveats.md](../benchmarks/methodology-caveats.md)
    section 7.
@@ -186,14 +186,14 @@ the reader should assume the omitted deep baselines are stronger.
   PatchTST, TiDE, TFT and DeepAR *trained full-shot per dataset* and
   wins on 5 of 6 datasets. This is the strong form of a zero-shot
   claim.
-- **Moirai-MoE** Figure 3 on Monash deliberately includes
+- **[Moirai-MoE](../papers/moirai-moe.md)** Figure 3 on Monash deliberately includes
   task-specific WaveNet, DeepAR and FFNN alongside TS-FMs, and shows
   that Moirai-MoE beats all of them while the earlier Moirai-Base
   does not.
-- **TTM** argues that a 1-5M-parameter MLP-Mixer matches
+- **[TTM](../papers/ttm.md)** argues that a 1-5M-parameter MLP-Mixer matches
   billion-parameter TS-FMs. That claim is only as valuable as the
   baseline set TTM compares to — and TTM reports against Chronos,
-  Moirai, TimesFM and per-dataset PatchTST on LTSF, which is a fair
+  Moirai, [TimesFM](../papers/timesfm.md) and per-dataset PatchTST on LTSF, which is a fair
   set.
 - **TimesFM** Figure 2 on Monash reports scaled-MAE geometric mean
   against N-BEATS as the deep baseline and llmtime as a sanity

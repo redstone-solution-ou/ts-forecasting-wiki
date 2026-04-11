@@ -57,7 +57,7 @@ The training objective matters a lot. If pretraining only sees single series, th
 - **Does a few-shot prompt work like NLP?** TS rarely has natural "demonstration" series the same way NLP has Q/A pairs; whether demonstration-style prompting yields the same emergent behavior is open.
 - **How many siblings are useful?** There is no clear scaling law relating panel size to accuracy gain.
 - **Context poisoning.** What happens when siblings are adversarial or mismatched? Robust ICL in TS has not been studied rigorously.
-- **Channel independence vs ICL.** Channel-independent models (PatchTST, MOMENT) cannot do sibling-based ICL at all; is the lost information worth the simplicity?
+- **Channel independence vs ICL.** Channel-independent models (PatchTST, [MOMENT](../papers/moment.md)) cannot do sibling-based ICL at all; is the lost information worth the simplicity?
 - **Relationship to retrieval.** Is explicit retrieval of similar historical windows (memory-augmented forecasting) competitive with architectural ICL?
 
 ## Papers that exemplify this

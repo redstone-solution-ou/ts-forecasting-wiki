@@ -22,7 +22,7 @@ Sundial pairs a decoder-style transformer (RoPE, Pre-LN, FlashAttention, KV-cach
 Sundial is the leading exponent of the continuous, flow-matching branch of TS foundation models. It shows that avoiding value quantisation can both improve accuracy and reduce parameter requirements, and provides the clearest argument to date that parametric probabilistic heads (Gaussian, Student-t, quantile) limit the capacity of foundation models on heterogeneous TS distributions.
 
 ## Strengths
-- Ablation directly compares TimeFlow against MSE and diffusion at matched model size and data: TimeFlow achieves 0.290 average MSE vs. 0.296 (MSE loss) and 0.314 (diffusion) on the six TSLib benchmarks, and also wins on CRPS.
+- Ablation directly compares TimeFlow against MSE and diffusion at matched model size and data: TimeFlow achieves 0.290 average MSE vs. 0.296 (MSE loss) and 0.314 (diffusion) on the six TSLib benchmarks, and also wins on [CRPS](../evaluation/metrics.md#21-crps--continuous-ranked-probability-score).
 - Generative forecasting gives genuine probabilistic outputs with test-time calibration: more samples at inference monotonically tighten the confidence interval, more flow-matching steps monotonically improve point accuracy.
 - Just-in-time inference — FlashAttention plus KV-cache reduces inference time by 43.6% in the ablation, enabling millisecond-scale zero-shot prediction.
 - Explicit case that MSE-trained TS-FMs suffer mode collapse because predictive distributions across domains are highly divergent; TimeFlow avoids this by not committing to a prior parametric family.
@@ -31,7 +31,7 @@ Sundial is the leading exponent of the continuous, flow-matching branch of TS fo
 ## Limitations and open critiques
 - Flow-matching inference is multi-step: each predicted patch requires K push-forward iterations (plus sample count for probabilistic outputs), so the paper's "just-in-time" claim trades off K against accuracy.
 - TimeBench is dominated by real-world public corpora plus "mostly real-world" synthetic data, but the exact mixture and domain balance are not audited as carefully as Chronos's data card; whether the scaling claim rests on a few high-volume domains is unclear.
-- Reported gains over Time-MoE are modest (~4.7% average MSE) and specific to the six TSLib benchmarks; performance on GIFT-Eval and the Chronos zero-shot suite is less developed.
+- Reported gains over Time-MoE are modest (~4.7% average MSE) and specific to the six TSLib benchmarks; performance on [GIFT-Eval](../datasets-benchmarks/gift-eval.md) and the Chronos zero-shot suite is less developed.
 - FM-Net is a small MLP; the paper does not deeply study whether scaling the flow head proportionally to the backbone matters.
 - The method requires a custom loss and sampling pipeline, making it less drop-in replaceable than a regression head; downstream consumers who want point forecasts must choose between median and mean statistics over samples.
 

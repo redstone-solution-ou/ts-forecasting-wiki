@@ -11,7 +11,7 @@ Mamba4Cast replaces transformer backbones with a Mamba-2 selective state-space m
 - Mamba-2 selective state-space model as a non-transformer backbone for zero-shot time-series forecasting.
 - Purely synthetic pretraining via Prior-data Fitted Networks (PFN): 70% Gaussian Process priors and 30% ForecastPFN priors, with no real-data exposure.
 - Single-pass direct forecast: the model predicts the entire horizon in one forward pass rather than autoregressive rollout, decoupling inference latency from horizon length.
-- Competitive MASE versus Chronos-Base/Small, DeepAR, AutoARIMA, and seasonal-naive across 17 datasets, with the efficiency gap widening as prediction length grows.
+- Competitive [MASE](../evaluation/metrics.md#17-mase--mean-absolute-scaled-error) versus Chronos-Base/Small, DeepAR, AutoARIMA, and seasonal-naive across 17 datasets, with the efficiency gap widening as prediction length grows.
 - Ablations on convolution layers, prior composition, and inference strategy.
 
 ## Architecture at a glance
@@ -32,7 +32,7 @@ Mamba4Cast demonstrates that competitive zero-shot TS forecasting is achievable 
 - Heavy reliance on prior diversity: the model's quality is bounded by how well the GP and ForecastPFN priors cover real-world TS distributions, and the paper notes that the results depend on the kernel composition.
 - Point forecasts only: Mamba4Cast outputs a single horizon trajectory per window and has no built-in probabilistic head, while Chronos (its main baseline) provides sampled predictive quantiles natively.
 - Trained on short contexts (up to 512 steps); long-context generalisation of Mamba-2 for forecasting is not stress-tested as deeply as in transformer TS-FMs.
-- The model and training protocol are small compared to frontier TS-FMs; whether the recipe scales to Time-MoE or Sundial capacity is an open question.
+- The model and training protocol are small compared to frontier TS-FMs; whether the recipe scales to Time-MoE or [Sundial](./sundial.md) capacity is an open question.
 
 ## Follow-up work and dialogue
 Mamba4Cast is the natural counterpart to [time-moe](./time-moe.md) in the efficiency versus capacity debate: SSM + synthetic-only training vs. MoE + large-scale real data. The latency argument goes in Mamba4Cast's favour for long horizons, while the absolute accuracy on real-world benchmarks still trails the largest real-data TS-FMs. Within the lightweight/non-transformer cluster, [TTM](./ttm.md) is the other reference point — TTM also avoids transformers and targets CPU inference, but trains on real public data rather than synthetic priors. [Lag-Llama](./lag-llama.md) sits between the two philosophies as a transformer trained on real data with lag features. Mamba4Cast's synthetic-only approach inherits from ForecastPFN and extends the PFN-for-forecasting line to SSM backbones.

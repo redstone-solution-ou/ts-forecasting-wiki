@@ -21,8 +21,8 @@ of length `T` the forecasting convention is
 ```
 
 with all hyperparameter selection done on the val window and the
-test window held out until the final run. The Monash archive,
-GIFT-Eval, fev-bench and Chronos Benchmark II all ship explicit
+test window held out until the final run. The [Monash](../datasets-benchmarks/monash-archive.md) archive,
+[GIFT-Eval](../datasets-benchmarks/gift-eval.md), fev-bench and [Chronos](../papers/chronos.md) Benchmark II all ship explicit
 split indices for each series so that papers reporting on them
 cannot accidentally contaminate.
 
@@ -62,13 +62,13 @@ monthly and daily tracks; Darts; the shorter end of ETT.
 `h \in \{96, 192, 336, 720\}` on hourly / 15-minute series (ETTh1,
 ETTh2, ETTm1, ETTm2, Electricity, Traffic, Weather, ILI). This is
 the regime where MSE-on-normalized-series is the dominant metric
-and where TimesFM, Moirai, Time-MoE, Timer-XL, TTM, Sundial, MOMENT,
-Time-LLM and GPT4TS all report numbers.
+and where [TimesFM](../papers/timesfm.md), [Moirai](../papers/moirai.md), [Time-MoE](../papers/time-moe.md), [Timer-XL](../papers/timer-xl.md), [TTM](../papers/ttm.md), [Sundial](../papers/sundial.md), [MOMENT](../papers/moment.md),
+[Time-LLM](../papers/time-llm.md) and [GPT4TS](../papers/gpt4ts.md) all report numbers.
 
 **Horizon-dependent rank reversal is common.** A model that beats
 the field at `h = 96` can lose at `h = 720` because autoregressive
-decoding compounds errors superlinearly (a critique Timer-S1 and
-Mamba4Cast both pick up on). Conversely, a model that beats the
+decoding compounds errors superlinearly (a critique [Timer-S1](../papers/timer-s1.md) and
+[Mamba4Cast](../papers/mamba4cast.md) both pick up on). Conversely, a model that beats the
 field at `h = 720` by committing to a smooth trend can lose at
 `h = 96` because it under-fits local dynamics. Reporting a single
 "average over horizons" obscures this, which is why Moirai Table 6
@@ -82,10 +82,10 @@ forecasting. Each TS-FM ships with a default and a maximum:
 - **TimesFM.** Default context 512 (input patches of 32 each); max
   claimed to be configurable but most evaluations stay at 512.
 - **Chronos.** 512 tokens at prediction length 64.
-- **Chronos-2.** Up to 2048 tokens at horizon 64.
+- **[Chronos-2](../papers/chronos-2.md).** Up to 2048 tokens at horizon 64.
 - **MOIRAI.** Variable-patch-size, context up to 5000+ steps;
   different tables use different `C`.
-- **Timer / Timer-XL.** Timer at 672 tokens; Timer-XL scales to
+- **[Timer](../papers/timer.md) / Timer-XL.** Timer at 672 tokens; Timer-XL scales to
   2880+ tokens.
 - **Timer-S1.** Extended from 2880 to 11520 tokens via RoPE
   continuation.
@@ -108,7 +108,7 @@ Strict definition: a model is zero-shot on dataset `D` if no time
 series (train, val or test partition) from `D` appeared in the
 pretraining corpus. This is stricter than it sounds, because many
 TS-FM pretraining corpora are aggregations of public archives that
-*include* Monash, LOTSA, Time-300B, TimeBench and the Time Series
+*include* Monash, [LOTSA](../datasets-benchmarks/lotsa.md), [Time-300B](../datasets-benchmarks/time-300b.md), [TimeBench](../datasets-benchmarks/timebench.md) and the Time Series
 Pile. If your pretraining corpus includes the Monash archive and
 you evaluate on Monash, you are not zero-shot on Monash even if you
 have never seen the specific test window.
@@ -117,7 +117,7 @@ have never seen the specific test window.
 
 - TimesFM's pretraining corpus includes Google Trends and Wikipedia
   Pageviews, which overlap with Monash for several frequencies.
-  Moirai-MoE Figure 3 asterisks TimesFM for this reason.
+  [Moirai-MoE](../papers/moirai-moe.md) Figure 3 asterisks TimesFM for this reason.
 - Chronos Small / Base / Large pretraining has Monash datasets.
   Same asterisk.
 - Chronos-2 Section 5.1 acknowledges partial overlap with GIFT-Eval
@@ -151,7 +151,7 @@ section 1 for the long list.
   generalists and usually lose to the per-dataset specialist, but
   the gap is often small (< 5% on LTSF).
 - **Few-shot.** `k` target-domain examples are used to adapt the
-  model, typically via linear probing or LoRA. UniTS and MOMENT
+  model, typically via linear probing or LoRA. [UniTS](../papers/units.md) and MOMENT
   report forecasting numbers in this mode. "Few-shot" in the TS-FM
   literature usually means either k in {5, 10} windows or a fixed
   fraction (1%, 10%) of the target training set.
@@ -249,14 +249,14 @@ are not comparable across papers. See
 - **TimesFM**: Monash (18 datasets) + Darts + ETT. Scaled MAE
   geometric mean vs Seasonal Naive.
 - **TTM**: LTSF 6-dataset zero-shot and few-shot. MSE / MAE.
-- **Lag-Llama**: 27-dataset probabilistic suite. CRPS.
-- **MOMENT, UniTS, TOTEM, Time-LLM, GPT4TS**: TSLib multi-task
+- **[Lag-Llama](../papers/lag-llama.md)**: 27-dataset probabilistic suite. CRPS.
+- **MOMENT, UniTS, [TOTEM](../papers/totem.md), Time-LLM, GPT4TS**: TSLib multi-task
   benchmark. MSE / MAE point metrics, F1 for classification /
   anomaly.
-- **LLMTime**: Darts + Monash + Informer. NLL and CRPS.
+- **[LLMTime](../papers/llmtime.md)**: Darts + Monash + Informer. NLL and CRPS.
 - **Mamba4Cast**: 17-dataset Monash-style suite vs Chronos / DeepAR /
   ARIMA / sNaive. MASE and critical-difference diagram.
-- **TimeGPT**: 300k-series internal suite. rMAE / rRMSE, conformal
+- **[TimeGPT](../papers/timegpt.md)**: 300k-series internal suite. rMAE / rRMSE, conformal
   empirical coverage.
 
 ## Related wiki pages

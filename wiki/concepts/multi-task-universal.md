@@ -57,11 +57,11 @@ Shared encoders pay a *capacity tax*: each task gets a fraction of the encoder's
 
 Generative unification can be fragile at long horizons (rollout error) and at tasks that are not naturally autoregressive, such as global classification. Task-token interfaces can suffer *task interference*: training on too many heterogeneous tasks hurts any given one unless task weights are carefully balanced. TOTEM's shared VQ-VAE is limited by the codebook size — a single global codebook cannot capture every domain's patch distribution equally well, which is exactly why the paper studies the specialist-vs-generalist split.
 
-A subtle failure mode is *evaluation protocol drift*: multi-task benchmarks (UniTS's 38 datasets, MOMENT's pile) use different splits and metrics than forecasting-only benchmarks (Monash, GIFT-Eval), so scores from multi-task and forecasting-only models are not directly comparable.
+A subtle failure mode is *evaluation protocol drift*: multi-task benchmarks (UniTS's 38 datasets, MOMENT's pile) use different splits and metrics than forecasting-only benchmarks ([Monash](../datasets-benchmarks/monash-archive.md), [GIFT-Eval](../datasets-benchmarks/gift-eval.md)), so scores from multi-task and forecasting-only models are not directly comparable.
 
 ## Design choices in the literature
 
-- `[MOMENT](../papers/moment.md)` — T5-init encoder with PatchTST patching and RevIN, masked reconstruction pretraining, plus forecast/classify/anomaly/impute heads at 40M/125M/385M sizes.
+- `[MOMENT](../papers/moment.md)` — T5-init encoder with PatchTST patching and [RevIN](./revin-normalization.md), masked reconstruction pretraining, plus forecast/classify/anomaly/impute heads at 40M/125M/385M sizes.
 - `[Timer](../papers/timer.md)` — generative unification via the Single-Series Sequence (S3) format, causal decoder handling all tasks as next-token prediction.
 - `[Timer-XL](../papers/timer-xl.md)` — universal TimeAttention extends the generative-unification story to multivariate and covariate tasks with a single decoder-only architecture.
 - `[UniTS](../papers/units.md)` — task-token interface over a modified transformer, variable-length inputs across 38 datasets, mixing generative and predictive tasks under one model.

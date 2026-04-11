@@ -62,7 +62,7 @@ original domain's units and the reader can compare to MAE mentally.
 
 **Reduces to MAE for a point forecast.** If `F` is a Dirac mass at
 `\hat{y}`, `CRPS(F, y) = |y - \hat{y}|`. This is the property that
-makes CRPS fair to point-only models: Timer or Timer-XL or MOMENT
+makes CRPS fair to point-only models: [Timer](../papers/timer.md) or [Timer-XL](../papers/timer-xl.md) or [MOMENT](../papers/moment.md)
 can be evaluated on CRPS (trivially: wrap their point forecast in a
 degenerate CDF) and they get their MAE back. A Chronos or MOIRAI
 sample-based distribution has the *opportunity* to do strictly
@@ -113,7 +113,7 @@ gives a weighted approximation to CRPS that becomes tighter as
 `|\mathcal{T}|` grows. At the standard 9-quantile grid
 `{0.1, 0.2, ..., 0.9}` the pinball sum is already within a few
 percent of the true CRPS on smooth distributions, which is why
-GIFT-Eval adopts the quantile-loss form.
+[GIFT-Eval](../datasets-benchmarks/gift-eval.md) adopts the quantile-loss form.
 
 ### WQL as the GIFT-Eval standard
 
@@ -269,7 +269,7 @@ probabilistic evaluation and is noted in
   output, CRPS-as-eval, trained with NLL.
 - [../papers/llmtime.md](../papers/llmtime.md) — digit-distribution
   to continuous density, evaluated with NLL and CRPS on Darts /
-  Monash / Informer benchmark sets.
+  [Monash](../datasets-benchmarks/monash-archive.md) / Informer benchmark sets.
 - [../papers/timegpt.md](../papers/timegpt.md) — conformal
   intervals, empirical coverage reported instead of CRPS / WQL.
 - [../papers/timer-s1.md](../papers/timer-s1.md) — 9-quantile

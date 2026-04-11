@@ -62,7 +62,7 @@ Finally, synthetic data augmentation does not solve the *covariate* problem. Rea
 - `[TimesFM](../papers/timesfm.md)` — mixed synthetic functions into a real-data backbone (Google Trends, Wikipedia pageviews) at ~100B points.
 - `[Chronos-2](../papers/chronos-2.md)` — relies heavily on synthetic augmentation to construct the *sibling panels* needed to train its group-attention in-context mechanism — you cannot train ICL without sibling context, and synthetic data is the only scalable source of it.
 - `[Mamba4Cast](../papers/mamba4cast.md)` — synthetic-only PFN pretraining, zero real series used; the model is an amortized Bayesian forecaster whose only reference is the prior.
-- `[Sundial](../papers/sundial.md)` — TimeBench (~1T points) combines real and synthetic components as part of its diverse mixture, enabling flow-matching training at scale.
+- `[Sundial](../papers/sundial.md)` — [TimeBench](../datasets-benchmarks/timebench.md) (~1T points) combines real and synthetic components as part of its diverse mixture, enabling flow-matching training at scale.
 
 ## Open questions
 

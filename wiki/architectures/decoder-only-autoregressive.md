@@ -27,7 +27,7 @@ Key moves:
 
 - **Patch-level autoregression.** Each token represents `P_in` consecutive timestamps; each output predicts the next `P_out` timestamps. Standard LLMs have `P_in = P_out = 1` (one subword in, one out); TimesFM uses `P_in = 32, P_out = 128` so one token emits four patches of future values. This shortens the rollout by the factor `P_out / P_in`, reducing exposure bias and wall-clock.
 - **Causal mask.** Position `i` attends only to positions `<= i`. KV-cache at inference makes rollout `O(N)` per new step rather than `O(N^2)`.
-- **Output head.** Three choices: (a) linear regression head + MSE, (b) parametric distribution head (Student-t, mixture) + NLL, or (c) categorical over a quantized vocabulary + CE. Chronos is the exception that uses encoder-decoder with (c); most decoder-only models use (a) or (b).
+- **Output head.** Three choices: (a) linear regression head + MSE, (b) parametric distribution head (Student-t, mixture) + NLL, or (c) categorical over a quantized vocabulary + CE. [Chronos](../papers/chronos.md) is the exception that uses encoder-decoder with (c); most decoder-only models use (a) or (b).
 
 Rollout for an `L`-step horizon:
 
@@ -53,11 +53,11 @@ Autoregressive rollout has a compounding-error problem that is sharpest at long 
 
 Causal attention also throws away future context at training time — in contrast, a masked encoder learns from bidirectional context, which is more sample-efficient for non-forecasting tasks like imputation. Decoder-only models are therefore often worse at imputation and classification than equivalent-size masked encoders, even if they are better at forecasting.
 
-Another failure mode is *locked input granularity*: once you fix `P_in`, changing the user's sampling frequency at inference requires either resampling the series or having multiple projection heads keyed by frequency (MOIRAI's trick) or routing (Moirai-MoE's). Pure decoder-only TS FMs with one projection struggle on off-training frequencies.
+Another failure mode is *locked input granularity*: once you fix `P_in`, changing the user's sampling frequency at inference requires either resampling the series or having multiple projection heads keyed by frequency ([MOIRAI](../papers/moirai.md)'s trick) or routing ([Moirai-MoE](../papers/moirai-moe.md)'s). Pure decoder-only TS FMs with one projection struggle on off-training frequencies.
 
 ## Siblings and design space
 
-Compared to `[Masked encoder](masked-encoder.md)`, decoder-only is better for forecasting rollout but worse for bidirectional tasks. Compared to `[Encoder-decoder T5](encoder-decoder-t5.md)`, decoder-only is simpler (no encoder cross-attention, smaller KV footprint) but loses the clean history-horizon decoupling; Chronos's encoder-decoder plus quantization is a different tradeoff in the same neighborhood. Compared to `[Lightweight non-transformer](lightweight-non-transformer.md)`, decoder-only is heavier but scales cleanly with MoE; TTM argues the opposite, that small non-transformer models can substitute.
+Compared to `[Masked encoder](masked-encoder.md)`, decoder-only is better for forecasting rollout but worse for bidirectional tasks. Compared to `[Encoder-decoder T5](encoder-decoder-t5.md)`, decoder-only is simpler (no encoder cross-attention, smaller KV footprint) but loses the clean history-horizon decoupling; Chronos's encoder-decoder plus quantization is a different tradeoff in the same neighborhood. Compared to `[Lightweight non-transformer](lightweight-non-transformer.md)`, decoder-only is heavier but scales cleanly with MoE; [TTM](../papers/ttm.md) argues the opposite, that small non-transformer models can substitute.
 
 ## Design choices in the literature
 
@@ -65,13 +65,13 @@ Compared to `[Masked encoder](masked-encoder.md)`, decoder-only is better for fo
 - `[Timer](../papers/timer.md)` — GPT-style decoder trained on a ~1B-point corpus under the Single-Series Sequence (S3) unified format, with emergent few-shot behavior at scale.
 - `[Timer-XL](../papers/timer-xl.md)` — extends Timer to multivariate and covariate settings by flattening panels and using universal TimeAttention with 2D position embeddings, preserving causality along the time axis.
 - `[Lag-Llama](../papers/lag-llama.md)` — first open decoder-only probabilistic TS FM, injects lag features as explicit covariates into the causal stream and attaches a Student-t head.
-- `[Time-MoE](../papers/time-moe.md)` — 2.4B sparse MoE decoder-only trained on Time-300B, scaling active and total parameters independently; the first billion-param TS FM and the main evidence that TS decoder-only scales like LLMs.
+- `[Time-MoE](../papers/time-moe.md)` — 2.4B sparse MoE decoder-only trained on [Time-300B](../datasets-benchmarks/time-300b.md), scaling active and total parameters independently; the first billion-param TS FM and the main evidence that TS decoder-only scales like LLMs.
 - `[Sundial](../papers/sundial.md)` — decoder-only backbone with a TimeFlow flow-matching head, continuous-valued probabilistic output.
 
 ## Open questions
 
 - **Optimal input/output patch asymmetry.** TimesFM picked 32/128, but the right ratio is data-dependent and under-explored.
-- **Does rollout compounding fundamentally limit long-horizon accuracy?** Direct multi-horizon heads (Chronos-2, Sundial) bypass it; decoder-only rollout with sampling has to simulate many trajectories to recover calibration.
+- **Does rollout compounding fundamentally limit long-horizon accuracy?** Direct multi-horizon heads ([Chronos-2](../papers/chronos-2.md), Sundial) bypass it; decoder-only rollout with sampling has to simulate many trajectories to recover calibration.
 - **MoE inside a decoder-only TS FM.** Time-MoE shows scaling works, but routing strategies specific to temporal data have not been systematically explored.
 - **Long-context tractability.** 4k–16k tokens is the current ceiling; longer contexts need SSM or linear-attention alternatives.
 - **Native covariate support.** Most decoder-only TS FMs are univariate; Lag-Llama and Timer-XL start to address this but neither is the clear winner.

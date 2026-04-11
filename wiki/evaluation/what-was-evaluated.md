@@ -17,11 +17,11 @@ a benchmark protocol, see [protocols.md](protocols.md).
 
 | Paper | Metrics | Datasets / suites | Protocol | Baselines | Probabilistic? | Link |
 |---|---|---|---|---|---|---|
-| TimesFM | scaled MAE (GM vs sNaive), MAE | Monash (18), Darts, ETT | zero-shot; fixed horizon per dataset | sNaive, ARIMA, ETS, N-BEATS, llmtime | No | [../papers/timesfm.md](../papers/timesfm.md) |
+| TimesFM | scaled MAE (GM vs sNaive), MAE | [Monash](../datasets-benchmarks/monash-archive.md) (18), Darts, ETT | zero-shot; fixed horizon per dataset | sNaive, ARIMA, ETS, N-BEATS, llmtime | No | [../papers/timesfm.md](../papers/timesfm.md) |
 | Chronos | MASE, WQL, sMAPE | 42 datasets (15 in-domain + 27 Benchmark II) | zero-shot on Bench II; in-domain elsewhere | sNaive, ETS, ARIMA, Theta, DeepAR, TFT, PatchTST, N-BEATS | Yes (categorical samples → WQL/CRPS) | [../papers/chronos.md](../papers/chronos.md) |
-| Chronos-2 | MASE skill, WQL skill, SQL skill, median runtime | GIFT-Eval (97 tasks), Chronos Bench II (27), fev-bench (98) | zero-shot; 95% bootstrap CIs | TiRex, TimesFM-2.5, Toto, Moirai-2.0, TabPFN-TS, Sundial, COSMIC, sNaive | Yes (9-quantile decoder) | [../papers/chronos-2.md](../papers/chronos-2.md) |
+| Chronos-2 | MASE skill, WQL skill, SQL skill, median runtime | [GIFT-Eval](../datasets-benchmarks/gift-eval.md) (97 tasks), Chronos Bench II (27), fev-bench (98) | zero-shot; 95% bootstrap CIs | TiRex, TimesFM-2.5, Toto, Moirai-2.0, TabPFN-TS, Sundial, COSMIC, sNaive | Yes (9-quantile decoder) | [../papers/chronos-2.md](../papers/chronos-2.md) |
 | MOMENT | MSE, MAE (forecasting); F1 (anomaly); accuracy (classification) | TSLib suite (ETT, Weather, ECL, ILI); TSB-UAD; UCR/UEA | zero-shot + linear-probe | PatchTST, DLinear, TimesNet, GPT4TS | No (point only) | [../papers/moment.md](../papers/moment.md) |
-| MOIRAI | MSE, MAE, CRPS, MASE | Monash multivariate, LOTSA hold-out, LTSF (ETT, ECL, Weather), 6-dataset CRPS table | zero-shot (paper's claim), leakage w.r.t. LOTSA | PatchTST, TiDE, TFT, DeepAR, iTransformer, sNaive | Yes (Student-t mixture head) | [../papers/moirai.md](../papers/moirai.md) |
+| MOIRAI | MSE, MAE, CRPS, MASE | Monash multivariate, [LOTSA](../datasets-benchmarks/lotsa.md) hold-out, LTSF (ETT, ECL, Weather), 6-dataset CRPS table | zero-shot (paper's claim), leakage w.r.t. LOTSA | PatchTST, TiDE, TFT, DeepAR, iTransformer, sNaive | Yes (Student-t mixture head) | [../papers/moirai.md](../papers/moirai.md) |
 | Moirai-MoE | aggregate MAE (GM vs sNaive), CRPS, MASE | Monash 29-dataset, 10-dataset held-out (Table 2), 39-dataset | zero-shot, explicitly LOTSA-disjoint | Chronos, TimesFM, Moirai, iTransformer, PatchTST, DeepAR, WaveNet, FFNN | Yes (Student-t mixture) | [../papers/moirai-moe.md](../papers/moirai-moe.md) |
 | Timer | MSE, MAE | UTSD benchmarks, ETT, PEMS, small data-scarce subsets | in-domain + few-shot, emphasis on data-scarce | PatchTST, iTransformer, DLinear, TimesNet | No (point only) | [../papers/timer.md](../papers/timer.md) |
 | Timer-XL | MSE, MAE | LTSF (ETT, ECL, Weather), ERA5-Large (4920 stations, ~2880 ctx) | zero-shot long-context; fixed `h` set | Moirai-Large, TimesFM, MOMENT, PatchTST | No (point only) | [../papers/timer-xl.md](../papers/timer-xl.md) |
@@ -91,7 +91,7 @@ paper notes; none are fabricated from external sources.
 8. **Zero-shot leakage is acknowledged by only a minority.** The
    papers that explicitly audit their own pretraining-vs-evaluation
    overlap are Chronos-2 (GIFT-Eval partial overlap, stated),
-   Timer-S1 (removes GIFT-Eval from TimeBench), and Moirai-MoE
+   Timer-S1 (removes GIFT-Eval from [TimeBench](../datasets-benchmarks/timebench.md)), and Moirai-MoE
    (LOTSA-disjoint hold-outs). TimesFM, Chronos (v1) and several
    others inherit the standard footnote. See
    [../benchmarks/methodology-caveats.md](../benchmarks/methodology-caveats.md)

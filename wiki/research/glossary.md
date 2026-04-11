@@ -26,13 +26,13 @@ sentences each, with cross-links to deeper pages where one exists.
   [../evaluation/metrics.md#21-crps--continuous-ranked-probability-score](../evaluation/metrics.md#21-crps--continuous-ranked-probability-score).
 - **Decoder-only.** A transformer trained to predict the next token
   given its left context, without a separate encoder. The GPT
-  recipe — and the pattern used by TimesFM, Timer, Time-MoE and
-  Lag-Llama.
+  recipe — and the pattern used by [TimesFM](../papers/timesfm.md), [Timer](../papers/timer.md), [Time-MoE](../papers/time-moe.md) and
+  [Lag-Llama](../papers/lag-llama.md).
 - **Encoder-only.** A transformer whose training signal is over the
-  whole input, typically via masked reconstruction. MOMENT, MOIRAI
-  and Chronos-2 are encoder-only.
+  whole input, typically via masked reconstruction. [MOMENT](../papers/moment.md), [MOIRAI](../papers/moirai.md)
+  and [Chronos-2](../papers/chronos-2.md) are encoder-only.
 - **Exogenous variable.** A covariate that is known into the forecast
-  horizon (a calendar, a pricing schedule). TTM explicitly supports
+  horizon (a calendar, a pricing schedule). [TTM](../papers/ttm.md) explicitly supports
   exogenous heads.
 - **Few-shot.** Fine-tuning or adapting a pretrained model on a small
   number of labeled examples from a new task.
@@ -40,9 +40,9 @@ sentences each, with cross-links to deeper pages where one exists.
   dataset, usually with a lower learning rate.
 - **Flow matching.** A generative training objective that learns a
   continuous-time velocity field between noise and data. Used as the
-  output head of Sundial. See [../architectures/flow-matching-continuous.md](../architectures/flow-matching-continuous.md).
+  output head of [Sundial](../papers/sundial.md). See [../architectures/flow-matching-continuous.md](../architectures/flow-matching-continuous.md).
 - **Gaussian process (GP).** A non-parametric probabilistic model over
-  functions. Used in Chronos's KernelSynth to generate synthetic
+  functions. Used in [Chronos](../papers/chronos.md)'s KernelSynth to generate synthetic
   training series.
 - **GIFT-Eval.** A recent evaluation suite for TS-FMs designed to be
   cleaner than the legacy long-horizon benchmarks. See
@@ -58,13 +58,13 @@ sentences each, with cross-links to deeper pages where one exists.
   assembled by the MOIRAI team. See
   [../datasets-benchmarks/lotsa.md](../datasets-benchmarks/lotsa.md).
 - **Mamba.** A selective state-space model architecture with linear
-  scaling in sequence length. The backbone of Mamba4Cast.
+  scaling in sequence length. The backbone of [Mamba4Cast](../papers/mamba4cast.md).
 - **MASE (Mean Absolute Scaled Error).** A scale-free point forecast
   metric; standard on the Monash archive. Full definition and pitfalls
   in [../evaluation/metrics.md#17-mase--mean-absolute-scaled-error](../evaluation/metrics.md#17-mase--mean-absolute-scaled-error).
 - **Masked reconstruction.** A pretraining objective in which parts of
   the input are hidden and the model is trained to reconstruct them.
-  The MOMENT, MOIRAI and Moirai-MoE objective.
+  The MOMENT, MOIRAI and [Moirai-MoE](../papers/moirai-moe.md) objective.
 - **MoE (Mixture of Experts).** A sparse architecture that routes each
   token through a small subset of expert subnetworks. Time-MoE and
   Moirai-MoE are the two TS-FM examples.
@@ -120,7 +120,7 @@ sentences each, with cross-links to deeper pages where one exists.
   [../concepts/value-quantization.md](../concepts/value-quantization.md).
 - **VQ-VAE.** Vector-Quantized Variational Autoencoder: learns a
   discrete codebook over a continuous input. Used as the tokenizer by
-  TOTEM.
+  [TOTEM](../papers/totem.md).
 - **WQL (Weighted Quantile Loss).** A weighted version of the
   pinball loss used in probabilistic TS-FM leaderboards, notably by
   Chronos and Chronos-2. Full definition in

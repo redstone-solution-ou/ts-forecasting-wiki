@@ -19,8 +19,8 @@ and `T_in` the in-sample (training) series length.
 Point metrics score a single-valued forecast `\hat{y}_t` against the
 observation `y_t`. They are the oldest and most familiar family and
 remain the default for papers that do not output a distribution
-(TimesFM, Timer, Timer-XL, MOMENT, TTM, UniTS, TOTEM, Time-LLM,
-GPT4TS, Mamba4Cast).
+(TimesFM, [Timer](../papers/timer.md), [Timer-XL](../papers/timer-xl.md), [MOMENT](../papers/moment.md), [TTM](../papers/ttm.md), [UniTS](../papers/units.md), [TOTEM](../papers/totem.md), [Time-LLM](../papers/time-llm.md),
+[GPT4TS](../papers/gpt4ts.md), Mamba4Cast).
 
 ### 1.1 MAE — Mean Absolute Error
 
@@ -56,7 +56,7 @@ large error dominates the score, which is useful when large errors
 are disproportionately costly and dangerous when your evaluation
 window contains a regime change or an outlier.
 
-Reported by: the LTSF cluster (TimesFM, Moirai, Moirai-MoE, Time-MoE,
+Reported by: the LTSF cluster (TimesFM, Moirai, Moirai-MoE, [Time-MoE](../papers/time-moe.md),
 Timer-XL, Sundial, TTM, MOMENT, Time-LLM, GPT4TS) on ETT / Weather /
 Electricity / Traffic / ILI at horizons `{96, 192, 336, 720}`. It is
 the single most reported metric on the LTSF suite despite being, in
@@ -119,7 +119,7 @@ Hyndman & Koehler (2006) called sMAPE behaviour at small values an
 "insanity", specifically because tiny absolute deviations produce
 huge sMAPE contributions that dwarf the much more meaningful errors
 on large observations. sMAPE is still the headline metric of the M3
-and M4 competitions, which is the main reason LLMTime and a few
+and M4 competitions, which is the main reason [LLMTime](../papers/llmtime.md) and a few
 earlier baselines report it.
 
 ### 1.6 WAPE — Weighted Absolute Percentage Error
@@ -135,7 +135,7 @@ the wiki's headline tables.
 ### 1.7 MASE — Mean Absolute Scaled Error
 
 MASE is the most important metric on this page. It is the standard
-aggregator on Monash, on Chronos Benchmark II, on GIFT-Eval (as a
+aggregator on [Monash](../datasets-benchmarks/monash-archive.md), on Chronos Benchmark II, on [GIFT-Eval](../datasets-benchmarks/gift-eval.md) (as a
 skill score), and on fev-bench (as a skill score). Every TS-FM in the
 wiki that reports aggregated accuracy reports MASE or a skill-score
 derivative of it. Origin: Hyndman & Koehler 2006, *Another look at
@@ -443,7 +443,7 @@ When you see a cell on the leaderboard, ask:
 
 1. **What metric?** MASE, CRPS, WQL, SQL, MSE, skill score?
 2. **What normalization?** Raw, divided-by-seasonal-naive,
-   z-normalized, robust-scaled, RevIN on or off? (See
+   z-normalized, robust-scaled, [RevIN](../concepts/revin-normalization.md) on or off? (See
    [../benchmarks/methodology-caveats.md](../benchmarks/methodology-caveats.md).)
 3. **What seasonal period `m`?** If MASE is involved, wrong `m` ≠
    your MASE.

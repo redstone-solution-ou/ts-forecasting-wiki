@@ -22,8 +22,8 @@ most common contribution and involves four mechanical steps.
    new mechanism.
 3. **Update the cross-cutting concept pages.** If the paper uses or
    advances a concept already described in `concepts/` (patch
-   tokenization, value quantization, in-context learning, scaling laws,
-   probabilistic forecasting, RevIN, synthetic data), add a sentence
+   tokenization, [value quantization](../concepts/value-quantization.md), [in-context learning](../concepts/in-context-learning.md), scaling laws,
+   probabilistic forecasting, [RevIN](../concepts/revin-normalization.md), synthetic data), add a sentence
    or paragraph there with a link.
 4. **Update the research pages.** Add a row to
    [comparison-matrix.md](comparison-matrix.md), a line in
@@ -52,8 +52,8 @@ then land the leaf even if the taxonomy edit needs more discussion.
   links, so the graph stays navigable.
 - **Prose, not bullet salad.** Use bullets where they genuinely help;
   write paragraphs where a comparison needs a sentence.
-- **Name papers by their canonical name and slug** (TimesFM, Chronos,
-  MOIRAI, Time-MoE) so the cross-links are predictable.
+- **Name papers by their canonical name and slug** ([TimesFM](../papers/timesfm.md), [Chronos](../papers/chronos.md),
+  [MOIRAI](../papers/moirai.md), [Time-MoE](../papers/time-moe.md)) so the cross-links are predictable.
 
 ## Contributing to the field
 
@@ -75,7 +75,7 @@ are harder to find elsewhere:
   ETT / Weather / Traffic / ILI datasets have been overused; GIFT-Eval
   is the cleanest protocol right now. See
   [../datasets-benchmarks/gift-eval.md](../datasets-benchmarks/gift-eval.md).
-- **Report probabilistic metrics.** CRPS and WQL are the community
+- **Report probabilistic metrics.** [CRPS](../evaluation/metrics.md#21-crps--continuous-ranked-probability-score) and [WQL](../evaluation/metrics.md#23-wql--weighted-quantile-loss) are the community
   norm; a point-only report is increasingly seen as incomplete.
 - **Cite ablations, not only headline numbers.** An ablation table
   that isolates what actually mattered in your method is more

@@ -8,7 +8,7 @@ Time-300B was built specifically to answer whether the scaling-law regime observ
 
 Time-MoE uses Time-300B with a decoder-only sparse mixture-of-experts architecture, context length up to 4096 tokens, and next-patch prediction. The paper reports clean TS scaling laws as a function of both active and total parameters and establishes Time-MoE as the first billion-parameter TS foundation model (ICLR 2025 Spotlight). Because the corpus is paired so closely with Time-MoE, its primary role in the literature is as the compute-hungry corner of the data-scale axis: it is the benchmark data volume that other pretraining corpora are implicitly compared to.
 
-Time-300B is one of four named large TS pretraining corpora alongside LOTSA (~27B obs), the Time Series Pile (multi-task), and TimeBench (~1T points, Sundial).
+Time-300B is one of four named large TS pretraining corpora alongside [LOTSA](./lotsa.md) (~27B obs), the [Time Series Pile](./time-series-pile.md) (multi-task), and TimeBench (~1T points, [Sundial](../papers/sundial.md)).
 
 ## Key ideas / variants
 

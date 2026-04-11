@@ -11,28 +11,28 @@ tell a 1M-parameter model from a 2.4B-parameter one at a glance.
 
 | Model | Parameters | Activated | Source |
 |---|---|---|---|
-| TTM-Base | 1M | 1M | TTM, Section 4.3 (arXiv:2401.03955) |
+| TTM-Base | 1M | 1M | [TTM](../papers/ttm.md), Section 4.3 (arXiv:2401.03955) |
 | TTM-Enhanced | 4M | 4M | TTM, Section 4.3 |
 | TTM-Advanced | 5M | 5M | TTM, Section 4.3 |
-| Moirai-Small | 14M | 14M | Moirai-MoE, Table 4 (arXiv:2410.10469) |
+| Moirai-Small | 14M | 14M | [Moirai-MoE](../papers/moirai-moe.md), Table 4 (arXiv:2410.10469) |
 | Chronos-Tiny | 8M | 8M | TTM, Table 3 |
 | Moirai-MoE-Small | 117M total / 11M act. | 11M | Moirai-MoE, Table 4 |
-| Chronos-2 Small | 28M | 28M | Chronos-2, Section 5.4 (arXiv:2510.15821) |
-| MOMENT-Small | 40M | 40M | MOMENT, Table 8 (arXiv:2402.03885) |
+| [Chronos-2](../papers/chronos-2.md) Small | 28M | 28M | Chronos-2, Section 5.4 (arXiv:2510.15821) |
+| MOMENT-Small | 40M | 40M | [MOMENT](../papers/moment.md), Table 8 (arXiv:2402.03885) |
 | Chronos-Small | 46M | 46M | Moirai-MoE, Table 4 |
-| Time-MoE-Base | 113M total / 50M act. | 50M | Time-MoE, Table 2 (arXiv:2409.16040) |
+| Time-MoE-Base | 113M total / 50M act. | 50M | [Time-MoE](../papers/time-moe.md), Table 2 (arXiv:2409.16040) |
 | Moirai-Base | 91M | 91M | Moirai-MoE, Table 4 |
 | Moirai-MoE-Base | 935M total / 86M act. | 86M | Moirai-MoE, Table 4 |
 | Chronos-2 | 120M | 120M | Chronos-2, Section 5 |
 | MOMENT-Base | 125M | 125M | MOMENT, Table 8 |
 | Chronos-Base | 200M | 200M | TTM, Table 3 |
-| TimesFM (v1) | 200M | 200M | TimesFM, Section A.1 (arXiv:2310.10688) |
+| [TimesFM](../papers/timesfm.md) (v1) | 200M | 200M | TimesFM, Section A.1 (arXiv:2310.10688) |
 | Time-MoE-Large | 453M total / 200M act. | 200M | Time-MoE, Table 2 |
 | Moirai-Large | 311M | 311M | Moirai-MoE, Table 4 |
 | MOMENT-Large | 385M | 385M | MOMENT, Table 8 |
 | Chronos-Large | 709M | 709M | TTM, Table 3 |
 | Time-MoE-Ultra | 2.4B total / 1.1B act. | 1.1B | Time-MoE, Section 3.2.3 |
-| Sundial-Large | ~130M class | — | Sundial, Table 5 (inferred) |
+| Sundial-Large | ~130M class | — | [Sundial](../papers/sundial.md), Table 5 (inferred) |
 
 ## 2. Inference latency and memory (on the same task)
 
@@ -43,7 +43,7 @@ benchmark batch, same hardware setup.
 | Model | GPU time (ms/batch) | CPU time (s/batch) | Peak GPU mem (GB) | Source |
 |---|---|---|---|---|
 | TTM-Base | 4.7 | 0.01 | 0.06 | TTM, Table 3 |
-| GPT4TS | 13.9 | 0.3 | 1.34 | TTM, Table 3 |
+| [GPT4TS](../papers/gpt4ts.md) | 13.9 | 0.3 | 1.34 | TTM, Table 3 |
 | TimesFM (200M) | 24 | 0.4 | 2 | TTM, Table 3 |
 | MOMENT-Large | 88 | 1.4 | 8 | TTM, Table 3 |
 | Moirai-Small | 205 | 1.4 | 0.1 | TTM, Table 3 |
@@ -53,19 +53,19 @@ benchmark batch, same hardware setup.
 | Chronos-Small | 1,386 | 2,349 | 6 | TTM, Table 3 |
 | Chronos-Base | 1,395 | 2,340 | 16 | TTM, Table 3 |
 | Chronos-Large | 1,393 | 2,352 | 41 | TTM, Table 3 |
-| Lag-Llama | 1,619 | 37.5 | 0.2 | TTM, Table 3 |
+| [Lag-Llama](../papers/lag-llama.md) | 1,619 | 37.5 | 0.2 | TTM, Table 3 |
 
 Two things stand out. First, TTM-Base is **~240,000x faster on CPU**
 than Chronos-Base and **~267x lighter** on peak GPU memory (TTM,
-Table 3). The gap is dominated by Chronos's patch-size-1 binned
+Table 3). The gap is dominated by [Chronos](../papers/chronos.md)'s patch-size-1 binned
 tokenization, which forces one autoregressive step per time point.
-Second, Moirai (masked-encoder, non-autoregressive) is already ~7x
+Second, [Moirai](../papers/moirai.md) (masked-encoder, non-autoregressive) is already ~7x
 faster than Chronos at the *same* parameter count because it
 decodes the entire forecast in one pass.
 
 Moirai-MoE Table 4 gives a second independent comparison focused
 on Chronos vs Moirai vs Moirai-MoE (context length 512, 20 samples,
-Monash subset):
+[Monash](../datasets-benchmarks/monash-archive.md) subset):
 
 | Model | Spent time (s) | Source |
 |---|---|---|
@@ -88,19 +88,19 @@ experts fires per token.
 |---|---|---|---|
 | TTM-Advanced (5M) | 1B samples | 24–30 GPU-hours on 6x A100 | TTM, Section 4.3 |
 | TimesFM (200M) | ~100B timepoints | ~2 TPUv5e-days per 1.5M iters | TimesFM, Section 6.1 |
-| MOIRAI | LOTSA: 27B observations / 231B flat-observations | not individually reported | MOIRAI, Appendix A (arXiv:2402.02592) |
+| MOIRAI | [LOTSA](../datasets-benchmarks/lotsa.md): 27B observations / 231B flat-observations | not individually reported | MOIRAI, Appendix A (arXiv:2402.02592) |
 | Chronos-2 (120M) | Undisclosed real+synthetic | throughput 300 series/s on one A10G at inference | Chronos-2, Section 1 |
-| MOMENT-Large (385M) | Time Series Pile | 404 GPU-hours / 40.8 tCO2eq | MOMENT, Table 8 |
+| MOMENT-Large (385M) | [Time Series Pile](../datasets-benchmarks/time-series-pile.md) | 404 GPU-hours / 40.8 tCO2eq | MOMENT, Table 8 |
 | MOMENT-Base (125M) | Time Series Pile | 308 GPU-hours / 31.1 tCO2eq | MOMENT, Table 8 |
 | MOMENT-Small (40M) | Time Series Pile | 308 GPU-hours / 31.1 tCO2eq | MOMENT, Table 8 |
-| Time-MoE-Ultra | Time-300B: 309B timepoints, 9 domains | 100K steps × 1024 batch × 4M tokens/iter | Time-MoE, Table 1 & Section 3.2.3 |
-| Sundial | TimeBench: ~1T pretraining points | not individually reported | Sundial, Table 5 |
+| Time-MoE-Ultra | [Time-300B](../datasets-benchmarks/time-300b.md): 309B timepoints, 9 domains | 100K steps × 1024 batch × 4M tokens/iter | Time-MoE, Table 1 & Section 3.2.3 |
+| Sundial | [TimeBench](../datasets-benchmarks/timebench.md): ~1T pretraining points | not individually reported | Sundial, Table 5 |
 
 Time-300B and TimeBench are the two largest TS pretraining corpora
 currently documented, at roughly 3 and 10x the LOTSA scale.
 Whether that translates linearly to downstream accuracy remains
 contested — Moirai-MoE-Base outperforms Chronos-Large on zero-shot
-CRPS with ~8x fewer active parameters (Moirai-MoE, Table 2), which
+[CRPS](../evaluation/metrics.md#21-crps--continuous-ranked-probability-score) with ~8x fewer active parameters (Moirai-MoE, Table 2), which
 is evidence that pure data scale is not the only dimension that
 matters.
 
@@ -115,7 +115,7 @@ matters.
 - **Chronos-2** reports 300 time-series/s throughput on a single
   NVIDIA A10G GPU at 120M parameters, with a 28M "small" variant
   at nearly 2x faster inference and only ~1 skill-score point
-  lower on GIFT-Eval (Chronos-2, Section 5.4).
+  lower on [GIFT-Eval](../datasets-benchmarks/gift-eval.md) (Chronos-2, Section 5.4).
 
 ## 5. CPU deployability
 

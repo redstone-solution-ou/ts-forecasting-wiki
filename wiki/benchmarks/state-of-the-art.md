@@ -9,19 +9,19 @@ back to a specific cell on the leaderboard page.
 ## Zero-shot probabilistic forecasting (univariate, no covariates)
 
 As of late 2025, the narrow "zero-shot univariate probabilistic"
-leaderboard is tightly packed at the top. On GIFT-Eval, four models —
-Chronos-2 (51.4), TimesFM-2.5 (51.0), TiRex (50.2) and Toto-1.0
-(48.6) — are within 3 skill-score points of each other under WQL
+leaderboard is tightly packed at the top. On [GIFT-Eval](../datasets-benchmarks/gift-eval.md), four models —
+[Chronos-2](../papers/chronos-2.md) (51.4), TimesFM-2.5 (51.0), TiRex (50.2) and Toto-1.0
+(48.6) — are within 3 skill-score points of each other under [WQL](../evaluation/metrics.md#23-wql--weighted-quantile-loss)
 (Chronos-2, Table 4). On the same suite, Chronos-2 claims the top
 spot but the pairwise confidence intervals it publishes for fev-bench
 (Chronos-2, Figure 2b) show its win over TiRex and TimesFM-2.5 is
 statistically significant (2–3 skill-score points, non-overlapping
 95% CIs), whereas the gap between TiRex and TimesFM-2.5 is not.
 
-The practical takeaway for *just* zero-shot univariate CRPS/WQL is
+The practical takeaway for *just* zero-shot univariate [CRPS](../evaluation/metrics.md#21-crps--continuous-ranked-probability-score)/WQL is
 that Chronos-2, TimesFM-2.5 and TiRex are effectively a three-way
 tie, with Chronos-2 slightly ahead on aggregate skill score and
-clearly ahead on short-context tasks (Chronos Benchmark II WQL
+clearly ahead on short-context tasks ([Chronos](../papers/chronos.md) Benchmark II WQL
 skill score 46.6 vs 42.4/41.7, Chronos-2 Table 5).
 
 ## Zero-shot forecasting with covariates
@@ -30,7 +30,7 @@ This is the single regime with a clear separation. On the
 fev-bench covariates subset (42 tasks), Chronos-2 reaches 47.0 SQL
 skill score; TabPFN-TS, the only other model with native
 known-covariate support, reaches 40.0; every other pretrained
-model — including TiRex, TimesFM-2.5, Moirai-2.0, Toto-1.0, Sundial —
+model — including TiRex, TimesFM-2.5, Moirai-2.0, Toto-1.0, [Sundial](../papers/sundial.md) —
 ignores the covariates and sits in a tight band between 28.0 and
 39.9 (Chronos-2, Figure 4b). On domain case studies with real
 dynamic covariates (European energy prices, Rossmann retail sales),
@@ -45,18 +45,18 @@ The classic "long-sequence forecasting" benchmarks (ETT, Weather,
 ECL, Traffic, averaged over horizons {96, 192, 336, 720}) reward
 different models than the zero-shot probabilistic suites. On ETTh1
 and ETTh2 zero-shot MSE, Sundial-Large posts 0.395 / 0.334 and
-Time-MoE-Large 0.394 / 0.405 (Sundial Table 1; Time-MoE Table 3),
+Time-MoE-Large 0.394 / 0.405 (Sundial Table 1; [Time-MoE](../papers/time-moe.md) Table 3),
 which are essentially at parity with the best full-shot baselines
 of the 2023 era (PatchTST ~0.41, iTransformer ~0.45 per Time-MoE
-Table 4). TTM-A (5M parameters) matches them at 0.400 / 0.333 (TTM
+Table 4). TTM-A (5M parameters) matches them at 0.400 / 0.333 ([TTM](../papers/ttm.md)
 Table 1) despite being 80-500x smaller. MOIRAI-Large, by contrast,
-is noticeably worse on ETTh1 (0.510 MSE, MOIRAI Table 6) — a
+is noticeably worse on ETTh1 (0.510 MSE, [MOIRAI](../papers/moirai.md) Table 6) — a
 consistent weak point for that model family.
 
 On this regime, the differentiator is not zero-shot prowess but
 whether the model's training mix included ETT-like data. See
 [methodology-caveats.md](methodology-caveats.md) — LTSF results for
-TimesFM and Chronos need an asterisk because their pretraining
+[TimesFM](../papers/timesfm.md) and Chronos need an asterisk because their pretraining
 corpora contain datasets overlapping with the ETT / Weather / ECL
 families.
 
@@ -80,7 +80,7 @@ have fewer than 300 observations. Here the top-4 ordering is
 Chronos-2 (46.6), TimesFM-2.5 (42.4), Toto-1.0 (41.9), TiRex (41.7)
 under WQL skill score (Chronos-2, Table 5). Chronos-2 opens a ~4
 skill-score-point lead here — considerably larger than on GIFT-Eval —
-which the authors attribute to its in-context learning (ICL)
+which the authors attribute to its [in-context learning](../concepts/in-context-learning.md) (ICL)
 mechanism: with little history per series, the model leans on cross-
 series information from the batch (Chronos-2, Section 5.2).
 
@@ -122,7 +122,7 @@ ground truth. Always validate on your own holdout.
   240,000x on CPU vs Chronos-Base (TTM Table 3). Time-MoE-Base is the
   mid-point at 50M activated parameters.
 - **Long-context (thousands of timesteps).** Time-MoE (trained at
-  4096 tokens, Time-MoE Section 3.2.3), Timer-XL, or Chronos-2-2K /
+  4096 tokens, Time-MoE Section 3.2.3), [Timer-XL](../papers/timer-xl.md), or Chronos-2-2K /
   Chronos-2 with the 8192-step post-training (Chronos-2 Section 5.4).
 
 The "no single winner" part of the story is what makes

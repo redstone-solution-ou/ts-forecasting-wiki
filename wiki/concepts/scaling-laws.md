@@ -34,17 +34,17 @@ Time series sit at an interesting place in this story. The total volume of *real
 
 ## Trade-offs and failure modes
 
-The obvious failure mode is *measuring on the wrong loss*. Next-patch NLL is not the quantity users care about; forecast accuracy at long horizons is. Power-law fits on NLL sometimes fail to translate into proportional improvements on Monash MASE or GIFT-Eval CRPS, especially because patched autoregressive rollout accumulates error nonlinearly. A second failure mode is *leakage*: if the pretraining corpus touches the test set, larger models overfit to leakage rather than learning, and the curve looks great without transferring.
+The obvious failure mode is *measuring on the wrong loss*. Next-patch NLL is not the quantity users care about; forecast accuracy at long horizons is. Power-law fits on NLL sometimes fail to translate into proportional improvements on [Monash](../datasets-benchmarks/monash-archive.md) [MASE](../evaluation/metrics.md#17-mase--mean-absolute-scaled-error) or [GIFT-Eval](../datasets-benchmarks/gift-eval.md) [CRPS](../evaluation/metrics.md#21-crps--continuous-ranked-probability-score), especially because patched autoregressive rollout accumulates error nonlinearly. A second failure mode is *leakage*: if the pretraining corpus touches the test set, larger models overfit to leakage rather than learning, and the curve looks great without transferring.
 
 Sparse MoE scaling is trickier than dense. Load-balancing losses and router choices change the effective `N`, and reporting total-parameter scaling without active-parameter scaling can be misleading. Finally, TS scaling may be bottlenecked by *data diversity* rather than data volume: doubling tokens by repeating the same few domains does less than doubling by adding new ones, which is why synthetic augmentation (KernelSynth, TSMix) matters even more than in NLP.
 
 ## Design choices in the literature
 
 - `[Lag-Llama](../papers/lag-llama.md)` was among the first open TS FMs to publish scaling-law curves, framed as empirical evidence that decoder-only TS transformers track LLM-style loss trends.
-- `[Time-MoE](../papers/time-moe.md)` pushes scale: 2.4B total parameters (sparse MoE) on the Time-300B corpus, reporting clean curves as a function of both active and total parameters — the first billion-parameter TS FM and the cleanest evidence that TS is still compute-limited.
+- `[Time-MoE](../papers/time-moe.md)` pushes scale: 2.4B total parameters (sparse MoE) on the [Time-300B](../datasets-benchmarks/time-300b.md) corpus, reporting clean curves as a function of both active and total parameters — the first billion-parameter TS FM and the cleanest evidence that TS is still compute-limited.
 - `[TimesFM](../papers/timesfm.md)` at ~200M on a ~100B-point corpus sits on an intermediate point of the curve and shows that 100M–1B dense is already enough to approach supervised-SOTA zero-shot on Monash.
 - `[Timer](../papers/timer.md)` reports emergent few-shot capability — roughly 99% data reduction to match supervised baselines — which can be read as the TS analog of the few-shot emergence observed in LLM scaling.
-- `[Sundial](../papers/sundial.md)` extends scale via TimeBench (~1T points) combined with a flow-matching objective, implying that scaling has to be joint with the training objective, not just with raw tokens.
+- `[Sundial](../papers/sundial.md)` extends scale via [TimeBench](../datasets-benchmarks/timebench.md) (~1T points) combined with a flow-matching objective, implying that scaling has to be joint with the training objective, not just with raw tokens.
 
 ## Open questions
 
@@ -52,7 +52,7 @@ Sparse MoE scaling is trickier than dense. Load-balancing losses and router choi
 - **Data diversity vs data volume.** Does doubling *domains* matter more than doubling *points* per domain? No systematic ablation exists.
 - **Sparse vs dense Pareto frontier.** Time-MoE argues MoE is on a better frontier than dense TimesFM; the comparison lacks matched training budgets.
 - **Does scaling help long-horizon forecasting?** Loss-at-next-patch scales cleanly, but MASE-at-horizon-100 may not, because error compounding is not captured by NLL.
-- **Scaling with synthetic data.** How far can synthetic-only pretraining (Mamba4Cast, KernelSynth) push the curve before saturation?
+- **Scaling with synthetic data.** How far can synthetic-only pretraining ([Mamba4Cast](../papers/mamba4cast.md), KernelSynth) push the curve before saturation?
 
 ## Papers that exemplify this
 

@@ -59,7 +59,7 @@ Inside `[Decoder-only autoregressive](decoder-only-autoregressive.md)` MoE is th
 
 ## Design choices in the literature
 
-- `[Time-MoE](../papers/time-moe.md)` — 2.4B total parameters as a sparse decoder-only MoE trained on the Time-300B corpus (~300B points, 9 domains). The *first billion-parameter TS FM*, and the cleanest published evidence that TS obeys LLM-style scaling on both active and total parameter axes. MoE lives in the FFN blocks of a causal patched transformer.
+- `[Time-MoE](../papers/time-moe.md)` — 2.4B total parameters as a sparse decoder-only MoE trained on the [Time-300B](../datasets-benchmarks/time-300b.md) corpus (~300B points, 9 domains). The *first billion-parameter TS FM*, and the cleanest published evidence that TS obeys LLM-style scaling on both active and total parameter axes. MoE lives in the FFN blocks of a causal patched transformer.
 - `[Moirai-MoE](../papers/moirai-moe.md)` — applies sparse routing inside the masked-encoder `[MOIRAI](../papers/moirai.md)` architecture. The key ablation is that dropping the hand-engineered multi-patch-size projections and replacing them with a *single* projection plus MoE routing recovers — and in several datasets exceeds — the specialized model's accuracy. The paper frames this as strong evidence that frequency-based specialization is insufficient and that routed specialization is a strict superset.
 
 ## Open questions
@@ -67,7 +67,7 @@ Inside `[Decoder-only autoregressive](decoder-only-autoregressive.md)` MoE is th
 - **Routing strategies specific to TS.** Language MoE uses token-level top-k; TS might benefit from patch-level or window-level routing, where siblings of the same time window share an expert. Untested.
 - **What do the experts actually specialize on?** Anecdotally frequency or regime, but no clean decomposition exists.
 - **Optimal `E` and `k` for TS.** Time-MoE uses specific values; whether smaller or larger configurations Pareto-dominate at matched compute is open.
-- **MoE + in-context learning.** Routing a sibling series's token to a different expert than the target's token could break group attention in subtle ways; this has not been studied.
+- **MoE + [in-context learning](../concepts/in-context-learning.md).** Routing a sibling series's token to a different expert than the target's token could break group attention in subtle ways; this has not been studied.
 - **Hardware efficiency.** MoE all-to-all communication is the bottleneck at scale; shard-friendly expert layouts specific to TS workloads are a practical open question.
 
 ## Related wiki pages

@@ -30,9 +30,9 @@ Timer is one of the clearest demonstrations that the LLM recipe — a large deco
 
 ## Limitations and open critiques
 - Channel independence means Timer cannot model cross-variate dependencies at inference time. This is a deliberate choice but leaves multivariate / covariate-informed tasks on the table. [timer-xl](./timer-xl.md) is the same group's own answer to this critique.
-- Point-forecast only: Timer outputs deterministic next-patch predictions without a calibrated predictive distribution, so it is not directly comparable to [chronos](./chronos.md), [lag-llama](./lag-llama.md), or [moirai](./moirai.md) on CRPS / WQL.
+- Point-forecast only: Timer outputs deterministic next-patch predictions without a calibrated predictive distribution, so it is not directly comparable to [chronos](./chronos.md), [lag-llama](./lag-llama.md), or [moirai](./moirai.md) on [CRPS](../evaluation/metrics.md#21-crps--continuous-ranked-probability-score) / [WQL](../evaluation/metrics.md#23-wql--weighted-quantile-loss).
 - Parameter sweep tops out at 50M, much smaller than contemporaneous [timesfm](./timesfm.md) (200M), [chronos](./chronos.md) (710M), or [moirai](./moirai.md) (311M); Timer's scaling story is convincing qualitatively but does not establish where the log-linear trend breaks.
-- UTSD-12G is comfortably inside the Monash/PEMS/ETT axis of public data, so benchmark overlap with downstream evaluation is likely non-negligible; the paper does not audit this explicitly — see [../research/reproducibility.md](../research/reproducibility.md).
+- UTSD-12G is comfortably inside the [Monash](../datasets-benchmarks/monash-archive.md)/PEMS/ETT axis of public data, so benchmark overlap with downstream evaluation is likely non-negligible; the paper does not audit this explicitly — see [../research/reproducibility.md](../research/reproducibility.md).
 - No explicit probabilistic head, no covariate handling, no in-context learning across related series; these are limitations the paper acknowledges and are all addressed in [timer-xl](./timer-xl.md) or competing lines.
 
 ## Follow-up work and dialogue

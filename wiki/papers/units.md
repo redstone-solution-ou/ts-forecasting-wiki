@@ -29,10 +29,10 @@ UniTS advances the multi-task-universal direction by showing that a single backb
 
 ## Limitations and open critiques
 - The benchmark is heterogeneous but the per-task improvements over specialised SOTAs are incremental (forecasting MSE from ~0.4 to ~0.376); the main claim is versatility, not accuracy dominance.
-- UniTS is evaluated mostly on the TSLib-style benchmark suite rather than on the large-scale zero-shot benchmarks used by Chronos, Moirai, or TimesFM, so its position on the zero-shot leaderboard is unclear.
+- UniTS is evaluated mostly on the TSLib-style benchmark suite rather than on the large-scale zero-shot benchmarks used by Chronos, [Moirai](./moirai.md), or [TimesFM](./timesfm.md), so its position on the zero-shot leaderboard is unclear.
 - No probabilistic forecasting head; task coverage is broad but uncertainty quantification is outside scope.
 - The paper's "unification" is achieved by distinct heads (GEN tokens unpatchified, CLS tokens distance-matched), which is arguably a softer form of unification than a single generative objective.
-- Scaling behaviour is not characterised — UniTS is evaluated at a single model size rather than across the Chinchilla-style grid that Time-MoE and Sundial use.
+- Scaling behaviour is not characterised — UniTS is evaluated at a single model size rather than across the Chinchilla-style grid that [Time-MoE](./time-moe.md) and [Sundial](./sundial.md) use.
 
 ## Follow-up work and dialogue
 UniTS and [MOMENT](./moment.md) are the two canonical approaches to multi-task TS modelling: UniTS uses task tokens that steer a shared encoder toward each task, while MOMENT uses dedicated task heads on a masked-encoder backbone pretrained with the T5 masked-reconstruction objective. Later multi-task work has to choose between these two templates. [TOTEM](./totem.md) is an orthogonal entry in the same cluster, arguing that a learned VQ-VAE codebook should be the common substrate rather than raw patches. [Timer](./timer.md) and [Chronos](./chronos.md) are generative alternatives that unify by collapsing every task into next-token prediction on a discretised vocabulary, sidestepping the multi-head design entirely.

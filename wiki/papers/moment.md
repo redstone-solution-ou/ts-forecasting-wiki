@@ -8,7 +8,7 @@
 MOMENT is an open family of T5-shaped encoder-only foundation models pretrained with masked patch reconstruction over the Time Series Pile, a large aggregation of public datasets. Small task heads adapt the same backbone to forecasting, classification, anomaly detection, and imputation.
 
 ## Key contributions
-- Assembly of the Time Series Pile from Informer, Monash, UCR/UEA, and TSB-UAD datasets as a unified pretraining corpus with explicit disjoint train/val/test partitions to guard against leakage.
+- Assembly of the Time Series Pile from Informer, [Monash](../datasets-benchmarks/monash-archive.md), UCR/UEA, and TSB-UAD datasets as a unified pretraining corpus with explicit disjoint train/val/test partitions to guard against leakage.
 - Encoder-only transformer with PatchTST-style patching (T=512, P=8, N=64) and RevIN-style instance normalization.
 - Masked patch reconstruction pretraining with a 30% mask rate and a learned [MASK] embedding rather than zero-masking.
 - Multi-task deployment via lightweight per-task heads for long/short forecasting, classification, anomaly detection, and imputation.
@@ -28,14 +28,14 @@ MOMENT provided one of the first fully open TS foundation model families with br
 
 ## Limitations and open critiques
 - Fixed 512-step input and 8-step patches are hard-coded; MOMENT cannot natively ingest longer contexts or variable patch sizes, unlike [moirai](./moirai.md) (frequency-aware patches) or [timer-xl](./timer-xl.md).
-- Only point forecasts: the forecasting head is a flatten-and-project linear head producing deterministic outputs, so MOMENT cannot be compared against probabilistic foundation models on CRPS/WQL without extra scaffolding; [chronos](./chronos.md) and [lag-llama](./lag-llama.md) sit in a different regime.
+- Only point forecasts: the forecasting head is a flatten-and-project linear head producing deterministic outputs, so MOMENT cannot be compared against probabilistic foundation models on [CRPS](../evaluation/metrics.md#21-crps--continuous-ranked-probability-score)/[WQL](../evaluation/metrics.md#23-wql--weighted-quantile-loss) without extra scaffolding; [chronos](./chronos.md) and [lag-llama](./lag-llama.md) sit in a different regime.
 - Despite the "limited supervision" framing, the headline long-horizon results are obtained by linear probing on each target dataset, so MOMENT is only partially zero-shot. In Table 2 PatchTST, trained per dataset, still edges it out.
 - The Time Series Pile overlaps in domain with most downstream benchmarks (ETT, Weather, Electricity, Traffic), so "in-distribution probing" is a more accurate label than "zero-shot transfer" for several of the reported numbers.
 - Single pretraining corpus, two epochs, batch 2048: the scaling-law evidence is limited to three model sizes at one token budget, so no Chinchilla-style curve is produced.
 - Univariate channel-independent processing: multivariate series are split into channels along the batch axis; there is no cross-channel attention mechanism.
 
 ## Follow-up work and dialogue
-MOMENT occupies the same "masked-encoder with patch tokens" design space as [moirai](./moirai.md), but trades MOIRAI's frequency-aware input patches and LOTSA corpus for a T5-shaped backbone and the Time Series Pile. [moirai-moe](./moirai-moe.md) argues the frequency-specialization axis is the wrong one and replaces it with MoE routing; by extension the same critique applies to MOMENT's single dense encoder. [units](./units.md) pushes the multi-task framing further by supporting generative tasks end-to-end, while [chronos](./chronos.md) and [chronos-2](./chronos-2.md) chose probabilistic tokenization and covariate support rather than multi-task breadth. On the "random init beats LLM init" axis, MOMENT is the clearest empirical rebuttal to the LLM-reprogramming line of work — see [../architectures/llm-reprogramming.md](../architectures/llm-reprogramming.md).
+MOMENT occupies the same "masked-encoder with patch tokens" design space as [moirai](./moirai.md), but trades MOIRAI's frequency-aware input patches and [LOTSA](../datasets-benchmarks/lotsa.md) corpus for a T5-shaped backbone and the Time Series Pile. [moirai-moe](./moirai-moe.md) argues the frequency-specialization axis is the wrong one and replaces it with MoE routing; by extension the same critique applies to MOMENT's single dense encoder. [units](./units.md) pushes the multi-task framing further by supporting generative tasks end-to-end, while [chronos](./chronos.md) and [chronos-2](./chronos-2.md) chose probabilistic tokenization and covariate support rather than multi-task breadth. On the "random init beats LLM init" axis, MOMENT is the clearest empirical rebuttal to the LLM-reprogramming line of work — see [../architectures/llm-reprogramming.md](../architectures/llm-reprogramming.md).
 
 ## Reproducibility
 - **Open weights:** yes — `AutonLab/MOMENT-1-small`, `-base`, `-large` on HuggingFace.

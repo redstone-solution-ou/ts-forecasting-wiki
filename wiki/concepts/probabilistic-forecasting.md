@@ -52,7 +52,7 @@ Parametric heads are efficient but *only as good as the assumed family*. Student
 
 Flow matching is elegant but currently compute-heavy at inference: each forecast is an ODE integration, and the probabilistic output requires multiple seeds. Conformal prediction guarantees *marginal* coverage, not conditional — intervals are right on average but can be too wide or too narrow on specific regimes.
 
-A subtle failure mode across all approaches is *miscalibration*: a model can have great point accuracy and still produce intervals that are too narrow. Reporting CRPS, pinball loss at multiple quantiles, or interval coverage is essential to diagnose this.
+A subtle failure mode across all approaches is *miscalibration*: a model can have great point accuracy and still produce intervals that are too narrow. Reporting [CRPS](../evaluation/metrics.md#21-crps--continuous-ranked-probability-score), pinball loss at multiple quantiles, or interval coverage is essential to diagnose this.
 
 ## Design choices in the literature
 
@@ -77,7 +77,7 @@ A subtle failure mode across all approaches is *miscalibration*: a model can hav
 - `[MOIRAI](../papers/moirai.md)` — mixture-of-Student-t for multi-modal predictive distributions from a masked encoder.
 - `[Chronos](../papers/chronos.md)` — probabilistic-by-construction via categorical sampling and dequantization across 42 datasets.
 - `[Chronos-2](../papers/chronos-2.md)` — quantile decoder replacing the vocabulary, direct multi-quantile output per horizon step.
-- `[Sundial](../papers/sundial.md)` — flow-matching objective yielding continuous probabilistic forecasts at TimeBench scale.
+- `[Sundial](../papers/sundial.md)` — flow-matching objective yielding continuous probabilistic forecasts at [TimeBench](../datasets-benchmarks/timebench.md) scale.
 - `[TimeGPT-1](../papers/timegpt.md)` — conformal prediction wrapping a commercial point forecaster for calibrated intervals.
 
 ## Related wiki pages

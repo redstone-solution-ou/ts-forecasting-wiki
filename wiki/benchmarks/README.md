@@ -14,7 +14,7 @@ rather than forcing a false ranking.
 ## Sub-pages
 
 - [leaderboard.md](leaderboard.md) — normalized head-to-head tables on
-  Monash, Chronos Benchmark II, GIFT-Eval, fev-bench, and the LTSF
+  [Monash](../datasets-benchmarks/monash-archive.md), [Chronos](../papers/chronos.md) Benchmark II, [GIFT-Eval](../datasets-benchmarks/gift-eval.md), fev-bench, and the LTSF
   long-horizon suite.
 - [state-of-the-art.md](state-of-the-art.md) — narrative "which model
   wins where," organized by forecasting regime, ending in
@@ -31,7 +31,7 @@ rather than forcing a false ranking.
 Every column in [leaderboard.md](leaderboard.md) is an instance of a
 specific metric, computed under a specific protocol, against a
 specific set of baselines. For the *pedagogy* of those choices — what
-MASE, CRPS, WQL and MSE actually mean, how seasonal periods enter
+[MASE](../evaluation/metrics.md#17-mase--mean-absolute-scaled-error), [CRPS](../evaluation/metrics.md#21-crps--continuous-ranked-probability-score), [WQL](../evaluation/metrics.md#23-wql--weighted-quantile-loss) and MSE actually mean, how seasonal periods enter
 them, what "zero-shot" requires, and what each paper in the wiki
 actually reported — see [../evaluation/README.md](../evaluation/README.md).
 The methodology-caveats page here focuses on the specific asterisks

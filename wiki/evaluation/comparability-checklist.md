@@ -24,8 +24,8 @@ Watch for:
 - CRPS vs WQL vs SQL. All proper probabilistic scores, all with
   different normalization, numerical values between them are not
   interchangeable.
-- "MAE" scaled by the per-series mean (TimesFM) vs "rMAE" relative
-  to a baseline (TimeGPT) — two different quantities that share the
+- "MAE" scaled by the per-series mean ([TimesFM](../papers/timesfm.md)) vs "rMAE" relative
+  to a baseline ([TimeGPT](../papers/timegpt.md)) — two different quantities that share the
   name "relative MAE."
 
 ### 2. Same target series and same split
@@ -35,8 +35,8 @@ Check:
 
 - The TSLib canonical split (`train:val:test` ≈ `12:4:4` months for
   ETTh1) is the defensible default but not universal.
-- Monash has had at least two revisions; pinning the version matters.
-- GIFT-Eval and fev-bench publish explicit split indices; papers
+- [Monash](../datasets-benchmarks/monash-archive.md) has had at least two revisions; pinning the version matters.
+- [GIFT-Eval](../datasets-benchmarks/gift-eval.md) and fev-bench publish explicit split indices; papers
   that *deviate* from those indices should say so.
 
 ### 3. Same horizon `h` and context length `C`
@@ -47,15 +47,15 @@ ETTh1 MSE at `h = 96` alone are not comparable, and averaging them
 to a single "ETTh1 MSE" number is silently wrong.
 
 Context length is more subtle because papers rarely print it next
-to the number. A Moirai at `C = 512` and a Moirai at `C = 4000` are
+to the number. A [Moirai](../papers/moirai.md) at `C = 512` and a Moirai at `C = 4000` are
 effectively different models and produce visibly different LTSF MSE.
 See [protocols.md](protocols.md) section 4.
 
 ### 4. Same normalization
 
-RevIN on vs RevIN off can change LTSF MSE by more than 10% relative.
-Chronos-2's robust scaling, MOIRAI's per-context standardization,
-MOMENT's RevIN, Sundial's per-patch normalization, and Chronos's
+[RevIN](../concepts/revin-normalization.md) on vs RevIN off can change LTSF MSE by more than 10% relative.
+[Chronos-2](../papers/chronos-2.md)'s robust scaling, MOIRAI's per-context standardization,
+[MOMENT](../papers/moment.md)'s RevIN, [Sundial](../papers/sundial.md)'s per-patch normalization, and [Chronos](../papers/chronos.md)'s
 mean scaling are *not* the same preprocessor. The metric numbers
 are reported *after* normalization, so a number computed on raw
 series and a number computed on z-scored series are in different
@@ -96,7 +96,7 @@ section 1 and [protocols.md](protocols.md) section 5.
 A 0.4-point lead without a confidence interval is not a lead. Check
 whether either paper reports bootstrap CIs (Chronos-2 is the only
 one in the wiki that does so consistently), a Friedman + Nemenyi
-critical-difference diagram (Moirai-MoE, Mamba4Cast), or any other
+critical-difference diagram ([Moirai-MoE](../papers/moirai-moe.md), [Mamba4Cast](../papers/mamba4cast.md)), or any other
 statistical significance test. If neither number is accompanied by
 uncertainty, assume the practical significance threshold is around
 2 percentage points on a skill-score scale or around 5% relative on

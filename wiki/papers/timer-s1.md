@@ -5,7 +5,7 @@
 **Authors:** Yong Liu, Xingjian Su, Shiyu Wang et al. (Tsinghua University and ByteDance; corresponding author Mingsheng Long)
 
 ## Abstract
-Timer-S1 is a Mixture-of-Experts time series foundation model with 8.3B total parameters, 0.75B activated per token, and an 11.5K context length. The paper frames its contribution as "Serial Scaling" along three axes — model architecture, dataset, and training pipeline. Architecturally it introduces Serial-Token Prediction (STP), a generic objective that replaces rolling next-token inference with a stack of TimeSTP blocks that directly emit multi-horizon predictions. The corpus side is TimeBench, a one-trillion-point curated and augmented corpus used previously by the Timer team for Sundial (Timer-3) and re-curated here. On the GIFT-Eval leaderboard Timer-S1 posts the best pre-trained-model MASE (0.693) and CRPS (0.485), a 7.6% / 13.2% reduction relative to Sundial.
+Timer-S1 is a Mixture-of-Experts time series foundation model with 8.3B total parameters, 0.75B activated per token, and an 11.5K context length. The paper frames its contribution as "Serial Scaling" along three axes — model architecture, dataset, and training pipeline. Architecturally it introduces Serial-Token Prediction (STP), a generic objective that replaces rolling next-token inference with a stack of TimeSTP blocks that directly emit multi-horizon predictions. The corpus side is TimeBench, a one-trillion-point curated and augmented corpus used previously by the Timer team for Sundial (Timer-3) and re-curated here. On the GIFT-Eval leaderboard Timer-S1 posts the best pre-trained-model [MASE](../evaluation/metrics.md#17-mase--mean-absolute-scaled-error) (0.693) and [CRPS](../evaluation/metrics.md#21-crps--continuous-ranked-probability-score) (0.485), a 7.6% / 13.2% reduction relative to Sundial.
 
 ## Key contributions
 - **Serial-Token Prediction (STP).** A training objective and inference scheme where a stack of *H* "TimeSTP" blocks each attends back to the original lookback plus the previous block's hidden state and emits a shift-by-one prediction, producing multi-horizon outputs in one forward pass without autoregressive rollout. Ablations show STP beats next-token prediction (NTP) and multi-token prediction (MTP).
@@ -19,12 +19,12 @@ Timer-S1 is a Mixture-of-Experts time series foundation model with 8.3B total pa
 Timer-S1 is patch-tokenized (P=16, N=180 input tokens, hidden D=1024). The backbone is a 24-block decoder-only sparse-MoE transformer with RoPE positional embeddings, QK-Norm, Pre-RMSNorm and 32 experts with top-2 routing — yielding 8.3B total / 0.75B active parameters. On top of the main stack sit 16 TimeSTP blocks: each one re-reads the original lookback plus the outputs of the preceding TimeSTP block through a projection, runs its own internal TimeMoE module, and emits a one-step-shifted prediction, so the final stack covers (H+1)*P=272 future points per forward pass. Inference simply retains these blocks, avoiding the autoregressive rollout that causes error accumulation in Timer and Time-MoE.
 
 ## Why it matters
-Timer-S1 is the first paper to systematically separate "architecture scaling," "data scaling," and "training-pipeline scaling" for a TS foundation model, and the first to push GIFT-Eval MASE below the Chronos/Moirai/Sundial frontier using an explicit serial-prediction head instead of rolling next-token generation. It is also the authoritative writeup of TimeBench's curation pipeline: Sundial introduced the name and broad composition, but Timer-S1 is where the filtering, augmentation and leakage-handling are spelled out in enough detail to be reproduced.
+Timer-S1 is the first paper to systematically separate "architecture scaling," "data scaling," and "training-pipeline scaling" for a TS foundation model, and the first to push GIFT-Eval MASE below the [Chronos](./chronos.md)/[Moirai](./moirai.md)/Sundial frontier using an explicit serial-prediction head instead of rolling next-token generation. It is also the authoritative writeup of TimeBench's curation pipeline: Sundial introduced the name and broad composition, but Timer-S1 is where the filtering, augmentation and leakage-handling are spelled out in enough detail to be reproduced.
 
 ## Strengths
 - Head-to-head ablations isolate the STP objective, the data augmentation, and the TimeBench pre-training, so the claimed gains are attributed rather than bundled.
-- Sparse (top-2 of 32) MoE configuration demonstrates that aggressive expert sparsity works at the TS-FM scale, extending the Moirai-MoE/Time-MoE trajectory to nearly 10B total parameters.
-- Serial-Token Prediction directly addresses the long-horizon error-accumulation problem that has been the standard critique of decoder-only TS-FMs since Timer and TimesFM.
+- Sparse (top-2 of 32) MoE configuration demonstrates that aggressive expert sparsity works at the TS-FM scale, extending the [Moirai-MoE](./moirai-moe.md)/Time-MoE trajectory to nearly 10B total parameters.
+- Serial-Token Prediction directly addresses the long-horizon error-accumulation problem that has been the standard critique of decoder-only TS-FMs since Timer and [TimesFM](./timesfm.md).
 - Training infrastructure is described in practical detail (BF16 on VeOmni, 44 TB of Parquet shards with hybrid memory-disk loading), making the engineering reproducible in principle.
 - The quantile/CRPS head aligns the training loss with the benchmark's probabilistic metric instead of optimising MSE and reporting CRPS after the fact.
 
@@ -41,7 +41,7 @@ Timer-S1 is the direct successor to [timer](./timer.md), [timer-xl](./timer-xl.m
 ## Reproducibility
 - **Open weights:** announced ("will be released"), not yet available at the time of the preprint.
 - **Code:** not yet released; training uses ByteDance's VeOmni framework.
-- **Training data:** TimeBench, ~1T points, with the curation and augmentation pipeline documented in the paper; public dataset snapshots from Chronos and LOTSA are reused, but the full TimeBench mixture has not been released.
+- **Training data:** TimeBench, ~1T points, with the curation and augmentation pipeline documented in the paper; public dataset snapshots from Chronos and [LOTSA](../datasets-benchmarks/lotsa.md) are reused, but the full TimeBench mixture has not been released.
 - **Compute to retrain:** not disclosed as GPU-hours; BF16 training on 44 TB of sharded Parquet suggests an industrial-scale cluster.
 - **Benchmark scope:** GIFT-Eval (primary), with MASE 0.693 and CRPS 0.485 as pre-trained-model state of the art.
 

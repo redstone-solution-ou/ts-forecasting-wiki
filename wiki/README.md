@@ -53,7 +53,7 @@ contributing guide and glossary, is at
   [foundation-models/taxonomy.md](foundation-models/taxonomy.md) to find
   the right cluster, consult the cross-cutting pages under
   [concepts/README.md](concepts/README.md) (zero-shot, probabilistic,
-  patch tokenization), then open the relevant leaves in
+  [patch tokenization](./concepts/patch-tokenization.md)), then open the relevant leaves in
   [papers/README.md](papers/README.md).
 
 ## Top-level sections
@@ -67,12 +67,12 @@ contributing guide and glossary, is at
   LLM reprogramming, lightweight non-transformer, continuous / flow
   matching.
 - [concepts/](concepts/README.md) — cross-cutting technical ideas: patch
-  tokenization, value quantization, zero-shot forecasting, probabilistic
-  forecasting, in-context learning, scaling laws, RevIN, multi-task
+  tokenization, [value quantization](./concepts/value-quantization.md), zero-shot forecasting, probabilistic
+  forecasting, [in-context learning](./concepts/in-context-learning.md), scaling laws, [RevIN](./concepts/revin-normalization.md), multi-task
   universal models, synthetic data.
 - [datasets-benchmarks/](datasets-benchmarks/README.md) — the corpora and
-  evaluation suites that TS-FMs are trained and judged on (Monash, LOTSA,
-  Time-Series Pile, Time-300B, TimeBench, GIFT-Eval).
+  evaluation suites that TS-FMs are trained and judged on ([Monash](./datasets-benchmarks/monash-archive.md), [LOTSA](./datasets-benchmarks/lotsa.md),
+  [Time-Series Pile](./datasets-benchmarks/time-series-pile.md), [Time-300B](./datasets-benchmarks/time-300b.md), [TimeBench](./datasets-benchmarks/timebench.md), [GIFT-Eval](./datasets-benchmarks/gift-eval.md)).
 - [benchmarks/](benchmarks/README.md) — head-to-head performance
   comparisons across those suites: a normalized
   [leaderboard](benchmarks/leaderboard.md), a
@@ -80,7 +80,7 @@ contributing guide and glossary, is at
   [methodology caveats](benchmarks/methodology-caveats.md), and an
   [efficiency and cost](benchmarks/efficiency-and-cost.md) page.
 - [evaluation/](evaluation/README.md) — the methodology layer: every
-  metric (MASE, CRPS, WQL, MSE, pinball...), seasonal-period and
+  metric ([MASE](./evaluation/metrics.md#17-mase--mean-absolute-scaled-error), [CRPS](./evaluation/metrics.md#21-crps--continuous-ranked-probability-score), [WQL](./evaluation/metrics.md#23-wql--weighted-quantile-loss), MSE, pinball...), seasonal-period and
   baseline conventions, evaluation protocols, a per-paper summary
   of what each wiki paper evaluated, and a comparability checklist.
 - [papers/](papers/README.md) — the 19 leaf pages, one per paper.

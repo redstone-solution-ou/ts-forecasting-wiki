@@ -18,18 +18,18 @@ that.
 **Background.** In language modeling, the Chinchilla work gave a clean
 statement of joint data-and-parameter optimality and a rule of thumb
 that training-compute-optimal LLMs are undertrained. Nothing equivalent
-is settled for TS-FMs. Lag-Llama published the first empirical scaling
+is settled for TS-FMs. [Lag-Llama](../papers/lag-llama.md) published the first empirical scaling
 curves for a probabilistic decoder-only TS-FM. Time-MoE demonstrated
-that a 2.4B sparse MoE on Time-300B keeps improving, and Chronos
+that a 2.4B sparse MoE on [Time-300B](../datasets-benchmarks/time-300b.md) keeps improving, and [Chronos](../papers/chronos.md)
 reported monotonic gains from 20M to 710M parameters. But the exponents
 differ between reports, the datasets differ, and no paper yet argues
 that it has found the compute-optimal frontier.
 
 **What is still open.** Is there a Chinchilla-equivalent law for TS-FMs?
 Does the optimal data-to-parameter ratio depend on whether pretraining
-data is real (LOTSA, Time-300B) or synthetic (Mamba4Cast-style PFN
+data is real ([LOTSA](../datasets-benchmarks/lotsa.md), Time-300B) or synthetic (Mamba4Cast-style PFN
 priors, KernelSynth)? Does quantized-vocab training (Chronos) scale
-differently from continuous-patch training (TimesFM, MOIRAI)? And what
+differently from continuous-patch training ([TimesFM](../papers/timesfm.md), MOIRAI)? And what
 is the right "tokens" unit — individual timesteps, patches, or
 quantized codes?
 
@@ -92,12 +92,12 @@ See [../papers/chronos-2.md](../papers/chronos-2.md),
 **Background.** TS-FMs now produce probabilistic forecasts in roughly
 three styles: categorical sampling over a quantized vocab (Chronos),
 mixture-of-Student-t output heads (MOIRAI, Lag-Llama), quantile
-decoders (Chronos-2, TTM). Flow matching (Sundial) is a fourth,
-generative path. All of them report competitive CRPS / WQL on
+decoders (Chronos-2, TTM). Flow matching ([Sundial](../papers/sundial.md)) is a fourth,
+generative path. All of them report competitive [CRPS](../evaluation/metrics.md#21-crps--continuous-ranked-probability-score) / [WQL](../evaluation/metrics.md#23-wql--weighted-quantile-loss) on
 in-distribution splits. Very little is known about calibration when the
 test series comes from a domain not represented in pretraining.
 
-**What has been tried.** TimeGPT-1 wraps conformal prediction around a
+**What has been tried.** [TimeGPT-1](../papers/timegpt.md) wraps conformal prediction around a
 closed model to provide post-hoc calibrated intervals. MOIRAI and
 Lag-Llama report interval coverage but only on their own splits.
 Evaluation suites like GIFT-Eval track probabilistic metrics
@@ -126,7 +126,7 @@ See [../concepts/probabilistic-forecasting.md](../concepts/probabilistic-forecas
 **Background.** Every TS-FM paper opens with a variant of the same
 sentence: "unlike NLP, the time-series community does not have an
 internet-scale corpus." Time-300B is the largest published corpus at
-the moment; LOTSA and the Time Series Pile are smaller. Even the
+the moment; LOTSA and the [Time Series Pile](../datasets-benchmarks/time-series-pile.md) are smaller. Even the
 largest is orders of magnitude below modern LLM training token counts,
 and the diversity is concentrated in a few high-frequency domains
 (energy, web traffic, finance).
@@ -190,12 +190,12 @@ See [../papers/ttm.md](../papers/ttm.md),
 
 ## 6. Long-horizon forecasting and autoregressive rollout error
 
-**Background.** Decoder-only AR TS-FMs (TimesFM, Timer, Time-MoE,
+**Background.** Decoder-only AR TS-FMs (TimesFM, [Timer](../papers/timer.md), Time-MoE,
 Lag-Llama) generate long horizons by rolling out their next-patch
 prediction repeatedly. Error compounds, and most papers paper over this
 by training with an output-patch size larger than the input-patch size
 (TimesFM's trick) or by masking large contiguous blocks during training
-(MOIRAI, MOMENT). Sundial's flow-matching head produces the whole
+(MOIRAI, [MOMENT](../papers/moment.md)). Sundial's flow-matching head produces the whole
 horizon in one pass and sidesteps the rollout entirely; Mamba4Cast
 similarly does single-pass horizon generation.
 
@@ -218,7 +218,7 @@ side?
 **Background.** The field has converged on "tokenize the series
 somehow" but not on how. Patch embeddings (TimesFM, MOIRAI, MOMENT,
 Chronos-2), value quantization to a fixed vocab (Chronos), numbers as
-text (LLMTime), VQ-VAE codebooks (TOTEM), continuous flows (Sundial)
+text ([LLMTime](../papers/llmtime.md)), VQ-VAE codebooks ([TOTEM](../papers/totem.md)), continuous flows (Sundial)
 and flattened multivariate tokens (Timer-XL) all coexist. Each is
 motivated by a different downstream need (probabilistic output,
 multi-resolution handling, reuse of an LLM tokenizer, cross-domain
@@ -246,7 +246,7 @@ See [../concepts/patch-tokenization.md](../concepts/patch-tokenization.md),
 
 **Background.** Zero-shot claims are only as strong as the guarantee
 that the test series never appeared in pretraining. LOTSA, the Time
-Series Pile and Time-300B all overlap with Monash and with the long-horizon
+Series Pile and Time-300B all overlap with [Monash](../datasets-benchmarks/monash-archive.md) and with the long-horizon
 benchmarks used by the Autoformer / FEDformer era. Several papers
 report "zero-shot" numbers on datasets that are demonstrably in their
 training corpus. GIFT-Eval was introduced partly as a cleaner protocol,

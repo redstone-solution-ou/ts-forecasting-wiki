@@ -20,7 +20,7 @@ y_hat         = RevIN_inverse(y_norm, stats)
 
 For zero-shot to produce sensible numbers, three things must hold. The input pipeline must accept *variable history length* — a user might have 50 or 5000 past points. The output stage must support *variable horizon length*, typically by rolling out patches autoregressively, by a fixed-length decoder with padding, or by a horizon-conditional head. And the normalization layer must absorb *arbitrary scale and level*, which is exactly what RevIN (or the equivalent mean-scaling used by Chronos) provides. Models that fail on one of these axes cannot be zero-shot, period — they become single-task supervised models requiring fine-tuning.
 
-At evaluation time, zero-shot is measured on benchmarks the model was *never trained on*: the Monash Archive, GIFT-Eval, and more recently fev-bench are the standard choices. Leakage control is taken seriously — for example, MOIRAI's LOTSA corpus explicitly excludes overlap with Monash test splits.
+At evaluation time, zero-shot is measured on benchmarks the model was *never trained on*: the [Monash Archive](../datasets-benchmarks/monash-archive.md), [GIFT-Eval](../datasets-benchmarks/gift-eval.md), and more recently fev-bench are the standard choices. Leakage control is taken seriously — for example, MOIRAI's [LOTSA](../datasets-benchmarks/lotsa.md) corpus explicitly excludes overlap with Monash test splits.
 
 ## Why it works
 
@@ -30,14 +30,14 @@ This is structurally similar to zero-shot transfer in NLP: a left-to-right model
 
 ## Trade-offs and failure modes
 
-Zero-shot is not universally strong. It degrades when (a) the target series comes from a *regime not represented* in pretraining — e.g. a totally new physical process, an unusual frequency like 10 kHz, or a genuinely intermittent demand series with lots of zeros; (b) *covariates matter* and the model has no way to ingest them, which rules out most univariate TS FMs on problems where exogenous features drive the target; (c) *long horizons* expose cumulative error from autoregressive rollout, which is why models with direct multi-horizon heads (MOIRAI, Chronos-2, Sundial) often beat next-step decoders at long horizons; and (d) *heavy-tailed or extreme-event* series, where a uniform quantizer clips or a Student-t head underweights the tails.
+Zero-shot is not universally strong. It degrades when (a) the target series comes from a *regime not represented* in pretraining — e.g. a totally new physical process, an unusual frequency like 10 kHz, or a genuinely intermittent demand series with lots of zeros; (b) *covariates matter* and the model has no way to ingest them, which rules out most univariate TS FMs on problems where exogenous features drive the target; (c) *long horizons* expose cumulative error from autoregressive rollout, which is why models with direct multi-horizon heads (MOIRAI, [Chronos-2](../papers/chronos-2.md), [Sundial](../papers/sundial.md)) often beat next-step decoders at long horizons; and (d) *heavy-tailed or extreme-event* series, where a uniform quantizer clips or a Student-t head underweights the tails.
 
 Supervised fine-tuning on a target dataset still typically beats zero-shot by 5–20 percent on standard metrics, so the real claim is that zero-shot closes most — not all — of the gap. The practical question is whether the accuracy gap is worth the operational burden of fine-tuning.
 
 ## Design choices in the literature
 
 - `[TimesFM](../papers/timesfm.md)` trains a ~200M decoder-only patched transformer on Google Trends, Wikipedia pageviews, and synthetic data and reports near-supervised accuracy zero-shot on Monash; its long output patch makes long-horizon rollout more stable.
-- `[Chronos](../papers/chronos.md)` relies on value quantization plus an unmodified T5 stack; zero-shot generalization is measured across 42 datasets drawn from diverse domains.
+- `[Chronos](../papers/chronos.md)` relies on [value quantization](./value-quantization.md) plus an unmodified T5 stack; zero-shot generalization is measured across 42 datasets drawn from diverse domains.
 - `[MOIRAI](../papers/moirai.md)` pretrains on LOTSA (~27B observations) and reports GIFT-Eval and Monash results as the primary zero-shot benchmark, with multi-patch-size projections to handle arbitrary frequency.
 - `[TimeGPT-1](../papers/timegpt.md)` is commercially built around zero-shot as the user interface — the API accepts a new series and returns a forecast with no per-series training step.
 - `[Lag-Llama](../papers/lag-llama.md)` was the first open decoder-only probabilistic FM to demonstrate zero-shot at scale, using lag features as architectural priors.
@@ -47,8 +47,8 @@ Supervised fine-tuning on a target dataset still typically beats zero-shot by 5�
 
 ## Open questions
 
-- **How large a pretraining corpus is actually needed?** TTM and Mamba4Cast suggest data quality and priors beat raw scale; Time-MoE and Sundial suggest the opposite. The Pareto frontier is not well mapped.
-- **Covariate-aware zero-shot.** Chronos-2 and Timer-XL start to address this but most univariate FMs cannot ingest covariates at all.
+- **How large a pretraining corpus is actually needed?** TTM and Mamba4Cast suggest data quality and priors beat raw scale; [Time-MoE](../papers/time-moe.md) and Sundial suggest the opposite. The Pareto frontier is not well mapped.
+- **Covariate-aware zero-shot.** Chronos-2 and [Timer-XL](../papers/timer-xl.md) start to address this but most univariate FMs cannot ingest covariates at all.
 - **What fails — distribution shift or representation?** When zero-shot fails, is it because the inductive biases are wrong or because the corpus missed the regime? The ablations to answer this cleanly have not been published.
 - **Is instance normalization hiding the real problem?** RevIN assumes window-level stationarity; non-stationary dynamics are mostly swept under the rug by normalization.
 - **Leakage in benchmarks.** As pretraining corpora grow, the boundary with Monash and GIFT-Eval becomes porous; there is active work on leak-audited benchmarks (fev-bench).

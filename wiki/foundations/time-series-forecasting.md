@@ -15,8 +15,8 @@ literature can be traced back to which axis of that space they privilege.
   sales) or many correlated series (every SKU in a warehouse, every node
   in a power grid). Multivariate problems may be treated
   *channel-independently* — one model applied per series, as PatchTST
-  popularized — or with explicit cross-channel attention, as MOIRAI and
-  Chronos-2 do.
+  popularized — or with explicit cross-channel attention, as [MOIRAI](../papers/moirai.md) and
+  [Chronos-2](../papers/chronos-2.md) do.
 - **Point vs. probabilistic.** A point forecast returns a single number
   per future step; a probabilistic forecast returns a distribution or a
   sample path. Modern TS-FMs are predominantly probabilistic, either by
@@ -40,12 +40,12 @@ literature can be traced back to which axis of that space they privilege.
 ## Loss functions
 
 Classical papers report **MSE** and **MAE** for point forecasts and
-**MAPE**, **sMAPE**, or **MASE** when series live on very different
+**MAPE**, **sMAPE**, or **[MASE](../evaluation/metrics.md#17-mase--mean-absolute-scaled-error)** when series live on very different
 scales. Probabilistic evaluation uses the **Continuous Ranked
-Probability Score (CRPS)** or its quantile-loss approximation, and —
-for discrete-token models such as Chronos — plain **negative
-log-likelihood** on the predicted distribution. Benchmarks like GIFT-Eval
-and TimeBench aggregate several of these across dozens of datasets so
+Probability Score ([CRPS](../evaluation/metrics.md#21-crps--continuous-ranked-probability-score))** or its quantile-loss approximation, and —
+for discrete-token models such as [Chronos](../papers/chronos.md) — plain **negative
+log-likelihood** on the predicted distribution. Benchmarks like [GIFT-Eval](../datasets-benchmarks/gift-eval.md)
+and [TimeBench](../datasets-benchmarks/timebench.md) aggregate several of these across dozens of datasets so
 that model comparisons are not dominated by any single series.
 
 ## Canonical applications

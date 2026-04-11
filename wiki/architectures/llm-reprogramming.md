@@ -68,7 +68,7 @@ Reprogramming is parameter-efficient but comes with strong limits. Time-LLM's cr
 
 LLMTime is conceptually elegant but expensive at token budget: every number costs 3–10 tokens depending on precision, and long histories saturate the LLM's context window fast. It also inherits the LLM's BPE idiosyncrasies — a tokenizer that splits "12345" differently from "12346" can hurt calibration.
 
-The bigger limitation is ceiling: reprogrammed models generally do not beat purpose-built TS FMs at the frontier. Time-LLM, GPT4TS, and LLMTime are competitive on standard benchmarks but TimesFM, MOIRAI, and Chronos typically win on leaderboard position. The argument for reprogramming is more about parameter efficiency and data efficiency than peak accuracy.
+The bigger limitation is ceiling: reprogrammed models generally do not beat purpose-built TS FMs at the frontier. Time-LLM, GPT4TS, and LLMTime are competitive on standard benchmarks but [TimesFM](../papers/timesfm.md), [MOIRAI](../papers/moirai.md), and [Chronos](../papers/chronos.md) typically win on leaderboard position. The argument for reprogramming is more about parameter efficiency and data efficiency than peak accuracy.
 
 ## Siblings and design space
 

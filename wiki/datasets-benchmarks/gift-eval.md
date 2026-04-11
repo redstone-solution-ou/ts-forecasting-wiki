@@ -4,7 +4,7 @@ GIFT-Eval is a cross-cutting zero-shot evaluation benchmark that has become a sh
 
 ## Overview
 
-GIFT-Eval aggregates a broad set of time-series datasets into a unified evaluation protocol: fixed splits, fixed horizons, and a defined set of metrics that probabilistic and point forecasters can both report. The motivation is that as TS foundation models have proliferated — TimesFM, Chronos, MOIRAI, Moirai-MoE, Chronos-2, Time-MoE, Sundial, and others — papers have needed a common venue in which to compare zero-shot accuracy without each author picking a favorable subset of datasets. GIFT-Eval provides that venue.
+GIFT-Eval aggregates a broad set of time-series datasets into a unified evaluation protocol: fixed splits, fixed horizons, and a defined set of metrics that probabilistic and point forecasters can both report. The motivation is that as TS foundation models have proliferated — [TimesFM](../papers/timesfm.md), [Chronos](../papers/chronos.md), MOIRAI, Moirai-MoE, Chronos-2, [Time-MoE](../papers/time-moe.md), [Sundial](../papers/sundial.md), and others — papers have needed a common venue in which to compare zero-shot accuracy without each author picking a favorable subset of datasets. GIFT-Eval provides that venue.
 
 It is now routinely used alongside Monash in the evaluation section of new TS foundation-model papers. MOIRAI reports GIFT-Eval numbers as part of its zero-shot evaluation. Moirai-MoE reports GIFT-Eval to show that sparse routing beats the dense Moirai baseline at a lower active-parameter cost. Chronos-2 positions itself as SOTA on fev-bench, GIFT-Eval, and Chronos Benchmark II simultaneously, using GIFT-Eval as the cross-paper reference point.
 

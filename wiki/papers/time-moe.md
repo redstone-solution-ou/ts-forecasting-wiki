@@ -21,17 +21,17 @@ Time-MoE is a decoder-only transformer whose feed-forward blocks are replaced wi
 Time-MoE is the landmark result for scaling time-series foundation models beyond the hundred-million-parameter regime. It provides the clearest published evidence so far that neural scaling laws translate from language to time series when capacity is added via sparse MoE, and establishes a billion-parameter reference point the rest of the field now has to argue for or against.
 
 ## Strengths
-- Demonstrates a roughly 20% and 24% zero-shot and in-distribution forecasting error reduction over prior dense baselines (TimesFM, Moirai, Chronos) with comparable activated FLOPs, at six standard benchmarks.
+- Demonstrates a roughly 20% and 24% zero-shot and in-distribution forecasting error reduction over prior dense baselines (TimesFM, Moirai, [Chronos](./chronos.md)) with comparable activated FLOPs, at six standard benchmarks.
 - First convincing scaling-law curves for TS foundation models: at matched activated FLOPs, sparse MoE variants dominate dense variants across three scales (50M / 200M / 1.1B activated).
 - Flexible horizon handling via multi-resolution heads avoids the fixed-horizon rigidity of Moment and the truncation issue of Timer.
 - Time-MoE-ultra is engineered to run inference on consumer hardware with less than 8 GB VRAM despite the 2.4B-parameter capacity.
 
 ## Limitations and open critiques
 - Time-300B is heavily skewed: the "Nature" domain alone contributes ~90% of observations, so the scaling-law evidence is partially a study of one domain's breadth rather than balanced coverage.
-- Probabilistic forecasting is handled only via point regression with Huber loss; there is no calibrated predictive density, which Sundial and Chronos-2 target directly.
+- Probabilistic forecasting is handled only via point regression with Huber loss; there is no calibrated predictive density, which Sundial and [Chronos-2](./chronos-2.md) target directly.
 - TTM pushes back on the premise: 1-5M-parameter Mixer models match or beat larger TS foundation models zero-shot, suggesting that capacity alone is not what the benchmarks reward.
 - MoE routing stability, expert collapse, and the sensitivity of results to the auxiliary-loss coefficient are acknowledged but not deeply characterized.
-- Evaluated benchmarks (ETT, Weather, ECL, Traffic) are the TSLib suite whose leakage and saturation are a growing concern; performance on GIFT-Eval and the Chronos zero-shot benchmark is reported less extensively.
+- Evaluated benchmarks (ETT, Weather, ECL, Traffic) are the TSLib suite whose leakage and saturation are a growing concern; performance on [GIFT-Eval](../datasets-benchmarks/gift-eval.md) and the Chronos zero-shot benchmark is reported less extensively.
 
 ## Follow-up work and dialogue
 TTM explicitly frames itself against Time-MoE: if a 1-5M-parameter TSMixer can match much larger TS foundation models on zero/few-shot benchmarks, then the billion-parameter MoE path looks like overkill for practical deployment, and the accuracy-per-parameter ratio that matters for edge and CPU inference goes the other way. [Sundial](./sundial.md) reports a roughly 4.7% average MSE reduction relative to Time-MoE with fewer parameters, arguing the bottleneck is the parametric point-regression head, not capacity. [Moirai-MoE](./moirai-moe.md) applies similar sparse routing but motivates it as replacing the frequency-projection heuristic of [Moirai](./moirai.md), giving a second sparse-MoE data point the field can compare to. See also [timesfm](./timesfm.md) and [timer](./timer.md) for the dense decoder-only counterparts this paper scales past.

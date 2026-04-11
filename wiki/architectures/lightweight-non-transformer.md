@@ -56,7 +56,7 @@ The obvious ceiling for lightweight models is *peak accuracy on complex tasks*. 
 
 Mamba4Cast's PFN training means its quality is entirely bounded by the prior: if the target series comes from a regime poorly covered by the prior, the model's calibration degrades gracefully, but it cannot recover from a bad prior by seeing more data. This is a fundamentally different failure mode from real-data FMs, which simply overfit to their training distribution.
 
-Both families also lack a clean path to in-context learning across siblings. Channel mixing in TTM is limited to *aligned* variates; the "panel of related series" setting that Chronos-2 and Timer-XL handle is not a natural fit for either TSMixer or Mamba at this point. Covariate support in TTM is handled by a dedicated exogenous head, which is a pragmatic patch rather than a unified mechanism.
+Both families also lack a clean path to [in-context learning](../concepts/in-context-learning.md) across siblings. Channel mixing in TTM is limited to *aligned* variates; the "panel of related series" setting that [Chronos-2](../papers/chronos-2.md) and [Timer-XL](../papers/timer-xl.md) handle is not a natural fit for either TSMixer or Mamba at this point. Covariate support in TTM is handled by a dedicated exogenous head, which is a pragmatic patch rather than a unified mechanism.
 
 ## Siblings and design space
 
@@ -69,7 +69,7 @@ Compared to `[Decoder-only autoregressive](decoder-only-autoregressive.md)`, lig
 
 ## Open questions
 
-- **Priors vs scale.** TTM and Mamba4Cast argue strong priors make scale unnecessary; Time-MoE and TimesFM argue scale wins eventually. The Pareto frontier at matched wall-clock inference cost is not well mapped.
+- **Priors vs scale.** TTM and Mamba4Cast argue strong priors make scale unnecessary; [Time-MoE](../papers/time-moe.md) and [TimesFM](../papers/timesfm.md) argue scale wins eventually. The Pareto frontier at matched wall-clock inference cost is not well mapped.
 - **Cross-variate structure in MLP-Mixer.** TTM's channel mixing is aligned-variate only; extending to panel siblings and arbitrary related series is open.
 - **SSM scaling for TS.** Mamba models scale in language; whether TS FMs can ride the same curve to billion-parameter SSMs is untested.
 - **Hybrid architectures.** Mamba + attention, or MLP-Mixer + sparse attention, might give the best of both worlds; TS FMs have not seriously explored hybrids.

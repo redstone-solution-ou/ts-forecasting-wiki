@@ -8,9 +8,9 @@ number.
 
 ## 1. "Zero-shot" is paper-relative, not universal
 
-The single biggest footnote. TimesFM, Chronos and Chronos-2 all
-label themselves zero-shot on Monash and on subsets of GIFT-Eval,
-but Moirai-MoE's Figure 3 caption (arXiv:2410.10469) explicitly
+The single biggest footnote. [TimesFM](../papers/timesfm.md), [Chronos](../papers/chronos.md) and [Chronos-2](../papers/chronos-2.md) all
+label themselves zero-shot on [Monash](../datasets-benchmarks/monash-archive.md) and on subsets of [GIFT-Eval](../datasets-benchmarks/gift-eval.md),
+but [Moirai-MoE](../papers/moirai-moe.md)'s Figure 3 caption (arXiv:2410.10469) explicitly
 marks Chronos-Small / Base / Large and TimesFM with an asterisk
 because "these models used the evaluation datasets here in their
 pretraining corpora." The Chronos-2 paper acknowledges the mirror
@@ -36,7 +36,7 @@ Different papers normalize differently. The conversions:
   Lower is better. Used by the GIFT-Eval public leaderboard.
 - **Geometric-mean-relative MASE / CRPS (G)**: per-dataset metric
   divided by Seasonal Naive, then geometrically averaged. Lower is
-  better. Used by Sundial's Table 2.
+  better. Used by [Sundial](../papers/sundial.md)'s Table 2.
 - **Win rate (W)**: fraction of pairwise matchups won, converted to
   a percentage. Higher is better. Used by fev-bench.
 
@@ -55,7 +55,7 @@ what they compute differs:
 
 - TimesFM reports *scaled MAE geometric-mean* with Seasonal Naive
   as the baseline (TimesFM, Figure 2a).
-- MOIRAI Table 6 reports raw MSE / MAE averaged over the four
+- [MOIRAI](../papers/moirai.md) Table 6 reports raw MSE / MAE averaged over the four
   horizons.
 - Sundial Table 1 reports the same but at different context lengths
   depending on how the target-series library was called.
@@ -75,7 +75,7 @@ reversible-instance-normalization at inference time: Chronos-2
 uses "robust scaling" (Chronos-2, Figure 1), MOIRAI applies a
 per-context standardization, Sundial normalizes per patch. These
 preprocessors can change MSE by >10% relative. A model quoted with
-and without RevIN is effectively a different model. LTSF tables in
+and without [RevIN](../concepts/revin-normalization.md) is effectively a different model. LTSF tables in
 the literature rarely state which variant is running.
 
 ## 5. Metric semantics
@@ -128,7 +128,7 @@ points — not statistically significant.
   new baselines added), part is the specific subset evaluated.
 - **TimesFM on LTSF.** Because TimesFM's pretraining corpus includes
   Traffic, ETT and Wiki, most modern papers mark TimesFM's LTSF
-  results with an asterisk or omit them entirely (Time-MoE omits
+  results with an asterisk or omit them entirely ([Time-MoE](../papers/time-moe.md) omits
   TimesFM Weather, Chronos-2 does not use LTSF at all).
 
 ## 8. What this means for the reader

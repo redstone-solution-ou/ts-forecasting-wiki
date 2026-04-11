@@ -15,11 +15,11 @@ that number.
 ## 1. GIFT-Eval (zero-shot, 97 tasks over 55 datasets)
 
 GIFT-Eval has quickly become the de-facto zero-shot yardstick for new
-TS-FMs. Chronos-2 is the most recent single-paper survey on this
+TS-FMs. [Chronos-2](../papers/chronos-2.md) is the most recent single-paper survey on this
 suite (Oct 2025); it reports both its own numbers and the leaderboard
 values for the main contenders. Metrics are *skill score* (geometric
 mean improvement over Seasonal Naive; higher is better) under
-Weighted Quantile Loss (WQL, probabilistic) and MASE (point).
+Weighted Quantile Loss ([WQL](../evaluation/metrics.md#23-wql--weighted-quantile-loss), probabilistic) and [MASE](../evaluation/metrics.md#17-mase--mean-absolute-scaled-error) (point).
 
 | Model | GIFT-Eval WQL skill score (%) | GIFT-Eval MASE skill score (%) | Source |
 |---|---|---|---|
@@ -29,24 +29,24 @@ Weighted Quantile Loss (WQL, probabilistic) and MASE (point).
 | Toto-1.0 | 48.6 | 25.2 | Chronos-2, Table 4 |
 | Moirai-2.0 | 48.4 | 27.2 | Chronos-2, Table 4 |
 | COSMIC | 44.5 | 20.8 | Chronos-2, Table 4 |
-| Sundial | 44.1 | 25.0 | Chronos-2, Table 4 |
+| [Sundial](../papers/sundial.md) | 44.1 | 25.0 | Chronos-2, Table 4 |
 | TabPFN-TS | 43.1 | 16.6 | Chronos-2, Table 4 |
 | Chronos-Bolt | 42.6 | 19.2 | Chronos-2, Table 4 |
 | Seasonal Naive | 0.0 | 0.0 | Chronos-2, Table 4 |
 
 A separate reading of GIFT-Eval comes from the Sundial paper
-(Feb 2025), which uses the raw geometric-mean-relative MASE/CRPS
+(Feb 2025), which uses the raw geometric-mean-relative MASE/[CRPS](../evaluation/metrics.md#21-crps--continuous-ranked-probability-score)
 (lower is better) over the 23-dataset / 97-config version and quotes
 the official GIFT-Eval leaderboard for its baselines:
 
 | Model | MASE (rel., lower better) | CRPS (rel., lower better) | Rank (avg over 97 configs) | Source |
 |---|---|---|---|---|
 | Sundial | 0.673 | 0.472 | 9.062 | Sundial, Table 2 (arXiv:2502.00816) |
-| TimesFM | 0.680 | 0.465 | 8.237 | Sundial, Table 2 |
+| [TimesFM](../papers/timesfm.md) | 0.680 | 0.465 | 8.237 | Sundial, Table 2 |
 | TabPFN-TS | 0.748 | 0.480 | 8.268 | Sundial, Table 2 |
 | PatchTST (full-shot) | 0.762 | 0.496 | 10.052 | Sundial, Table 2 |
-| Chronos | 0.786 | 0.551 | 14.309 | Sundial, Table 2 |
-| Moirai | 0.809 | 0.515 | 10.175 | Sundial, Table 2 |
+| [Chronos](../papers/chronos.md) | 0.786 | 0.551 | 14.309 | Sundial, Table 2 |
+| [Moirai](../papers/moirai.md) | 0.809 | 0.515 | 10.175 | Sundial, Table 2 |
 | iTransformer (full-shot) | 0.802 | 0.524 | 11.320 | Sundial, Table 2 |
 | N-BEATS (full-shot) | 0.842 | 0.689 | 21.381 | Sundial, Table 2 |
 | Seasonal Naive | 1.000 | 1.000 | 26.175 | Sundial, Table 2 |
@@ -114,7 +114,7 @@ matters on real tasks.
 ## 4. Monash zero-shot (29-dataset in-distribution aggregated MAE)
 
 The Monash archive is older and has been reported on by most early
-TS-FMs. Moirai-MoE (Oct 2024) gives a clean aggregate (lower = better;
+TS-FMs. [Moirai-MoE](../papers/moirai-moe.md) (Oct 2024) gives a clean aggregate (lower = better;
 geometric-mean MAE normalized by Seasonal Naive).
 
 | Model | Aggregated MAE (Monash, rel. Seasonal Naive, ↓) | Source |
@@ -151,15 +151,15 @@ MAE averaged over the four canonical horizons. Lower is better.
 |---|---|---|---|---|---|---|---|
 | Sundial-Large (zero-shot) | 0.395 | 0.334 | 0.331 | 0.254 | 0.238 | 0.166 | Sundial, Table 1 (arXiv:2502.00816) |
 | Sundial-Base (zero-shot) | 0.411 | 0.333 | 0.336 | 0.258 | 0.234 | 0.169 | Sundial, Table 1 |
-| Time-MoE-Ultra (zero-shot) | 0.412 | 0.371 | 0.356 | 0.277 | 0.250 | — | Time-MoE, Table 3 (arXiv:2409.16040) |
+| Time-MoE-Ultra (zero-shot) | 0.412 | 0.371 | 0.356 | 0.277 | 0.250 | — | [Time-MoE](../papers/time-moe.md), Table 3 (arXiv:2409.16040) |
 | Time-MoE-Large (zero-shot) | 0.394 | 0.405 | 0.376 | 0.284 | 0.234 | — | Time-MoE, Table 3 |
-| Timer-XL (zero-shot) | 0.404 | 0.347 | 0.373 | 0.273 | 0.256 | 0.174 | Sundial, Table 1 (quoting Timer-XL) |
+| [Timer-XL](../papers/timer-xl.md) (zero-shot) | 0.404 | 0.347 | 0.373 | 0.273 | 0.256 | 0.174 | Sundial, Table 1 (quoting Timer-XL) |
 | Moirai-Large (zero-shot) | 0.480 | 0.367 | 0.422 | 0.329 | 0.264 | 0.186 | Sundial, Table 1 |
 | Moirai-Base (zero-shot) | 0.417 | 0.362 | 0.406 | 0.311 | 0.287 | 0.187 | Sundial, Table 1 |
 | Chronos-Large (zero-shot) | 0.588 | 0.455 | 0.555 | 0.295 | 0.279 | 0.204 | Sundial, Table 1 |
 | Chronos-Base (zero-shot) | 0.591 | 0.405 | 0.645 | 0.310 | 0.292 | 0.214 | Sundial, Table 1 |
 | TimesFM (zero-shot) | 0.473 | 0.392 | 0.433 | 0.328 | — | — | Sundial, Table 1 |
-| TTM-A (5M, zero-shot) | 0.400 | 0.333 | 0.362 | 0.252 | 0.231 | 0.192 | TTM, Table 1 (arXiv:2401.03955) |
+| TTM-A (5M, zero-shot) | 0.400 | 0.333 | 0.362 | 0.252 | 0.231 | 0.192 | [TTM](../papers/ttm.md), Table 1 (arXiv:2401.03955) |
 
 The same LTSF suite reported by MOIRAI in its own paper (zero-shot)
 gives numbers broadly consistent with the above for MOIRAI, e.g.

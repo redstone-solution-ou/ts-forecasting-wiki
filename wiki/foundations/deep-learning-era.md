@@ -55,7 +55,7 @@ independence** (one shared model applied per channel) and **patching**
 become the tokens the Transformer consumes) — gave transformers a much
 higher signal-per-token ratio and let them scale meaningfully. Patching
 quickly became the default tokenization for subsequent TS-FMs such as
-TimesFM, MOIRAI, MOMENT, and Timer.
+TimesFM, MOIRAI, MOMENT, and [Timer](../papers/timer.md).
 
 ## TSMixer and MLP-Mixer approaches (2023)
 
@@ -81,8 +81,8 @@ foundation models like TTM (see
 
 By late 2023 the ingredients were in place: patch tokenization, global
 training, probabilistic heads, long-context attention, and — crucially —
-the emergence of large multi-domain corpora such as the Monash archive,
-LOTSA, and the Time-Series Pile. The field was ready for the
+the emergence of large multi-domain corpora such as the [Monash](../datasets-benchmarks/monash-archive.md) archive,
+[LOTSA](../datasets-benchmarks/lotsa.md), and the [Time-Series Pile](../datasets-benchmarks/time-series-pile.md). The field was ready for the
 TimesFM / Chronos / MOMENT / MOIRAI wave. See
 [../foundation-models/README.md](../foundation-models/README.md) for
 what came next, and

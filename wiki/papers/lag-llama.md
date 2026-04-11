@@ -25,13 +25,13 @@ Lag-Llama established an open, reproducible baseline for probabilistic TS founda
 - Fully open pipeline with reproducible hyperparameter search: 100-config random search, 27-dataset corpus, and a single Nvidia Tesla P100 12GB GPU budget make the whole training run reproducible at near-laptop compute.
 - Frequency-agnostic lag ladder is a clean alternative to [moirai](./moirai.md)'s multi-patch-size projections and [timesfm](./timesfm.md)'s frequency dictionary: the same model serves hourly, daily, and yearly data without per-frequency modules, and unseen frequency combinations degrade gracefully.
 - The finetuned Lag-Llama reaches an average rank of 2.786 across seven unseen datasets vs 5.000 for TFT and 5.071 for N-BEATS (Table 1), beating all supervised baselines as a general-purpose model after light fine-tuning.
-- Probabilistic from the ground up: Student-t output head makes Lag-Llama one of the few TS foundation models with natively calibrated forecast distributions, evaluated via CRPS rather than MSE.
+- Probabilistic from the ground up: Student-t output head makes Lag-Llama one of the few TS foundation models with natively calibrated forecast distributions, evaluated via [CRPS](../evaluation/metrics.md#21-crps--continuous-ranked-probability-score) rather than MSE.
 - Scaling-law analysis on the data axis: the paper plots pretraining-corpus size vs. downstream performance and discusses diversity of the 27-dataset corpus, a rare empirical contribution for TS foundation models at the time.
 
 ## Limitations and open critiques
 - Univariate only; the "lags as covariates" trick does not extend to exogenous variables or multivariate panels. [chronos-2](./chronos-2.md) and [timer-xl](./timer-xl.md) are the natural successors on that axis.
 - The lag ladder is hand-designed and assumes a recognizable seasonal structure; highly irregular or sparse series (intermittent demand, clickstreams) are not the target regime.
-- The pretraining corpus is 27 datasets with ~352M data windows, small compared to [timesfm](./timesfm.md)'s ~100B points or [moirai](./moirai.md)'s 27B LOTSA observations. Zero-shot performance is correspondingly modest and the paper leans on fine-tuning for its SoTA claims.
+- The pretraining corpus is 27 datasets with ~352M data windows, small compared to [timesfm](./timesfm.md)'s ~100B points or [moirai](./moirai.md)'s 27B [LOTSA](../datasets-benchmarks/lotsa.md) observations. Zero-shot performance is correspondingly modest and the paper leans on fine-tuning for its SoTA claims.
 - Student-t head is parametric and unimodal; it cannot represent multi-modal predictive distributions that the quantized head of [chronos](./chronos.md) or the flow-matching head of [sundial](./sundial.md) can.
 - Reported scaling is on a narrow model family and short horizons; no log-linear curve across orders of magnitude in parameters, and later models have dwarfed it in raw scale.
 
@@ -41,7 +41,7 @@ Lag-Llama sits in the decoder-only probabilistic line together with [timesfm](./
 ## Reproducibility
 - **Open weights:** yes — `time-series-foundation-models/Lag-Llama` on HuggingFace (the paper and repo release checkpoints).
 - **Code:** public, referenced in the paper.
-- **Training data:** partially public — the 27 datasets are assembled from public sources (Monash and related archives) with documented splits.
+- **Training data:** partially public — the 27 datasets are assembled from public sources ([Monash](../datasets-benchmarks/monash-archive.md) and related archives) with documented splits.
 - **Compute to retrain:** single Nvidia Tesla P100 12GB GPU with 4 CPU cores and 24GB RAM; batch size 256, learning rate 1e-4, 100 random-sampled windows per epoch with 50-epoch early stopping. This is perhaps the smallest reproducible compute footprint in the TS-FM literature.
 - **Deployment footprint:** small decoder-only model (parameter count not tabulated in the extracted sections but well under 100M in the default configuration); autoregressive multi-step rollout; inference runs comfortably on CPU for short horizons.
 
