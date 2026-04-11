@@ -131,6 +131,6 @@ sentences each, with cross-links to deeper pages where one exists.
 
 ## Related wiki pages
 
-- [../concepts/README.md](../concepts/README.md)
-- [../datasets-benchmarks/README.md](../datasets-benchmarks/README.md)
+- [../concepts/concepts.md](../concepts/concepts.md)
+- [../datasets-benchmarks/datasets-benchmarks.md](../datasets-benchmarks/datasets-benchmarks.md)
 - [comparison-matrix.md](comparison-matrix.md)

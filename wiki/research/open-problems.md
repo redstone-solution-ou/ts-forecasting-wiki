@@ -153,7 +153,7 @@ would quality filtering look anything like LLM quality filtering?
 - Build and release a new corpus (the "LOTSA-2") from a fresh domain
   source; this is low-glamour but high-value work.
 
-See [../datasets-benchmarks/README.md](../datasets-benchmarks/README.md),
+See [../datasets-benchmarks/datasets-benchmarks.md](../datasets-benchmarks/datasets-benchmarks.md),
 [../concepts/synthetic-data-augmentation.md](../concepts/synthetic-data-augmentation.md).
 
 ## 5. Efficient inference — when is small actually right?

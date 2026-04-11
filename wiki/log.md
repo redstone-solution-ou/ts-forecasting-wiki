@@ -136,8 +136,55 @@ chronological order) and `wiki/log.md` (this file). Audited every
   from `research/comparison-matrix.md` and `research/reproducibility.md`;
   rows were added from the leaf facts. All other master-list pages
   already referenced all 20 slugs.
-- **Root pointers.** `wiki/README.md` and the repo-root `README.md`
-  were updated to point at `index.md` and `log.md`.
+- **Root pointers.** `wiki/overview.md` (formerly `wiki/README.md`)
+  and the repo-root `README.md` were updated to point at `index.md`
+  and `log.md`.
 
 Added `wiki/index.md` and `wiki/log.md`, plus the above fixes; see
 the commit for the full diff.
+
+## [2026-04-12] refactor | Rename section READMEs to folder-note pattern
+
+User feedback: "There is a lot of README.md and it's confusing. There
+should be only one README at the root." The wiki had 11 README files
+(repo root + 10 section-level hubs). The Obsidian graph view showed
+ten nodes all labeled "README", which is useless for navigation.
+
+Applied the folder-note pattern: each wiki section's hub is now named
+after the section itself (`architectures/architectures.md`,
+`concepts/concepts.md`, `papers/papers.md`, etc.), and the former
+`wiki/README.md` is now `wiki/overview.md`. Repo-root `README.md` is
+the only file named README in the whole repository.
+
+Renames (git mv, so history is preserved):
+
+- `wiki/README.md` → `wiki/overview.md`
+- `wiki/foundations/README.md` → `wiki/foundations/foundations.md`
+- `wiki/foundation-models/README.md` → `wiki/foundation-models/foundation-models.md`
+- `wiki/architectures/README.md` → `wiki/architectures/architectures.md`
+- `wiki/concepts/README.md` → `wiki/concepts/concepts.md`
+- `wiki/datasets-benchmarks/README.md` → `wiki/datasets-benchmarks/datasets-benchmarks.md`
+- `wiki/benchmarks/README.md` → `wiki/benchmarks/benchmarks.md`
+- `wiki/evaluation/README.md` → `wiki/evaluation/evaluation.md`
+- `wiki/research/README.md` → `wiki/research/research.md`
+- `wiki/papers/README.md` → `wiki/papers/papers.md`
+
+Two Python scripts handled the mechanical rewrite:
+
+- `/tmp/rewrite_readme_links.py` — resolved every relative markdown
+  link in every `.md` file, found the ones pointing at the old
+  section READMEs, and replaced them with the correct new relative
+  path. 61 link targets rewritten across 18 files.
+- `/tmp/fix_readme_labels.py` — second pass on link labels whose
+  visible text still said "README.md" (e.g.,
+  `[../architectures/README.md](../architectures/architectures.md)`
+  became `[../architectures/architectures.md](../architectures/architectures.md)`).
+  48 labels rewritten across 18 files.
+
+`CLAUDE.md` updated to document the folder-note convention in the
+top-level layout block and in the Page Types section (page type 8
+was previously "Section README", now "Section hub"). All step-by-step
+workflow references to `wiki/papers/README.md` updated to
+`wiki/papers/papers.md`. Prose references in this log file updated.
+
+Total: 10 renames, 109 link rewrites, 59 files scanned.

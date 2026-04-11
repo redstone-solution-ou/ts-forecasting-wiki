@@ -40,19 +40,44 @@ ts-forecasting-wiki/
 ├── papers/                     (immutable PDFs)
 │   └── <shortname>_<arxiv_id>.pdf
 └── wiki/
-    ├── README.md               (orientation and reading paths)
+    ├── overview.md             (orientation and reading paths)
     ├── index.md                (flat catalog of every wiki page)
     ├── log.md                  (chronological append-only log)
-    ├── foundations/            (classical TS, DL era — precursors)
-    ├── foundation-models/      (TS-FM paradigm + taxonomy)
-    ├── architectures/          (architecture families)
-    ├── concepts/               (cross-cutting technical concepts)
-    ├── datasets-benchmarks/    (pretraining corpora + eval suites as corpora)
-    ├── benchmarks/             (head-to-head performance + practical guides)
-    ├── evaluation/             (metrics, protocols, baselines)
-    ├── research/               (open problems, roadmap, comparison matrix, glossary, contributing)
-    └── papers/                 (leaf pages — one per paper)
+    ├── foundations/
+    │   ├── foundations.md      (section hub)
+    │   └── ... topic pages
+    ├── foundation-models/
+    │   ├── foundation-models.md (section hub)
+    │   └── taxonomy.md
+    ├── architectures/
+    │   ├── architectures.md    (section hub)
+    │   └── ... family pages
+    ├── concepts/
+    │   ├── concepts.md         (section hub)
+    │   └── ... concept pages
+    ├── datasets-benchmarks/
+    │   ├── datasets-benchmarks.md (section hub)
+    │   └── ... corpus pages
+    ├── benchmarks/
+    │   ├── benchmarks.md       (section hub)
+    │   └── ... analysis + practical guides
+    ├── evaluation/
+    │   ├── evaluation.md       (section hub)
+    │   └── ... methodology pages
+    ├── research/
+    │   ├── research.md         (section hub)
+    │   └── ... frontier pages
+    └── papers/
+        ├── papers.md           (section hub / paper index)
+        └── <slug>.md           (one per paper)
 ```
+
+**Naming convention (folder-note pattern):** there is exactly ONE
+`README.md` in the entire repo, at the root. Every wiki section uses
+a folder-note named after the section itself (`architectures.md`,
+`concepts.md`, etc.) as its hub. The wiki's own hub is `overview.md`.
+This keeps the Obsidian graph view readable — every node has a
+descriptive name, no collisions on the label "README".
 
 ## Page types and templates
 
@@ -225,20 +250,30 @@ Pages currently: `reading-roadmap.md`, `open-problems.md`,
 `comparison-matrix.md`, `reproducibility.md`, `contributing.md`,
 `glossary.md`.
 
-### 8. Section README — `wiki/<section>/README.md`
+### 8. Section hub (folder note) — `wiki/<section>/<section>.md`
 
-One-paragraph orientation + bullet list with one-line gloss per sub-page.
-Target 120–180 words. No content beyond the index.
+Each wiki section has a hub page named after the section itself:
+`foundations/foundations.md`, `architectures/architectures.md`,
+`concepts/concepts.md`, `datasets-benchmarks/datasets-benchmarks.md`,
+`benchmarks/benchmarks.md`, `evaluation/evaluation.md`,
+`research/research.md`, `papers/papers.md`,
+`foundation-models/foundation-models.md`. One-paragraph orientation
+plus a bullet list with a one-line gloss per sub-page. Target
+120–180 words. No content beyond the index. There are NO files
+named `README.md` inside `wiki/`; the only `README.md` in the repo
+is the one at the root.
 
 ### 9. Wiki root files
 
-- `wiki/README.md` — entry point, orientation, "start here" reading paths,
-  knowledge-graph sketch.
+- `wiki/overview.md` — entry point, orientation, "start here" reading
+  paths, knowledge-graph sketch. (This file was historically called
+  `wiki/README.md` and was renamed so the Obsidian graph view has a
+  descriptive node instead of ten nodes all called "README".)
 - `wiki/index.md` — flat catalog of every wiki page, one line each.
-  First stop at query time. Must be kept in sync with every add / rename /
-  delete.
-- `wiki/log.md` — chronological append-only record of ingests, queries
-  filed back, lint passes, and refactors.
+  First stop at query time. Must be kept in sync with every add /
+  rename / delete.
+- `wiki/log.md` — chronological append-only record of ingests,
+  queries filed back, lint passes, and refactors.
 
 ## Style rules
 
@@ -289,7 +324,7 @@ Target 120–180 words. No content beyond the index.
    params)` if disclosed, contributions, strengths, limitations,
    reproducibility facts.
 3. Create leaf at `wiki/papers/<slug>.md` using the paper-leaf template.
-4. Update `wiki/papers/README.md` index table AND cluster grouping.
+4. Update `wiki/papers/papers.md` index table AND cluster grouping.
 5. Update `wiki/foundation-models/taxonomy.md` summary table AND cluster
    bullet list.
 6. Update `wiki/research/comparison-matrix.md` with a new row.
@@ -378,7 +413,7 @@ ttm           units          totem         sundial       mamba4cast
 When ingesting a new paper, pick a slug by lowercasing the model short
 name and hyphenating. Register the new slug in:
 
-- `wiki/papers/README.md`
+- `wiki/papers/papers.md`
 - `wiki/foundation-models/taxonomy.md`
 - `wiki/index.md`
 - the auto-linker mapping (see `wiki/log.md` for the most recent run)

@@ -66,10 +66,10 @@ zero-shot — is such an attractive target.
 For the pre-2023 landscape, continue to
 [classical-methods.md](classical-methods.md) and then
 [deep-learning-era.md](deep-learning-era.md). For the TS-FM paradigm
-itself, jump to [../foundation-models/README.md](../foundation-models/README.md).
+itself, jump to [../foundation-models/foundation-models.md](../foundation-models/foundation-models.md).
 
 ## Related wiki pages
 
 - [classical-methods.md](classical-methods.md)
 - [deep-learning-era.md](deep-learning-era.md)
-- [../foundation-models/README.md](../foundation-models/README.md)
+- [../foundation-models/foundation-models.md](../foundation-models/foundation-models.md)

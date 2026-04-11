@@ -25,4 +25,4 @@ order when you first arrive.
 ## Related wiki pages
 
 - [../foundation-models/taxonomy.md](../foundation-models/taxonomy.md)
-- [../papers/README.md](../papers/README.md)
+- [../papers/papers.md](../papers/papers.md)

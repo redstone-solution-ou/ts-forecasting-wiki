@@ -269,5 +269,5 @@ are not comparable across papers. See
   normalization / aggregation conversions.
 - [../concepts/zero-shot-forecasting.md](../concepts/zero-shot-forecasting.md)
   — the architectural meaning of zero-shot.
-- [../datasets-benchmarks/README.md](../datasets-benchmarks/README.md)
+- [../datasets-benchmarks/datasets-benchmarks.md](../datasets-benchmarks/datasets-benchmarks.md)
   — the suites whose protocols are listed above.

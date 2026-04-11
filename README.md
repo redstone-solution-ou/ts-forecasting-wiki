@@ -23,7 +23,7 @@ at the current wave of time-series foundation models (TS-FMs).
 
 ## Start here
 
-- [wiki/README.md](wiki/README.md) — the wiki entry point and map of the
+- [wiki/overview.md](wiki/overview.md) — the wiki entry point and map of the
   territory.
 - [wiki/index.md](wiki/index.md) — flat catalog of every wiki page with
   a one-line gloss; the first stop when you know a topic but not where
@@ -33,7 +33,7 @@ at the current wave of time-series foundation models (TS-FMs).
   changes.
 - [wiki/foundation-models/taxonomy.md](wiki/foundation-models/taxonomy.md) —
   the seven-cluster taxonomy that most other pages anchor into.
-- [wiki/papers/README.md](wiki/papers/README.md) — index of the paper
+- [wiki/papers/papers.md](wiki/papers/papers.md) — index of the paper
   leaves, with one short page per paper.
 
 ## Scope (as of 2026-04)
@@ -55,5 +55,5 @@ CC-BY-4.0.
 
 ## Related wiki pages
 
-- [wiki/README.md](wiki/README.md)
-- [wiki/foundation-models/README.md](wiki/foundation-models/README.md)
+- [wiki/overview.md](wiki/overview.md)
+- [wiki/foundation-models/foundation-models.md](wiki/foundation-models/foundation-models.md)

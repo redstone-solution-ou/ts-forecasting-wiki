@@ -92,4 +92,4 @@ head options, and the parameter-count brackets that define "small."
 
 - [comparison-matrix.md](comparison-matrix.md)
 - [contributing.md](contributing.md)
-- [../papers/README.md](../papers/README.md)
+- [../papers/papers.md](../papers/papers.md)

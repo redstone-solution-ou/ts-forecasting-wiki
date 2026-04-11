@@ -173,9 +173,9 @@ Primary architecture page:
 
 ## Related wiki pages
 
-- [README.md](README.md)
-- [../architectures/README.md](../architectures/README.md)
-- [../papers/README.md](../papers/README.md)
+- [foundation-models.md](foundation-models.md)
+- [../architectures/architectures.md](../architectures/architectures.md)
+- [../papers/papers.md](../papers/papers.md)
 - [../benchmarks/leaderboard.md](../benchmarks/leaderboard.md) —
   head-to-head performance of the models in this table on
   GIFT-Eval, fev-bench, Chronos Benchmark II, Monash and LTSF.

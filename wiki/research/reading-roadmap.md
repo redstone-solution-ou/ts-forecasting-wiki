@@ -6,7 +6,7 @@ The problem is that the papers landed in a short burst, reuse each
 other's terminology loosely, and disagree on benchmarks. The order below
 is designed so each paper answers a question raised by the previous one.
 
-All links point at the leaf pages in [../papers/](../papers/README.md);
+All links point at the leaf pages in [../papers/](../papers/papers.md);
 follow them to read the per-paper summaries, then open the PDFs in the
 top-level `papers/` directory.
 
@@ -18,7 +18,7 @@ context window) and present the two canonical recipes.
 1. [../foundations/time-series-forecasting.md](../foundations/time-series-forecasting.md)
    — a ground-level definition of the forecasting task.
    *Why next:* without this the rest reads like NLP with extra steps.
-2. [../foundation-models/README.md](../foundation-models/README.md)
+2. [../foundation-models/foundation-models.md](../foundation-models/foundation-models.md)
    and [../foundation-models/taxonomy.md](../foundation-models/taxonomy.md).
    *Why next:* the seven-cluster map lets you place every later paper
    in context instead of reading them as independent systems.

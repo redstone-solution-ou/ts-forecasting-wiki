@@ -9,7 +9,7 @@ it.
 ## How to read this matrix
 
 - **Backbone family** is the architectural cluster
-  ([../architectures/README.md](../architectures/README.md)) — decoder
+  ([../architectures/architectures.md](../architectures/architectures.md)) — decoder
   AR, masked encoder, encoder-decoder, MoE, LLM reprogramming,
   lightweight / SSM, flow matching.
 - **Pretraining objective** is what the loss actually optimizes

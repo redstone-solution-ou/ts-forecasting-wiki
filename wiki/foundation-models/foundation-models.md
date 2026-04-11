@@ -76,17 +76,17 @@ still be "foundation" in the transfer sense.
 
 - [taxonomy.md](taxonomy.md) — the canonical seven-cluster taxonomy,
   which every other page anchors into.
-- [../architectures/README.md](../architectures/README.md) — one page
+- [../architectures/architectures.md](../architectures/architectures.md) — one page
   per architecture family, each linked from its matching cluster in
   the taxonomy.
-- [../concepts/README.md](../concepts/README.md) — cross-cutting
+- [../concepts/concepts.md](../concepts/concepts.md) — cross-cutting
   technical ideas (patching, VQ, zero-shot, probabilistic,
   [in-context learning](../concepts/in-context-learning.md), scaling laws, [RevIN](../concepts/revin-normalization.md), multi-task, synthetic
   data).
-- [../papers/README.md](../papers/README.md) — the 20 paper leaves.
+- [../papers/papers.md](../papers/papers.md) — the 20 paper leaves.
 
 ## Related wiki pages
 
 - [taxonomy.md](taxonomy.md)
 - [../foundations/deep-learning-era.md](../foundations/deep-learning-era.md)
-- [../architectures/README.md](../architectures/README.md)
+- [../architectures/architectures.md](../architectures/architectures.md)

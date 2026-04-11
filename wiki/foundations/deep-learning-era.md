@@ -84,7 +84,7 @@ training, probabilistic heads, long-context attention, and — crucially —
 the emergence of large multi-domain corpora such as the [Monash](../datasets-benchmarks/monash-archive.md) archive,
 [LOTSA](../datasets-benchmarks/lotsa.md), and the [Time-Series Pile](../datasets-benchmarks/time-series-pile.md). The field was ready for the
 TimesFM / Chronos / MOMENT / MOIRAI wave. See
-[../foundation-models/README.md](../foundation-models/README.md) for
+[../foundation-models/foundation-models.md](../foundation-models/foundation-models.md) for
 what came next, and
 [../papers/timesfm.md](../papers/timesfm.md),
 [../papers/chronos.md](../papers/chronos.md),
@@ -94,6 +94,6 @@ first TS-FM cohort.
 
 ## Related wiki pages
 
-- [../foundation-models/README.md](../foundation-models/README.md)
+- [../foundation-models/foundation-models.md](../foundation-models/foundation-models.md)
 - [classical-methods.md](classical-methods.md)
 - [../concepts/patch-tokenization.md](../concepts/patch-tokenization.md)

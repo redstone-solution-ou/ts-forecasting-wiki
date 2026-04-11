@@ -3,7 +3,7 @@
 This section gathers the conceptual and methodological background that the
 time-series foundation-model (TS-FM) literature builds on. It is short on
 purpose: the goal is to give a reader who jumps straight from here to
-[../foundation-models/README.md](../foundation-models/README.md) enough
+[../foundation-models/foundation-models.md](../foundation-models/foundation-models.md) enough
 vocabulary to follow the paper leaves without needing an outside textbook.
 Three pages cover, in order, the forecasting task itself, the classical
 statistical toolbox, and the deep-learning era that set the stage for the
@@ -21,5 +21,5 @@ TS-FM wave of 2023–2025.
 
 ## Related wiki pages
 
-- [../foundation-models/README.md](../foundation-models/README.md)
-- [../README.md](../README.md)
+- [../foundation-models/foundation-models.md](../foundation-models/foundation-models.md)
+- [../overview.md](../overview.md)

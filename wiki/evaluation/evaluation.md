@@ -1,8 +1,8 @@
 # Evaluation — Metrics, Protocols, and What Each Paper Actually Ran
 
 This section is the *methodology* layer of the wiki. Where
-[../benchmarks/](../benchmarks/README.md) gives you the raw numbers and
-[../datasets-benchmarks/](../datasets-benchmarks/README.md) describes the
+[../benchmarks/](../benchmarks/benchmarks.md) gives you the raw numbers and
+[../datasets-benchmarks/](../datasets-benchmarks/datasets-benchmarks.md) describes the
 corpora those numbers are computed on, this section explains how to
 read a TS forecasting evaluation in the first place: what each metric
 means, which baselines to compare against, how protocols differ, and
@@ -42,7 +42,7 @@ section teaches the procedure.
   univariate-only and who want a head-to-head comparison against
   2024–2026 TS-FM SOTA under the same metric conventions this
   section defines.
-- [../datasets-benchmarks/README.md](../datasets-benchmarks/README.md)
+- [../datasets-benchmarks/datasets-benchmarks.md](../datasets-benchmarks/datasets-benchmarks.md)
   — the corpora and evaluation suites themselves.
 - [../research/glossary.md](../research/glossary.md) — one-line
   definitions linking back into this section.

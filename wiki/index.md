@@ -8,25 +8,25 @@ Last updated: 2026-04-12.
 
 ## Orientation
 
-- [README.md](README.md) — entry point, reading paths, knowledge-graph sketch
+- [overview.md](overview.md) — entry point, reading paths, knowledge-graph sketch
 - [index.md](index.md) — this page, the flat catalog of every wiki page
 - [log.md](log.md) — chronological append-only change log
 
 ## Foundations
 
-- [foundations/README.md](foundations/README.md) — orientation to the classical and deep-learning precursors
+- [foundations/foundations.md](foundations/foundations.md) — orientation to the classical and deep-learning precursors
 - [foundations/classical-methods.md](foundations/classical-methods.md) — ARIMA, ETS, Theta, Prophet, state-space, TBATS and their role as baselines
 - [foundations/deep-learning-era.md](foundations/deep-learning-era.md) — DeepAR, N-BEATS, PatchTST, TSMixer, the pre-FM transformer wave
 - [foundations/time-series-forecasting.md](foundations/time-series-forecasting.md) — the forecasting task, axes of variation, canonical loss functions
 
 ## Foundation models
 
-- [foundation-models/README.md](foundation-models/README.md) — definition of the TS-FM paradigm, motivation, brief history
+- [foundation-models/foundation-models.md](foundation-models/foundation-models.md) — definition of the TS-FM paradigm, motivation, brief history
 - [foundation-models/taxonomy.md](foundation-models/taxonomy.md) — the canonical seven-cluster taxonomy with the 20-paper summary table
 
 ## Architectures
 
-- [architectures/README.md](architectures/README.md) — index of the architecture-family pages
+- [architectures/architectures.md](architectures/architectures.md) — index of the architecture-family pages
 - [architectures/decoder-only-autoregressive.md](architectures/decoder-only-autoregressive.md) — GPT-style next-patch transformers (TimesFM, Timer, Lag-Llama, Time-MoE)
 - [architectures/encoder-decoder-t5.md](architectures/encoder-decoder-t5.md) — T5-style seq2seq on tokenized values (Chronos, Chronos-2)
 - [architectures/flow-matching-continuous.md](architectures/flow-matching-continuous.md) — continuous flow-matching objective without vocabularies (Sundial)
@@ -37,7 +37,7 @@ Last updated: 2026-04-12.
 
 ## Concepts
 
-- [concepts/README.md](concepts/README.md) — index of the cross-cutting concept pages
+- [concepts/concepts.md](concepts/concepts.md) — index of the cross-cutting concept pages
 - [concepts/in-context-learning.md](concepts/in-context-learning.md) — conditioning on related series or demonstrations at inference time
 - [concepts/multi-task-universal.md](concepts/multi-task-universal.md) — one pretrained model for forecast, classify, impute, anomaly
 - [concepts/patch-tokenization.md](concepts/patch-tokenization.md) — grouping contiguous values into transformer tokens
@@ -50,7 +50,7 @@ Last updated: 2026-04-12.
 
 ## Datasets and corpora
 
-- [datasets-benchmarks/README.md](datasets-benchmarks/README.md) — index of pretraining corpora and shared evaluation suites
+- [datasets-benchmarks/datasets-benchmarks.md](datasets-benchmarks/datasets-benchmarks.md) — index of pretraining corpora and shared evaluation suites
 - [datasets-benchmarks/gift-eval.md](datasets-benchmarks/gift-eval.md) — cross-cutting zero-shot FM leaderboard used alongside Monash
 - [datasets-benchmarks/lotsa.md](datasets-benchmarks/lotsa.md) — MOIRAI's ~27B-observation open 9-domain pretraining corpus
 - [datasets-benchmarks/monash-archive.md](datasets-benchmarks/monash-archive.md) — the canonical multi-domain forecasting benchmark archive
@@ -60,7 +60,7 @@ Last updated: 2026-04-12.
 
 ## Benchmarks (head-to-head + practical guides)
 
-- [benchmarks/README.md](benchmarks/README.md) — index and reading order for the performance-layer pages
+- [benchmarks/benchmarks.md](benchmarks/benchmarks.md) — index and reading order for the performance-layer pages
 - [benchmarks/efficiency-and-cost.md](benchmarks/efficiency-and-cost.md) — params, training compute, inference latency, CPU deployability
 - [benchmarks/leaderboard.md](benchmarks/leaderboard.md) — normalized tables on GIFT-Eval, Monash, Chronos Benchmark II, fev-bench, LTSF
 - [benchmarks/methodology-caveats.md](benchmarks/methodology-caveats.md) — leakage, normalization, metric semantics, aggregation, asterisks
@@ -71,7 +71,7 @@ Last updated: 2026-04-12.
 
 ## Evaluation (methodology)
 
-- [evaluation/README.md](evaluation/README.md) — index and reading order for metrics, protocols, and per-paper evaluations
+- [evaluation/evaluation.md](evaluation/evaluation.md) — index and reading order for metrics, protocols, and per-paper evaluations
 - [evaluation/comparability-checklist.md](evaluation/comparability-checklist.md) — seven-item checklist for whether two papers' numbers can be compared
 - [evaluation/metrics.md](evaluation/metrics.md) — every point and probabilistic metric used in TS-FM papers, with formulas and failure modes
 - [evaluation/probabilistic-evaluation.md](evaluation/probabilistic-evaluation.md) — CRPS, WQL, quantile loss, calibration vs sharpness
@@ -81,7 +81,7 @@ Last updated: 2026-04-12.
 
 ## Research / frontier
 
-- [research/README.md](research/README.md) — index and reading order for the research-corner pages
+- [research/research.md](research/research.md) — index and reading order for the research-corner pages
 - [research/comparison-matrix.md](research/comparison-matrix.md) — dense side-by-side matrix of all paper design choices with derived takeaways
 - [research/contributing.md](research/contributing.md) — how to add a paper or extend the wiki, plus research etiquette
 - [research/glossary.md](research/glossary.md) — compact term definitions linking back into the wiki
@@ -93,7 +93,7 @@ Last updated: 2026-04-12.
 
 Papers are listed in chronological order by the date on the arXiv metadata, oldest first.
 
-- [papers/README.md](papers/README.md) — paper-leaf index with cluster grouping and the full 20-paper metadata table
+- [papers/papers.md](papers/papers.md) — paper-leaf index with cluster grouping and the full 20-paper metadata table
 - [papers/gpt4ts.md](papers/gpt4ts.md) — frozen GPT-2/BERT/BEiT TS adapter (OFA/FPT), Alibaba, ~GPT-2 base (2023-02)
 - [papers/time-llm.md](papers/time-llm.md) — frozen Llama reprogrammed via patch-to-prototype cross-attention (2023-10)
 - [papers/timegpt.md](papers/timegpt.md) — Nixtla's closed encoder-decoder commercial API, conformal intervals, undisclosed size (2023-10)
