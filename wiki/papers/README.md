@@ -24,6 +24,7 @@ This directory is the leaf layer of the wiki; each page summarizes one research 
 | UniTS | [2403.00131](https://arxiv.org/abs/2403.00131) | 2024-02 | NeurIPS 2024 | Multi-task / universal | [units](./units.md) |
 | TOTEM | [2402.16412](https://arxiv.org/abs/2402.16412) | 2024-02 | preprint | Multi-task / universal | [totem](./totem.md) |
 | Sundial | [2502.00816](https://arxiv.org/abs/2502.00816) | 2025-02 | preprint | Continuous / flow-matching | [sundial](./sundial.md) |
+| Timer-S1 | [2603.04791](https://arxiv.org/abs/2603.04791) | 2026-03 | preprint | Decoder-only autoregressive (+MoE) | [timer-s1](./timer-s1.md) |
 | Mamba4Cast | [2410.09385](https://arxiv.org/abs/2410.09385) | 2024-10 | preprint | Lightweight / non-transformer | [mamba4cast](./mamba4cast.md) |
 
 ## Grouped by cluster
@@ -32,6 +33,7 @@ This directory is the leaf layer of the wiki; each page summarizes one research 
 - [TimesFM](./timesfm.md)
 - [Timer](./timer.md)
 - [Timer-XL](./timer-xl.md)
+- [Timer-S1](./timer-s1.md)
 - [Lag-Llama](./lag-llama.md)
 
 ### [Cluster 2 — Masked-encoder / encoder-decoder TS-FMs](../foundation-models/taxonomy.md#cluster-2-masked-encoder--encoder-decoder-ts-fms)
@@ -44,6 +46,7 @@ This directory is the leaf layer of the wiki; each page summarizes one research 
 ### [Cluster 3 — Mixture-of-experts TS-FMs](../foundation-models/taxonomy.md#cluster-3-mixture-of-experts-ts-fms)
 - [Moirai-MoE](./moirai-moe.md)
 - [Time-MoE](./time-moe.md)
+- Secondary: [Timer-S1](./timer-s1.md)
 
 ### [Cluster 4 — LLM-adapted / reprogramming approaches](../foundation-models/taxonomy.md#cluster-4-llm-adapted--reprogramming-approaches)
 - [Time-LLM](./time-llm.md)

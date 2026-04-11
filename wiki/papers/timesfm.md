@@ -19,6 +19,32 @@ TimesFM is a GPT-style decoder-only transformer operating on patched real-valued
 ## Why it matters
 TimesFM was among the first TS models to clearly demonstrate that a single pretrained transformer can generalize zero-shot across Monash, Darts, and ETT with quality comparable to supervised specialists, establishing the decoder-only patched paradigm for time-series foundation models.
 
+## Strengths
+- Clean empirical story: on Monash (18 datasets after filtering) the 200M model beats llmtime by >25% in scaled MAE and is within error of N-BEATS despite never training on those datasets.
+- The asymmetric input/output patch trick (e.g. `input_patch=32`, `output_patch=128`) is ablated directly in Fig 3b on 512-step ETT horizons and shows a monotonic improvement as output patch grows, giving a principled middle ground between one-shot and fully autoregressive decoding.
+- Preliminary scaling study across 17M / 70M / 200M checkpoints shows a log-linear FLOP-vs-error trend on Monash (Fig 3a), one of the earliest concrete scaling-law signals for TS foundation models.
+- A synthetic-data ablation (Fig 3d) isolates its value: roughly no effect on ETTh (hourly, well-represented) but a clear gain on ETTm (15 min) and on under-represented Monash granularities such as quarterly and yearly.
+
+## Limitations and open critiques
+- Point-forecast only. The authors explicitly defer probabilistic forecasting to future work, so TimesFM v1 cannot be compared directly on CRPS/quantile benchmarks against [chronos](./chronos.md) or [lag-llama](./lag-llama.md).
+- No covariate handling at pretraining time; the paper only sketches a zero-shot residual regression workaround and relies on finetuning for covariate-aware use. This is a real gap for retail/supply-chain deployments where exogenous inputs dominate.
+- The Wiki Pageviews / Google Trends corpus is massive but narrow in character (search-interest and page-view counts). Frequencies like hourly Wiki and daily Trends dominate the mix in Table 1, which raises a fair question about how much of the "zero-shot" generalization is really cross-domain vs. cross-granularity interpolation inside a biased prior.
+- Hyperparameter and architecture search was admittedly light; the paper says MLP/Mamba alternatives and covariate-aware variants were left to follow-ups.
+- Benchmarks are the usual Monash/Darts/ETT triad. Chronos-2 and [moirai](./moirai.md) follow-ups argue these suites under-represent long-horizon, high-dimensional, and probabilistic regimes — see [../benchmarks/state-of-the-art.md](../benchmarks/state-of-the-art.md).
+
+## Follow-up work and dialogue
+TimesFM established the "decoder-only + patched + synthetic-augmented" recipe that [timer](./timer.md), [time-moe](./time-moe.md), and [sundial](./sundial.md) all build on. [timer-xl](./timer-xl.md) directly generalizes the single-series decoder to multivariate any-to-any prediction, citing TimesFM's univariate restriction as its motivation. On the probabilistic side, [chronos](./chronos.md) and [lag-llama](./lag-llama.md) pursue a different axis (tokenized/quantile output) that TimesFM v1 deliberately skipped. [moirai](./moirai.md) and [moirai-moe](./moirai-moe.md) critique TimesFM's narrow corpus and offer the LOTSA datasets plus frequency-aware or MoE routing as alternative ways to handle heterogeneity. See also [../research/open-problems.md](../research/open-problems.md) on corpus bias and covariate support.
+
+## Reproducibility
+- **Open weights:** partial — the paper states weights would be released; a checkpoint has since been published on HuggingFace (`google/timesfm-1.0-200m`), but the paper itself does not pin a hub URL.
+- **Code:** referenced in paper but URL not extracted.
+- **Training data:** partially public — M4, Electricity, Traffic, Weather, LibCity and Favorita are public; Google Trends and Wiki Pageviews are redistributable as raw counts but the exact 22k-query / ~68M-series slices used are not released.
+- **Compute to retrain:** 2 days to complete 1.5M iterations at batch 4096 on a TPUv5e pod with 16 tensor cores for the 200M model; exact FLOPs not disclosed.
+- **Deployment footprint:** 200M parameters; configurable context length up to 512 patches; inference demonstrated at standard-GPU scale; no explicit CPU benchmark.
+
+## When to cite this paper
+Cite TimesFM as the canonical reference for the decoder-only patched TS foundation model and for the specific trick of making the output patch longer than the input patch to reduce autoregressive steps. It is also the right citation for the first clear zero-shot parity claim against supervised specialists on Monash/Darts/ETT; later papers should be preferred for probabilistic or multivariate claims.
+
 ## In the knowledge graph
 - **Cluster:** [Decoder-only autoregressive TS-FMs](../foundation-models/taxonomy.md#cluster-1-decoder-only-autoregressive-ts-fms)
 - **Architecture family:** [Decoder-only autoregressive](../architectures/decoder-only-autoregressive.md)

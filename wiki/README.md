@@ -17,6 +17,24 @@ or concept page for context, and finally opens the corresponding leaf in
 `papers/` to read the paper itself. Cross-links are always relative paths,
 so the wiki is fully browsable on GitHub or offline.
 
+## Start here as a researcher
+
+If you arrived here wanting to contribute — to the wiki or to the
+field — read these first, in order:
+
+- [research/reading-roadmap.md](research/reading-roadmap.md) — a
+  beginner / intermediate / advanced path through the 19 papers.
+- [research/open-problems.md](research/open-problems.md) — the
+  frontier questions as of 2026-04, with concrete directions.
+- [research/comparison-matrix.md](research/comparison-matrix.md) — all
+  19 papers side by side, plus cross-paper takeaways.
+- [benchmarks/leaderboard.md](benchmarks/leaderboard.md) — current
+  public numbers on the main evaluation suites.
+
+The full research corner, including the reproducibility table,
+contributing guide and glossary, is at
+[research/README.md](research/README.md).
+
 ## Reading paths
 
 - **15-minute overview.** Start with
@@ -52,6 +70,12 @@ so the wiki is fully browsable on GitHub or offline.
 - [datasets-benchmarks/](datasets-benchmarks/README.md) — the corpora and
   evaluation suites that TS-FMs are trained and judged on (Monash, LOTSA,
   Time-Series Pile, Time-300B, TimeBench, GIFT-Eval).
+- [benchmarks/](benchmarks/README.md) — head-to-head performance
+  comparisons across those suites: a normalized
+  [leaderboard](benchmarks/leaderboard.md), a
+  [state-of-the-art analysis](benchmarks/state-of-the-art.md) by regime,
+  [methodology caveats](benchmarks/methodology-caveats.md), and an
+  [efficiency and cost](benchmarks/efficiency-and-cost.md) page.
 - [papers/](papers/README.md) — the 19 leaf pages, one per paper.
 
 ## Knowledge-graph sketch
@@ -85,4 +109,6 @@ ts-forecasting-wiki
 ## Related wiki pages
 
 - [foundation-models/taxonomy.md](foundation-models/taxonomy.md)
+- [benchmarks/leaderboard.md](benchmarks/leaderboard.md)
+- [benchmarks/state-of-the-art.md](benchmarks/state-of-the-art.md)
 - [papers/README.md](papers/README.md)

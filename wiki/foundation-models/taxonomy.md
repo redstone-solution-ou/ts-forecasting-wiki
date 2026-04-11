@@ -30,6 +30,7 @@ hook each.
 | UniTS       | 2024-03 | 6       | Unified transformer              | Multi-task joint training     | —                           |
 | TOTEM       | 2024-02 | 6       | VQ tokenizer + transformer       | Multi-task on VQ tokens       | —                           |
 | Sundial     | 2025-02 | 7       | Transformer + flow matching      | Flow matching on cont. tokens | ~1T pretraining points      |
+| Timer-S1    | 2026-03 | 1 (+3)  | Decoder-only sparse MoE          | Serial-Token Prediction (STP) | 8.3B total / 0.75B active   |
 
 ## Cluster 1 — Decoder-only autoregressive TS-FMs
 
@@ -49,6 +50,10 @@ Primary architecture page:
   series.
 - [../papers/timer-xl.md](../papers/timer-xl.md) — Timer's long-context,
   multivariate successor; doubles as a Cluster-6 unified model.
+- [../papers/timer-s1.md](../papers/timer-s1.md) — 8.3B sparse-MoE
+  decoder with Serial-Token Prediction, trained on TimeBench; state of
+  the art on GIFT-Eval among pre-trained models. Doubles as a Cluster-3
+  MoE member.
 - [../papers/lag-llama.md](../papers/lag-llama.md) — a small
   Llama-style architecture that explicitly feeds lag features as
   tokens.
@@ -92,6 +97,9 @@ Primary architecture page:
   scaled to 2.4B total parameters on a very large TS corpus.
 - [../papers/moirai-moe.md](../papers/moirai-moe.md) — MoE variant of
   MOIRAI with experts that specialize across frequencies and domains.
+- Secondary member: [../papers/timer-s1.md](../papers/timer-s1.md) —
+  pushes sparse MoE (top-2 of 32 experts) to 8.3B total parameters in
+  the Timer family.
 
 ## Cluster 4 — LLM-adapted / reprogramming approaches
 
@@ -168,3 +176,8 @@ Primary architecture page:
 - [README.md](README.md)
 - [../architectures/README.md](../architectures/README.md)
 - [../papers/README.md](../papers/README.md)
+- [../benchmarks/leaderboard.md](../benchmarks/leaderboard.md) —
+  head-to-head performance of the models in this table on
+  GIFT-Eval, fev-bench, Chronos Benchmark II, Monash and LTSF.
+- [../benchmarks/state-of-the-art.md](../benchmarks/state-of-the-art.md)
+  — narrative "which cluster wins for which regime."

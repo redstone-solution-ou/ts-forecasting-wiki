@@ -1,34 +1,87 @@
 # Decoder-Only Autoregressive
 
-Decoder-only autoregressive time-series models are GPT-style causal transformers that predict the next time step (or the next patch of steps) conditioned on all preceding ones. The objective is identical in spirit to language-model next-token prediction, but the "tokens" are numeric patches or quantized bins rather than words.
+## Intuition
 
-## Overview
+A decoder-only autoregressive TS foundation model is a GPT-style causal transformer whose "tokens" are numeric patches (or quantized bins) rather than subwords. The model factorizes the joint distribution of a series as a product of left-to-right conditionals, and training is pure next-token prediction. The appeal is twofold: first, it gives you the *entire* LLM engineering stack for free — KV-cache inference, rotary position embeddings, flash attention, sparse MoE — and second, the training objective is the most data-efficient one we know (every token position contributes a loss), which is exactly what you want when pretraining on tens of billions of points.
 
-An autoregressive TS foundation model factorizes the joint distribution over a series as a product of conditional distributions, each modeled by a causal transformer block stack. During training, every position contributes a loss against its immediate successor, which makes the objective data-efficient and enables variable-length inference: the same model can take any history length and roll out any horizon by repeated sampling or direct multi-step output.
+## Mechanics
 
-Modern decoder-only TS models almost always operate on patches rather than individual timestamps. A patch of contiguous values is projected into a hidden vector that plays the role of an input embedding; a linear or MLP head decodes each output position back to a patch of real-valued predictions (or the parameters of a predictive distribution, or a categorical distribution over a learned vocabulary). Some designs, notably TimesFM, use an output patch that is longer than the input patch, so a single forward pass emits many future steps at once — this shortens the rollout and reduces exposure bias.
+End-to-end forward pass for a typical decoder-only patched TS FM:
 
-The family scales naturally: stacking more layers and training on more data produces consistent loss improvements, and empirical scaling laws have been measured directly on time series (Lag-Llama, Time-MoE, Timer). It also supports sparse scaling via mixture-of-experts (Time-MoE) and long contexts up to 4096+ tokens.
+```
+# Inputs: x in R^T (one series), P_in = input patch, P_out = output patch, D = hidden
+x_norm, stats = RevIN_forward(x)                      # per-instance standardization
+patches       = unfold(x_norm, size=P_in, stride=P_in) # (N, P_in), N = T / P_in
+tokens        = patches @ W_in + b_in + pos_emb       # (N, D)
+# causal self-attention stack
+for layer in 1..L:
+    tokens = tokens + CausalMHA(LN(tokens))            # mask: no peek forward
+    tokens = tokens + FFN(LN(tokens))                  # dense or MoE
+# per-position output: decode a patch of future values
+y_patch       = tokens @ W_out + b_out                # (N, P_out)
+# training: token at position i predicts the next P_out values
+loss          = MSE(y_patch[:-1], next_patches)        # or NLL under a parametric head
+```
 
-## Key ideas / variants
+Key moves:
 
-- Patched next-token prediction with optional longer output patches (TimesFM).
-- Single-Series Sequence (S3) unified format for heterogeneous corpora (Timer).
-- Multivariate flattening with universal causal attention (Timer-XL).
-- Lag features as extra covariates into the causal stream (Lag-Llama).
-- Probabilistic heads (Student-t, categorical) for sampled forecasts.
+- **Patch-level autoregression.** Each token represents `P_in` consecutive timestamps; each output predicts the next `P_out` timestamps. Standard LLMs have `P_in = P_out = 1` (one subword in, one out); TimesFM uses `P_in = 32, P_out = 128` so one token emits four patches of future values. This shortens the rollout by the factor `P_out / P_in`, reducing exposure bias and wall-clock.
+- **Causal mask.** Position `i` attends only to positions `<= i`. KV-cache at inference makes rollout `O(N)` per new step rather than `O(N^2)`.
+- **Output head.** Three choices: (a) linear regression head + MSE, (b) parametric distribution head (Student-t, mixture) + NLL, or (c) categorical over a quantized vocabulary + CE. Chronos is the exception that uses encoder-decoder with (c); most decoder-only models use (a) or (b).
 
-## Papers that exemplify this (or use this)
+Rollout for an `L`-step horizon:
 
-- [TimesFM](../papers/timesfm.md) — 200M-param decoder with output-patch longer than input-patch for efficient rollout.
-- [Timer](../papers/timer.md) — GPT-style decoder trained on ~1B points under the unified S3 format.
-- [Timer-XL](../papers/timer-xl.md) — extends Timer to multivariate next-token with universal TimeAttention.
-- [Lag-Llama](../papers/lag-llama.md) — first open decoder-only probabilistic TS FM with a Student-t head.
-- [Time-MoE](../papers/time-moe.md) — 2.4B sparse decoder-only MoE trained on Time-300B.
+```
+tokens = encode(history)
+for step in 1..ceil(L / P_out):
+    z_new   = decoder_step(tokens)           # uses KV-cache, O(N) per step
+    patch   = decode_head(z_new)             # (P_out,)
+    tokens  = append(tokens, embed(patch))
+```
+
+## Why it works
+
+The factorization `p(x_1, ..., x_T) = \prod_t p(x_t | x_{<t})` is exact, so training one conditional at a time captures the full joint. This gives three advantages over direct multi-horizon regression. First, the training signal is dense: every position contributes to the loss, so an `N`-token sequence gives `N` supervision pairs, which is `N×` more data-efficient than a single history→horizon pair. Second, the model can emit *arbitrary* horizons by rolling out; horizon is not baked into the architecture. Third, the resulting model supports in-context use naturally — just concatenate context and let the causal mask do the rest — which is why Timer-XL's multivariate flattening works at all.
+
+The causal mask also provides a free implicit regularizer: the model cannot cheat by peeking at future values, so it has to learn the true conditional. Compared to masked-encoder reconstruction, which lets the model see bidirectional context, the causal setup is harder but transfers more cleanly to forecasting because the training and inference distributions match exactly.
+
+Patch-level output (`P_out > P_in`) is a subtle but important refinement. Classical 1-step-ahead decoders suffer from exposure bias: training sees teacher-forced history, inference sees model-generated history, and errors compound. Longer output patches reduce the number of rollout steps and therefore reduce compounding, at the cost of coarser granularity within each emitted block.
+
+## Trade-offs and failure modes
+
+Autoregressive rollout has a compounding-error problem that is sharpest at long horizons: an error at step 10 shifts the input distribution seen at step 11, and the divergence can grow exponentially. Parametric heads with wide distributions help (the next-step uncertainty absorbs some drift), but cannot eliminate it. Direct multi-horizon heads (masked encoder with all horizon tokens at once, or flow-matching) avoid this but lose the dense training signal.
+
+Causal attention also throws away future context at training time — in contrast, a masked encoder learns from bidirectional context, which is more sample-efficient for non-forecasting tasks like imputation. Decoder-only models are therefore often worse at imputation and classification than equivalent-size masked encoders, even if they are better at forecasting.
+
+Another failure mode is *locked input granularity*: once you fix `P_in`, changing the user's sampling frequency at inference requires either resampling the series or having multiple projection heads keyed by frequency (MOIRAI's trick) or routing (Moirai-MoE's). Pure decoder-only TS FMs with one projection struggle on off-training frequencies.
+
+## Siblings and design space
+
+Compared to `[Masked encoder](masked-encoder.md)`, decoder-only is better for forecasting rollout but worse for bidirectional tasks. Compared to `[Encoder-decoder T5](encoder-decoder-t5.md)`, decoder-only is simpler (no encoder cross-attention, smaller KV footprint) but loses the clean history-horizon decoupling; Chronos's encoder-decoder plus quantization is a different tradeoff in the same neighborhood. Compared to `[Lightweight non-transformer](lightweight-non-transformer.md)`, decoder-only is heavier but scales cleanly with MoE; TTM argues the opposite, that small non-transformer models can substitute.
+
+## Design choices in the literature
+
+- `[TimesFM](../papers/timesfm.md)` — ~200M decoder-only patched transformer with `P_in = 32`, `P_out = 128`, trained on a ~100B-point mixture of Google Trends, Wiki Pageviews, and synthetic data. The asymmetric output patch is the headline mechanical choice.
+- `[Timer](../papers/timer.md)` — GPT-style decoder trained on a ~1B-point corpus under the Single-Series Sequence (S3) unified format, with emergent few-shot behavior at scale.
+- `[Timer-XL](../papers/timer-xl.md)` — extends Timer to multivariate and covariate settings by flattening panels and using universal TimeAttention with 2D position embeddings, preserving causality along the time axis.
+- `[Lag-Llama](../papers/lag-llama.md)` — first open decoder-only probabilistic TS FM, injects lag features as explicit covariates into the causal stream and attaches a Student-t head.
+- `[Time-MoE](../papers/time-moe.md)` — 2.4B sparse MoE decoder-only trained on Time-300B, scaling active and total parameters independently; the first billion-param TS FM and the main evidence that TS decoder-only scales like LLMs.
+- `[Sundial](../papers/sundial.md)` — decoder-only backbone with a TimeFlow flow-matching head, continuous-valued probabilistic output.
+
+## Open questions
+
+- **Optimal input/output patch asymmetry.** TimesFM picked 32/128, but the right ratio is data-dependent and under-explored.
+- **Does rollout compounding fundamentally limit long-horizon accuracy?** Direct multi-horizon heads (Chronos-2, Sundial) bypass it; decoder-only rollout with sampling has to simulate many trajectories to recover calibration.
+- **MoE inside a decoder-only TS FM.** Time-MoE shows scaling works, but routing strategies specific to temporal data have not been systematically explored.
+- **Long-context tractability.** 4k–16k tokens is the current ceiling; longer contexts need SSM or linear-attention alternatives.
+- **Native covariate support.** Most decoder-only TS FMs are univariate; Lag-Llama and Timer-XL start to address this but neither is the clear winner.
 
 ## Related wiki pages
 
 - [Patch tokenization](../concepts/patch-tokenization.md)
-- [Mixture-of-experts](mixture-of-experts.md)
-- [Scaling laws](../concepts/scaling-laws.md)
 - [Probabilistic forecasting](../concepts/probabilistic-forecasting.md)
+- [Scaling laws](../concepts/scaling-laws.md)
+- [Zero-shot forecasting](../concepts/zero-shot-forecasting.md)
+- [Mixture-of-experts](mixture-of-experts.md)
+- [Masked encoder](masked-encoder.md)
+- [Encoder-decoder T5](encoder-decoder-t5.md)
