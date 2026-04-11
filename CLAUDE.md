@@ -401,13 +401,14 @@ Run when asked, or after a batch of ingests. A full lint pass checks:
 
 ## Canonical paper slugs (as of 2026-04-12)
 
-20 paper leaves exist. Use these slugs in all cross-links:
+23 paper leaves exist. Use these slugs in all cross-links:
 
 ```
 timesfm       chronos        chronos-2     moment        moirai
 moirai-moe    timer          timer-xl      timer-s1      lag-llama
 timegpt       time-moe       time-llm      gpt4ts        llmtime
 ttm           units          totem         sundial       mamba4cast
+moirai-2      tspulse        sempo
 ```
 
 When ingesting a new paper, pick a slug by lowercasing the model short

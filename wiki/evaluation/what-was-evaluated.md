@@ -1,6 +1,6 @@
 # What Each Paper Actually Evaluated
 
-This page is a per-paper cross-reference: for each of the 20 papers
+This page is a per-paper cross-reference: for each of the 23 papers
 in the wiki, what metrics did the authors report, on which datasets,
 under what protocol, against which baselines, and did the paper
 produce probabilistic forecasts? Rows are sourced from the paper
@@ -37,6 +37,9 @@ a benchmark protocol, see [protocols.md](protocols.md).
 | TOTEM | MSE, MAE; F1 | TSLib + zero-shot held-out domains (neuroscience, river flow, birth rate) | specialist + generalist; ~500 experiments | 14 forecast, 17 imputation, 19 anomaly baselines | No (point only) | [../papers/totem.md](../papers/totem.md) |
 | Sundial | MASE, CRPS, MSE, MAE | GIFT-Eval (97 tasks, Table 2), Chronos Bench II, LTSF (Table 1) | zero-shot | TimesFM, Moirai, Chronos, Time-MoE, PatchTST, iTransformer, N-BEATS, TabPFN-TS | Yes (flow-matching generative) | [../papers/sundial.md](../papers/sundial.md) |
 | Mamba4Cast | MASE, ranks (critical-difference diagram) | 17-dataset Monash-style suite | zero-shot + latency vs horizon | Chronos-Base/Small, DeepAR, AutoARIMA, sNaive | No (point only; compared to probabilistic Chronos on MASE only) | [../papers/mamba4cast.md](../papers/mamba4cast.md) |
+| Moirai 2.0 | MASE, CRPS (9-quantile pinball) | [GIFT-Eval](../datasets-benchmarks/gift-eval.md) only (Table 1) | zero-shot; GIFT-Eval TrainTest train split used during pretraining, test split held out | 30 filtered FMs from the GIFT-Eval leaderboard (TimesFM-2.5, TiRex, Toto, Chronos-Bolt, Sundial, ...) | Yes (9-quantile pinball head) | [../papers/moirai-2.md](../papers/moirai-2.md) |
+| SEMPO | MSE, MAE | TSLib zero-shot (7 datasets × 4 horizons = 14 splits, Table 1); 5% few-shot on TSLib; 16-dataset average including 9 GIFT-Eval non-overlapping datasets (Appendix D) | zero-shot after Stage 1 + MoP-tuning on target domain; full 5%-few-shot variant | Time-MoE-B/L, Timer, Moirai-S/B/L, Chronos-S/B/L, TimesFM, Moment, TTM | No (point only) | [../papers/sempo.md](../papers/sempo.md) |
+| TSPulse | VUS-PR (anomaly), accuracy (classification), MSE (imputation), retrieval F1 | TSB-AD (uni + multi), UEA-29, LTSF imputation (ETTh1/2, ETTm1/2, Weather, ECL), UCR+synthetic similarity | zero-shot + short fine-tune; no forecasting benchmarks reported | MOMENT, UniTS, VQShape, Chronos, TimesFM | No (not a forecaster; `Headpred` injects only a few points into semantic embedding) | [../papers/tspulse.md](../papers/tspulse.md) |
 
 ## Derived observations
 

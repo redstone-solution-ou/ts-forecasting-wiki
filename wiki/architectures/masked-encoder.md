@@ -65,6 +65,7 @@ Compared to `[Decoder-only autoregressive](decoder-only-autoregressive.md)`, mas
 - `[MOMENT](../papers/moment.md)` — T5-initialized encoder weights + PatchTST patching + RevIN, masked reconstruction pretraining on the [Time Series Pile](../datasets-benchmarks/time-series-pile.md), task-specific heads for forecast/classify/anomaly/impute. Three sizes (40M/125M/385M) demonstrating a dense masked-encoder scaling curve.
 - `[MOIRAI](../papers/moirai.md)` — built from scratch on LOTSA (~27B observations), introduces multi-patch-size projections for frequency specialization and any-variate attention for unified univariate/multivariate/covariate inputs; mixture-of-Student-t head for calibrated probabilistic output.
 - `[Moirai-MoE](../papers/moirai-moe.md)` — drops the frequency-keyed multi-projection in favor of a *single* projection plus sparse token-level routing, arguing that frequency specialization is better discovered than engineered. Reports SOTA on 39 datasets while activating fewer parameters per token than dense Moirai-Large.
+- **Contrast:** `[Moirai 2.0](../papers/moirai-2.md)` deliberately *leaves* this cluster. The successor from the same Salesforce team argues that Moirai-1's masked-encoder + multi-patch-size + mixture-of-Student-t recipe was over-engineered, and replaces it with a decoder-only backbone, a single patch size, and a quantile-pinball head. See [`decoder-only-autoregressive.md`](decoder-only-autoregressive.md) for its new home.
 
 ## Open questions
 

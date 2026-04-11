@@ -1,6 +1,6 @@
 # Reproducibility and Buildability
 
-For each of the 20 papers on this wiki, the table below records what a
+For each of the 23 papers on this wiki, the table below records what a
 new researcher can actually get their hands on: open weights, training
 code, training corpus, disclosed training cost, and deployment
 footprint. Values are taken from the per-paper fact-sheet on this wiki;
@@ -35,6 +35,9 @@ known".
 | [Sundial](../papers/sundial.md) | Yes (assumed, Tsinghua) | Yes | TimeBench ~1T points | — | Flow-matching decoder, single-pass horizon |
 | [Mamba4Cast](../papers/mamba4cast.md) | Yes | Yes | Synthetic only (no real corpus dependency) | Low (PFN-style training) | SSM backbone, linear-time inference |
 | [Timer-S1](../papers/timer-s1.md) | Partial (release claimed at Tsinghua/ByteDance) | Partial | Yes (TimeBench ~1T pts, curation pipeline documented) | — (multi-billion sparse MoE on ~1T pts, not publicly priced) | 8.3B total / 0.75B active, 11.5K context, single-pass multi-horizon via TimeSTP |
+| [Moirai 2.0](../papers/moirai-2.md) | Yes (`Salesforce/moirai-2.0-R-small`; 87M/305M also released) | Yes (`SalesforceAIResearch/uni2ts`) | Partial (GIFT-Eval Pretrain + Chronos-Mixup + KernelSynth are open; ~2.15M-series Salesforce CloudOps telemetry component is proprietary) | AdamW lr 1e-3, wd 1e-1, 100K steps × batch 256, 10K linear warmup + cosine, bf16; H200 GPU for inference; GPU count / wall-clock not disclosed | 11.4M (recommended) / 87.1M / 305M, context ~10K (KV-cache case study), `(d, L, heads, patch)` not tabulated; ~30x smaller and ~2x faster than Moirai-1-Large |
+| [SEMPO](../papers/sempo.md) | Code and data released at `github.com/mala-lab/SEMPO`; weight artifacts referenced in paper, hub identifiers not extracted | Yes (`github.com/mala-lab/SEMPO`) | Partial (curated ~83M-point [UTSD](../datasets-benchmarks/datasets-benchmarks.md) subset with 9:1 split, exact subset list in Appendix C but not released as a named snapshot) | 10 hours on 4× A6000-48G, BF32, batch 2048, AdamW lr 1e-3 wd 0.1, 10K linear warmup steps (fully disclosed) | 6.5M params, `S=6, H=16, D_p=256, L_p=64, L=512`, 22s ETTh1 inference vs 205s Moirai-S (Figure 6) |
+| [TSPulse](../papers/tspulse.md) | Yes (`ibm-granite/granite-timeseries-tspulse-r1` on HF) | Yes (`ibm-granite/granite-tsfm`, shared repo with TTM) | Yes (~1B-sample Monash + LibCity subset inherited from TTM, fully public) | ~1 day on 8× A100, 20 epochs (Appendix A.9 / A.12); not reported as GPU-hours or FLOPs | 1.06M params, `S=512, pl=8, D=24`, 8 backbone + 2 decoder layers; 0.06s CPU per batch, 0.39 GB peak memory — CPU-deployable |
 
 ## Reading the table
 

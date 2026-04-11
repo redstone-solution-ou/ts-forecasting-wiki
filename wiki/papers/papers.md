@@ -26,6 +26,9 @@ This directory is the leaf layer of the wiki; each page summarizes one research 
 | Sundial | [2502.00816](https://arxiv.org/abs/2502.00816) | 2025-02 | preprint | Continuous / flow-matching | [sundial](./sundial.md) |
 | Timer-S1 | [2603.04791](https://arxiv.org/abs/2603.04791) | 2026-03 | preprint | Decoder-only autoregressive (+MoE) | [timer-s1](./timer-s1.md) |
 | Mamba4Cast | [2410.09385](https://arxiv.org/abs/2410.09385) | 2024-10 | preprint | Lightweight / non-transformer | [mamba4cast](./mamba4cast.md) |
+| SEMPO | [2510.19710](https://arxiv.org/abs/2510.19710) | 2025-10 | NeurIPS 2025 | Lightweight / non-transformer | [sempo](./sempo.md) |
+| Moirai 2.0 | [2511.11698](https://arxiv.org/abs/2511.11698) | 2025-11 | preprint | Decoder-only autoregressive | [moirai-2](./moirai-2.md) |
+| TSPulse | [2505.13033](https://arxiv.org/abs/2505.13033) | 2026-03 | ICLR 2026 | Multi-task / universal | [tspulse](./tspulse.md) |
 
 ## Grouped by cluster
 
@@ -35,6 +38,7 @@ This directory is the leaf layer of the wiki; each page summarizes one research 
 - [Timer-XL](./timer-xl.md)
 - [Timer-S1](./timer-s1.md)
 - [Lag-Llama](./lag-llama.md)
+- [Moirai 2.0](./moirai-2.md)
 
 ### [Cluster 2 — Masked-encoder / encoder-decoder TS-FMs](../foundation-models/taxonomy.md#cluster-2--masked-encoder--encoder-decoder-ts-fms)
 - [Chronos](./chronos.md)
@@ -56,10 +60,13 @@ This directory is the leaf layer of the wiki; each page summarizes one research 
 ### [Cluster 5 — Lightweight / non-transformer FMs](../foundation-models/taxonomy.md#cluster-5--lightweight--non-transformer-fms)
 - [Tiny Time Mixers](./ttm.md)
 - [Mamba4Cast](./mamba4cast.md)
+- [SEMPO](./sempo.md)
+- Secondary: [TSPulse](./tspulse.md)
 
 ### [Cluster 6 — Multi-task / universal unified TS models](../foundation-models/taxonomy.md#cluster-6--multi-task--universal-unified-ts-models)
 - [UniTS](./units.md)
 - [TOTEM](./totem.md)
+- [TSPulse](./tspulse.md)
 
 ### [Cluster 7 — Continuous / flow-matching FMs](../foundation-models/taxonomy.md#cluster-7--continuous--flow-matching-fms)
 - [Sundial](./sundial.md)

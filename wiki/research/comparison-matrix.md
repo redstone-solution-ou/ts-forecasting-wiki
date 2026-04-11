@@ -1,6 +1,6 @@
 # Comparison Matrix
 
-This page puts the 20 papers side by side so that a researcher can see,
+This page puts the 23 papers side by side so that a researcher can see,
 in one screen, which design choices have been tried and which
 combinations are still empty. It is a map, not a ranking: the "Key
 claim" column is the paper's own stated contribution, not a verdict on
@@ -54,6 +54,9 @@ general knowledge.
 | [Sundial](../papers/sundial.md) | Continuous / flow matching (TimeFlow) | Flow matching over horizon | Continuous | — | TimeBench (~1T points) | — | Generative (flow sampling) | Yes | Flow matching as the generative head for TS-FMs at scale |
 | [Mamba4Cast](../papers/mamba4cast.md) | SSM (Mamba) + PFN | Prior-fitted-network loss on synthetic priors | Continuous | Small / mid | Synthetic only | No | Yes (PFN predictive distribution) | Yes | Synthetic-only SSM backbone with single-pass horizon |
 | [Timer-S1](../papers/timer-s1.md) | Decoder-only sparse MoE + TimeSTP blocks | Serial-Token Prediction (stacked shift-by-one heads) | Continuous patches (P=16) | 8.3B total / 0.75B active | TimeBench (~1T pts) curated + augmented | No (primary) | Yes (9-quantile CRPS head) | Yes (Tsinghua/ByteDance) | Serial Scaling in architecture, data, and training beats autoregressive rollout |
+| [Moirai 2.0](../papers/moirai-2.md) | Decoder-only AR transformer (RMSNorm/GLU/RoPE) | 9-quantile pinball + multi-token prediction, 50% patch masking | Continuous single-patch-size projection | 11.4M / 87.1M / 305M (small recommended) | 36M-series / ~295B-obs mixture: GIFT-Eval Pretrain + Chronos-Mixup + KernelSynth + Salesforce CloudOps | No (multivar dropped vs Moirai-1) | Yes (9-quantile head, expand-collapse AR decoding) | Yes (`Salesforce/moirai-2.0-R-small`) | Decoder-only + single patch + quantile head beats Moirai-1's masked encoder at 1/30 the params; scaling past 11M hurts |
+| [SEMPO](../papers/sempo.md) | Encoder-decoder transformer with MoP prompt prefixes | Reconstruction + multi-resolution forecast, two-stage (EASD pretraining then MoP tuning) | Continuous patches (L_p=64) after EASD spectral masking | 6.5M | ~83M-point curated UTSD subset | Channel-independent only | No (point only) | Code at `github.com/mala-lab/SEMPO` | Energy-aware spectral decomposition + mixture-of-prompts beat 100-700M TS-FMs on TSLib zero-shot at 6.5M params / 83M points |
+| [TSPulse](../papers/tspulse.md) | TSMixer (MLP-Mixer, 8 layers, gated attention) | Dual-space time+FFT masked reconstruction with hybrid patch masking | Continuous patches (pl=8, D=24) + register tokens | 1.06M | ~1B-sample Monash + LibCity subset (shared with TTM) | Channel-independent at pretrain; channel mixing re-enabled at fine-tune | No (not a forecaster) | Yes (`ibm-granite/granite-timeseries-tspulse-r1`) | Disentangled time / spectral / semantic embeddings from one 1M-param TSMixer beat 40-700M multi-task baselines on TSB-AD, UEA, LTSF imputation |
 
 ## Derived takeaways
 

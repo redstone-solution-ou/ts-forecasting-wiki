@@ -31,11 +31,11 @@ If you arrived here wanting to contribute — to the wiki or to the
 field — read these first, in order:
 
 - [research/reading-roadmap.md](research/reading-roadmap.md) — a
-  beginner / intermediate / advanced path through the 20 papers.
+  beginner / intermediate / advanced path through the 23 papers.
 - [research/open-problems.md](research/open-problems.md) — the
   frontier questions as of 2026-04, with concrete directions.
 - [research/comparison-matrix.md](research/comparison-matrix.md) — all
-  20 papers side by side, plus cross-paper takeaways.
+  23 papers side by side, plus cross-paper takeaways.
 - [benchmarks/leaderboard.md](benchmarks/leaderboard.md) — current
   public numbers on the main evaluation suites.
 - [evaluation/evaluation.md](evaluation/evaluation.md) — the methodology
@@ -54,12 +54,12 @@ field — read these first, in order:
   recommendation for each axis (univariate vs multivariate, point
   vs probabilistic, CPU vs big GPU, short vs long horizon).
 - [research/timeline.md](research/timeline.md) — *"Who did what,
-  when?"* Chronological walk through the 20 papers, 2023 to 2026,
+  when?"* Chronological walk through the 23 papers, 2023 to 2026,
   with the signature contribution of each.
 - [research/training-recipes.md](research/training-recipes.md) and
   [research/failure-modes.md](research/failure-modes.md) — the
   consolidated training hyperparameters and documented weaknesses
-  across the 20 papers, one table each.
+  across the 23 papers, one table each.
 
 The full research corner, including the reproducibility table,
 contributing guide and glossary, is at

@@ -97,6 +97,11 @@ that Chronos loads.
 | [Sundial](../papers/sundial.md) | Small | 512 | 6 | 8 | 2048 | 16 | 2880 | 32M | Liu et al. Table 5 |
 | [Sundial](../papers/sundial.md) | Base | 768 | 12 | 12 | 3072 | 16 | 2880 | 128M | Liu et al. Table 5 |
 | [Sundial](../papers/sundial.md) | Large | 1024 | 24 | 16 | 4096 | 16 | 2880 | 444M | Liu et al. Table 5 |
+| [Moirai 2.0](../papers/moirai-2.md) | Small | — | — | — | — | single patch (not tabulated) | ~10K (KV-cache case) | 11.4M | Liu et al. §3 (paper releases weights but does not tabulate `(d, L, heads, patch)`)[^m2] |
+| [Moirai 2.0](../papers/moirai-2.md) | Base | — | — | — | — | single patch | — | 87.1M | Liu et al. §3[^m2] |
+| [Moirai 2.0](../papers/moirai-2.md) | Large | — | — | — | — | single patch | — | 305M | Liu et al. §3[^m2] |
+
+[^m2]: Moirai 2.0 releases `Salesforce/moirai-2.0-R-{small,base,large}` checkpoints but the arXiv v3 does not print `(d, L, heads, patch, context)` for any of them. Only the parameter counts and a "context of approximately 10K" reference in the KV-cache case study are stated. The paper recommends the small variant because base and large monotonically worsen on GIFT-Eval.
 
 Checks against the `12·L·d²` core:
 
@@ -124,6 +129,7 @@ base,large}` on HuggingFace) that the Chronos paper says it uses.
 | [Chronos](../papers/chronos.md) | Base | 768 | 12 + 12 | 12 | 3072 | scalar token | 512 | 200M | Ansari et al. §5.2; HF `t5-efficient-base` |
 | [Chronos](../papers/chronos.md) | Large | 1024 | 24 + 24 | 16 | 4096 | scalar token | 512 | 710M | Ansari et al. §5.2; HF `t5-efficient-large` |
 | [Chronos](../papers/chronos.md) | (GPT-2 variant) | 768 | 12 | 12 | 3072 | scalar token | 512 | ≈90M | Ansari et al. §5.2 |
+| [SEMPO](../papers/sempo.md) | (only size) | 256 | 6 | 16 | — | 64 | 512 | 6.5M | He et al. §4 (encoder-decoder; RMSNorm + SwiGLU, not T5-initialized — listed here because it is an encoder-decoder transformer with reconstruction pretraining) |
 
 The Chronos paper names its models Mini 20M / Small 46M / Base 200M
 / Large 710M — **there is no "Chronos-Tiny"** despite the label in
@@ -181,6 +187,13 @@ completeness with the nearest-equivalent architectural metric.
   `TTME` 4M (context 1024, patch 128), `TTMA` 5M (context 1536, patch
   128). The paper does not tabulate `(d, L)` for the mixer blocks in
   the main text. `12·d²` does not apply.
+- [TSPulse](../papers/tspulse.md): TSMixer backbone with softmax-gated
+  attention, *not a transformer* — `12·d²` does not apply. Hidden
+  `D = 24` (= 3 · patch length), 8 stacked TSMixer blocks, 2-layer
+  mini-decoder at 10-20% of backbone size. Context `S = 512`,
+  patch `pl = 8`. 1.06M parameters total (TSPulse Table 3). Input
+  projection is identity-initialized to stabilize the time + FFT
+  dual-space reconstruction loss.
 - [Mamba4Cast](../papers/mamba4cast.md): Mamba2 state-space model,
   not a transformer. `d_model = 1024`, state expansion factor
   `N = 128`, 2 stacked Mamba2 encoder blocks (Figure 1), ~27M total.

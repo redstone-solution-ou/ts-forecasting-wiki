@@ -84,6 +84,52 @@ which the authors attribute to its [in-context learning](../concepts/in-context-
 mechanism: with little history per series, the model leans on cross-
 series information from the batch (Chronos-2, Section 5.2).
 
+## Sub-10M lightweight tier
+
+A handful of 2025-2026 models deliberately stay below 10M parameters
+and argue they close most of the accuracy gap to billion-parameter
+transformers. [TTM](../papers/ttm.md) (1-5M, TSMixer) is the original
+case; [SEMPO](../papers/sempo.md) (NeurIPS 2025, 6.5M encoder-decoder
+transformer) reports a 12% / 22% average MSE reduction over SOTA
+TS-FMs on 16-dataset TSLib/GIFT-Eval averages (SEMPO, Table 1 + §5),
+with ETTh1 inference at 22 s vs ~205 s Moirai-S and ~14,185 s
+Chronos-L (SEMPO, Figure 6). The SEMPO numbers are on TSLib's MSE/MAE
+convention and *are not directly comparable* to the GIFT-Eval WQL/MASE
+skill-score tables on [leaderboard.md](leaderboard.md); no public head-
+to-head of SEMPO against Chronos-2 / TimesFM-2.5 / TiRex / Moirai-2 on
+either GIFT-Eval full or fev-bench exists yet.
+[Mamba4Cast](../papers/mamba4cast.md) rounds out the cluster on the
+synthetic-only SSM side. If the use case is a point-forecast univariate
+problem under a strict CPU / 10M-param budget, any of these three are
+reasonable first picks; the choice depends more on the backbone you
+want (TSMixer, transformer, SSM) than on accuracy ordering.
+
+## Non-forecasters in the multi-task cluster
+
+[TSPulse](../papers/tspulse.md) (ICLR 2026, 1.06M-parameter TSMixer)
+is the newest member of [Cluster 6](../foundation-models/taxonomy.md#cluster-6--multi-task--universal-unified-ts-models)
+and explicitly does *not* report forecasting benchmarks — the paper
+flags forecasting as future work and evaluates only classification
+(UEA-29), imputation (LTSF under hybrid masking), anomaly detection
+(TSB-AD VUS-PR) and similarity search (TSPulse, §6 and §7). It does
+not appear on any forecasting leaderboard table above by design, so
+it cannot be ranked against Chronos-2, TimesFM-2.5, or Moirai-2 on
+the axes this page partitions. Treat TSPulse as the analysis-side
+companion to [TTM](../papers/ttm.md), not as a forecasting baseline.
+
+## Negative scaling on GIFT-Eval
+
+[Moirai 2.0](../papers/moirai-2.md) is the newest cautionary data point.
+On its own GIFT-Eval table (Table 1, arXiv:2511.11698), small (11.4M)
+posts MASE/CRPS 0.728/0.516, base (87.1M) worsens to 0.732/0.525, and
+large (305M) worsens further to 0.743/0.530, with training data held
+fixed. The paper recommends the 11.4M variant and documents the
+regression explicitly — one of the cleanest published TS-FM data points
+that naive parameter scaling can hurt when the pretraining corpus is
+constant. Note the capability regression versus Moirai-1: multivariate
+and covariate support are *dropped entirely*, so Moirai-2 is strictly
+univariate.
+
 ## Efficiency-constrained / CPU / on-device
 
 TTM dominates this axis. At 1M (TTM-Base) to 5M (TTM-Advanced)

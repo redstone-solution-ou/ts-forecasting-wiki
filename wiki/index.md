@@ -28,7 +28,7 @@ Last updated: 2026-04-12.
 ## Foundation models
 
 - [foundation-models/foundation-models.md](foundation-models/foundation-models.md) — definition of the TS-FM paradigm, motivation, brief history
-- [foundation-models/taxonomy.md](foundation-models/taxonomy.md) — the canonical seven-cluster taxonomy with the 20-paper summary table
+- [foundation-models/taxonomy.md](foundation-models/taxonomy.md) — the canonical seven-cluster taxonomy with the 23-paper summary table
 
 ## Architectures
 
@@ -84,7 +84,7 @@ Last updated: 2026-04-12.
 - [evaluation/probabilistic-evaluation.md](evaluation/probabilistic-evaluation.md) — CRPS, WQL, quantile loss, calibration vs sharpness
 - [evaluation/protocols.md](evaluation/protocols.md) — splits, rolling-origin, horizon and context conventions, what "zero-shot" means
 - [evaluation/seasonality-and-baselines.md](evaluation/seasonality-and-baselines.md) — seasonal period `m`, Seasonal Naive, classical and deep baselines
-- [evaluation/what-was-evaluated.md](evaluation/what-was-evaluated.md) — per-paper cross-reference of metrics, datasets, protocol, baselines (20 papers)
+- [evaluation/what-was-evaluated.md](evaluation/what-was-evaluated.md) — per-paper cross-reference of metrics, datasets, protocol, baselines (23 papers)
 
 ## Research / frontier
 
@@ -99,11 +99,11 @@ Last updated: 2026-04-12.
 - [research/failure-modes.md](research/failure-modes.md) — per-paper documented weaknesses and cross-cutting failure patterns
 - [research/timeline.md](research/timeline.md) — chronological 2023-2026 walk through the 20 papers with each one's signature contribution
 
-## Papers (leaves, 20)
+## Papers (leaves, 23)
 
 Papers are listed in chronological order by the date on the arXiv metadata, oldest first.
 
-- [papers/papers.md](papers/papers.md) — paper-leaf index with cluster grouping and the full 20-paper metadata table
+- [papers/papers.md](papers/papers.md) — paper-leaf index with cluster grouping and the full 23-paper metadata table
 - [papers/gpt4ts.md](papers/gpt4ts.md) — frozen GPT-2/BERT/BEiT TS adapter (OFA/FPT), Alibaba, ~GPT-2 base (2023-02)
 - [papers/time-llm.md](papers/time-llm.md) — frozen Llama reprogrammed via patch-to-prototype cross-attention (2023-10)
 - [papers/timegpt.md](papers/timegpt.md) — Nixtla's closed encoder-decoder commercial API, conformal intervals, undisclosed size (2023-10)
@@ -123,4 +123,7 @@ Papers are listed in chronological order by the date on the arXiv metadata, olde
 - [papers/timer-xl.md](papers/timer-xl.md) — long-context multivariate Timer with TimeAttention, 84M (2024-10)
 - [papers/sundial.md](papers/sundial.md) — Tsinghua continuous flow-matching TS-FM on ~1T-point TimeBench (2025-02)
 - [papers/chronos-2.md](papers/chronos-2.md) — AWS 120M encoder-only with group attention for ICL over related series (2025-10)
+- [papers/sempo.md](papers/sempo.md) — 6.5M encoder-decoder transformer with energy-aware spectral decomposition and mixture-of-prompts, NeurIPS 2025 (2025-10)
+- [papers/moirai-2.md](papers/moirai-2.md) — Salesforce decoder-only successor to MOIRAI with 9-quantile pinball head; 11.4M small beats its own 87M and 305M siblings on GIFT-Eval (2025-11)
 - [papers/timer-s1.md](papers/timer-s1.md) — Tsinghua/ByteDance 8.3B sparse-MoE with Serial-Token Prediction, GIFT-Eval SOTA (2026-03)
+- [papers/tspulse.md](papers/tspulse.md) — IBM Granite 1.06M TSMixer with dual-space time+FFT masked reconstruction for multi-task analysis, ICLR 2026 (2026-03)

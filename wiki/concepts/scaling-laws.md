@@ -61,6 +61,8 @@ Sparse MoE scaling is trickier than dense. Load-balancing losses and router choi
 - `[TimesFM](../papers/timesfm.md)` — ~200M dense decoder on ~100B points, anchors the middle of the dense curve and reaches near-supervised zero-shot.
 - `[Timer](../papers/timer.md)` — emergent few-shot at scale, analogous to LLM few-shot emergence.
 - `[Sundial](../papers/sundial.md)` — ~1T-point TimeBench pretraining with a flow-matching objective, probing whether scale plus objective jointly shift the curve.
+- `[SEMPO](../papers/sempo.md)` — the cleanest "less-is-more" counter-narrative. 6.5M params on ~83M UTSD points outperforms 100M-to-700M-parameter [Time-MoE](../papers/time-moe.md), [Moirai](../papers/moirai.md), [Chronos](../papers/chronos.md), [TimesFM](../papers/timesfm.md) and [Moment](../papers/moment.md) on TSLib zero-shot (Table 1). Argues that better spectrum coverage (EASD) and specialisation-via-prompts can substitute for scale along *both* axes simultaneously — 10x-100x fewer params and 10x-3000x fewer pretraining points.
+- `[Moirai 2.0](../papers/moirai-2.md)` — a published *negative* scaling data point. With training data held fixed at 36M series / ~295B observations, Moirai-2 small (11.4M) posts MASE 0.728 / CRPS 0.516 on [GIFT-Eval](../datasets-benchmarks/gift-eval.md), base (87.1M) posts 0.732 / 0.525, and large (305M) posts 0.743 / 0.530 — monotonic degradation with scale. The paper recommends the smallest variant and is the cleanest evidence that naive parameter scaling can actively hurt a TS-FM when the corpus is fixed.
 
 ## Related wiki pages
 

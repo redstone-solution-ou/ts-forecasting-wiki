@@ -61,6 +61,8 @@ Choosing `P` is a data-dependent decision. On hourly data, patches of length 24 
 - `[Time-LLM](../papers/time-llm.md)` — projects TS patches and then re-aligns them with an LLM token space via reprogramming.
 - `[TTM](../papers/ttm.md)` — adaptive patching and resolution prefix tuning inside a lightweight MLP-Mixer.
 - `[Chronos-2](../papers/chronos-2.md)` — group attention operates over patch tokens across related series as its in-context mechanism.
+- `[SEMPO](../papers/sempo.md)` — long patches (`L_p = 64`) over a 512-point context; the input is first passed through energy-aware spectral decomposition before patching, so each patch carries an energy-partitioned frequency signature rather than raw samples.
+- `[TSPulse](../papers/tspulse.md)` — short patches (`pl = 8`) with `D = 3 · pl = 24` hidden width; hybrid patch-level masking (full and partial patches with a learnable mask token) replaces the block-masking of MOMENT/UniTS, and the same patches feed both time-domain and FFT-domain branches.
 
 ## Related wiki pages
 

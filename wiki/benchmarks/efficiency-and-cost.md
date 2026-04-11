@@ -11,9 +11,12 @@ tell a 1M-parameter model from a 2.4B-parameter one at a glance.
 
 | Model | Parameters | Activated | Source |
 |---|---|---|---|
+| [TSPulse](../papers/tspulse.md) | 1.06M | 1.06M | TSPulse, Table 3 (arXiv:2505.13033) |
 | TTM-Base | 1M | 1M | [TTM](../papers/ttm.md), Section 4.3 (arXiv:2401.03955) |
 | TTM-Enhanced | 4M | 4M | TTM, Section 4.3 |
 | TTM-Advanced | 5M | 5M | TTM, Section 4.3 |
+| [SEMPO](../papers/sempo.md) | 6.5M | 6.5M | SEMPO, §4 (arXiv:2510.19710) |
+| [Moirai-2-small](../papers/moirai-2.md) | 11.4M | 11.4M | Moirai 2.0, Table 1 (arXiv:2511.11698) |
 | Moirai-Small | 14M | 14M | [Moirai-MoE](../papers/moirai-moe.md), Table 4 (arXiv:2410.10469) |
 | Chronos-Tiny (TTM label) [^tt] | 8M | 8M | TTM, Table 3 |
 | Moirai-MoE-Small | 117M total / 11M act. | 11M | Moirai-MoE, Table 4 |
@@ -21,6 +24,7 @@ tell a 1M-parameter model from a 2.4B-parameter one at a glance.
 | MOMENT-Small | 40M | 40M | [MOMENT](../papers/moment.md), Table 8 (arXiv:2402.03885) |
 | Chronos-Small | 46M | 46M | Moirai-MoE, Table 4 |
 | Time-MoE-Base | 113M total / 50M act. | 50M | [Time-MoE](../papers/time-moe.md), Table 2 (arXiv:2409.16040) |
+| [Moirai-2-base](../papers/moirai-2.md) | 87.1M | 87.1M | Moirai 2.0, Table 1 |
 | Moirai-Base | 91M | 91M | Moirai-MoE, Table 4 |
 | Moirai-MoE-Base | 935M total / 86M act. | 86M | Moirai-MoE, Table 4 |
 | Chronos-2 | 120M | 120M | Chronos-2, Section 5 |
@@ -28,6 +32,7 @@ tell a 1M-parameter model from a 2.4B-parameter one at a glance.
 | Chronos-Base | 200M | 200M | TTM, Table 3 |
 | [TimesFM](../papers/timesfm.md) (v1) | 200M | 200M | TimesFM, Section A.1 (arXiv:2310.10688) |
 | Time-MoE-Large | 453M total / 200M act. | 200M | Time-MoE, Table 2 |
+| [Moirai-2-large](../papers/moirai-2.md) | 305M | 305M | Moirai 2.0, Table 1 (paper recommends small; base and large strictly worse) |
 | Moirai-Large | 311M | 311M | Moirai-MoE, Table 4 |
 | MOMENT-Large | 385M | 385M | MOMENT, Table 8 |
 | Chronos-Large | 709M | 709M | TTM, Table 3 |
@@ -84,6 +89,45 @@ Moirai-MoE adds ~10x total parameters over dense Moirai but stays
 at *identical* inference time because only a fraction of the
 experts fires per token.
 
+[SEMPO](../papers/sempo.md) Figure 6 gives an independent wall-clock
+comparison on the ETTh1 dataset, measuring *total inference time*
+(lower is better):
+
+| Model | ETTh1 inference time (s) | Source |
+|---|---|---|
+| SEMPO (6.5M) | 22 | SEMPO, Figure 6 (arXiv:2510.19710) |
+| [Moirai-Small](../papers/moirai.md) | 205 | SEMPO, Figure 6 |
+| TimesFM-200M | 1879 | SEMPO, Figure 6 |
+| [Chronos-Large](../papers/chronos.md) | 14,185 | SEMPO, Figure 6 |
+
+SEMPO is ~10x faster than Moirai-Small and ~640x faster than
+Chronos-Large on this task at 6.5M parameters.
+
+[Moirai 2.0](../papers/moirai-2.md) reports a different axis:
+wall-clock speedup over Moirai-1-Large on the same hardware, driven
+by the decoder-only single-patch architecture and the KV-cache
+exploitability of causal attention. The paper quotes ~2x faster than
+Moirai-1-Large on short contexts and *up to 17x faster* on the
+10K-context / 10K-horizon KV-cache case study, at ~30x fewer
+parameters (Moirai 2.0, §4 and Figure 5). Training-time disclosures
+are sparse: 100K steps at batch 256, AdamW, bf16; GPU count and
+wall-clock are not stated, though inference is demonstrated on a
+single H200.
+
+[TSPulse](../papers/tspulse.md) Table 3 gives the multi-task
+analysis equivalent of TTM Table 3:
+
+| Model | GPU time (ms/batch) | CPU time (s/batch) | Peak memory (GB) | Source |
+|---|---|---|---|---|
+| TSPulse (1.06M) | 0.39 | 0.06 | 0.39 | TSPulse, Table 3 (arXiv:2505.13033) |
+| MOMENT-Large (385M) | 405 | 22 | — | TSPulse, Table 3 |
+| Chronos-Large (710M) | 898 | 1,755 | — | TSPulse, Table 3 |
+
+The TSPulse numbers are measured on analysis tasks (reconstruction /
+classification forward pass), not on forecasting rollout, so they
+are not directly comparable to the TTM Table 3 row above for
+Chronos-Large (which measured rollout-heavy forecasting).
+
 ## 3. Training compute and pretraining scale
 
 | Model | Pretraining data | Training compute | Source |
@@ -97,6 +141,9 @@ experts fires per token.
 | MOMENT-Small (40M) | Time Series Pile | 308 GPU-hours / 31.1 tCO2eq | MOMENT, Table 8 |
 | Time-MoE-Ultra | [Time-300B](../datasets-benchmarks/time-300b.md): 309B timepoints, 9 domains | 100K steps × 1024 batch × 4M tokens/iter | Time-MoE, Table 1 & Section 3.2.3 |
 | Sundial | [TimeBench](../datasets-benchmarks/timebench.md): ~1T pretraining points | not individually reported | Sundial, Table 5 |
+| [TSPulse](../papers/tspulse.md) (1.06M) | ~1B samples (Monash + LibCity subset, inherited from TTM) | ~1 day on 8× A100, 20 epochs | TSPulse, Appendix A.9 / A.12 (arXiv:2505.13033) |
+| [SEMPO](../papers/sempo.md) (6.5M) | ~83M-point curated UTSD subset, 9:1 train-val | 10 hours on 4× A6000-48G, BF32, batch 2048, AdamW lr 1e-3, 10K warmup | SEMPO, §4 (arXiv:2510.19710) |
+| [Moirai 2.0](../papers/moirai-2.md) (11.4M) | 36M-series / ~295B-obs mixture (GIFT-Eval Pretrain + Chronos-Mixup + KernelSynth + Salesforce CloudOps) | 100K steps × batch 256, AdamW lr 1e-3 wd 1e-1, 10K linear warmup + cosine, bf16; GPU count and wall-clock not disclosed | Moirai 2.0, §3 and Appendix (arXiv:2511.11698) |
 
 Time-300B and TimeBench are the two largest TS pretraining corpora
 currently documented, at roughly 3 and 10x the LOTSA scale.

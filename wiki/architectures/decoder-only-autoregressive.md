@@ -67,6 +67,7 @@ Compared to `[Masked encoder](masked-encoder.md)`, decoder-only is better for fo
 - `[Lag-Llama](../papers/lag-llama.md)` — first open decoder-only probabilistic TS FM, injects lag features as explicit covariates into the causal stream and attaches a Student-t head.
 - `[Time-MoE](../papers/time-moe.md)` — 2.4B sparse MoE decoder-only trained on [Time-300B](../datasets-benchmarks/time-300b.md), scaling active and total parameters independently; the first billion-param TS FM and the main evidence that TS decoder-only scales like LLMs.
 - `[Sundial](../papers/sundial.md)` — decoder-only backbone with a TimeFlow flow-matching head, continuous-valued probabilistic output.
+- `[Moirai 2.0](../papers/moirai-2.md)` — Salesforce abandons Moirai-1's masked encoder for a decoder-only Transformer with RMSNorm / GLU FFN / RoPE, a single-patch projection, a 9-quantile pinball head, and multi-token prediction. The recommended 11.4M small strictly outperforms its own 87M and 305M siblings on [GIFT-Eval](../datasets-benchmarks/gift-eval.md), a rare published negative-scaling result.
 
 ## Open questions
 

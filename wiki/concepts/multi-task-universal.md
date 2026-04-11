@@ -86,8 +86,7 @@ A subtle failure mode is *evaluation protocol drift*: multi-task benchmarks (Uni
 - `[TOTEM](../papers/totem.md)` — shared VQ-VAE codebook across domains, specialist-vs-generalist comparison.
 - `[GPT4TS / OFA / FPT](../papers/gpt4ts.md)` — frozen-LLM universal solver across six TS tasks.
 - `[Chronos-2](../papers/chronos-2.md)` — one architecture for univariate, multivariate, covariate, and panel forecasting via group attention.
-
-## Related wiki pages
+- `[TSPulse](../papers/tspulse.md)` — a fifth recipe: instead of one head per task, pretrain three disentangled embedding *views* (TimeE / FFTE / register-token RegE) from a dual-space masked reconstruction, then pick the view per task via loss reweighting and post-hoc fusers (TSLens for classification, Multi-Head Triangulation for anomaly). Task specialisation by representation view, not by head. Explicitly not a forecaster.
 
 - [In-context learning](in-context-learning.md)
 - [Zero-shot forecasting](zero-shot-forecasting.md)

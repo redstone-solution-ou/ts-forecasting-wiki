@@ -31,6 +31,9 @@ hook each.
 | TOTEM       | 2024-02 | 6       | VQ tokenizer + transformer       | Multi-task on VQ tokens       | —                           |
 | Sundial     | 2025-02 | 7       | Transformer + flow matching      | Flow matching on cont. tokens | ~1T pretraining points      |
 | Timer-S1    | 2026-03 | 1 (+3)  | Decoder-only sparse MoE          | Serial-Token Prediction (STP) | 8.3B total / 0.75B active   |
+| SEMPO       | 2025-10 | 5       | Encoder-decoder transformer      | EASD masked recon + MoP tuning| 6.5M                        |
+| Moirai 2.0  | 2025-11 | 1       | Decoder-only transformer         | 9-quantile pinball + MTP      | 11.4M / 87.1M / 305M        |
+| TSPulse     | 2026-03 | 6 (+5)  | TSMixer (MLP-Mixer)              | Dual-space time+FFT masked    | 1.06M                       |
 
 ## Cluster 1 — Decoder-only autoregressive TS-FMs
 
@@ -60,6 +63,12 @@ Primary architecture page:
 - [../papers/timegpt.md](../papers/timegpt.md) — Nixtla's closed-source
   transformer API, historically important as the first commercial
   TS-FM offering.
+- [../papers/moirai-2.md](../papers/moirai-2.md) — Salesforce's
+  direct pivot from Moirai-1's masked encoder to a decoder-only
+  backbone with a 9-quantile pinball head and multi-token prediction;
+  the recommended 11.4M small strictly outperforms its own 87M and
+  305M siblings on [GIFT-Eval](../datasets-benchmarks/gift-eval.md),
+  a rare negative-scaling data point.
 
 ## Cluster 2 — Masked-encoder / encoder-decoder TS-FMs
 
@@ -136,6 +145,13 @@ Primary architecture page:
 - [../papers/mamba4cast.md](../papers/mamba4cast.md) — a Mamba SSM
   pretrained entirely on synthetic data, achieving zero-shot
   performance without touching real series.
+- [../papers/sempo.md](../papers/sempo.md) — 6.5M encoder-decoder
+  transformer trained on just 83M UTSD time points, pairing
+  energy-aware spectral decomposition with a mixture-of-prompts
+  layer; the "less is more" counterpoint to billion-parameter TS-FMs.
+- [../papers/tspulse.md](../papers/tspulse.md) — secondary member:
+  IBM's 1.06M-parameter TSMixer analysis model with dual-space
+  time+frequency masked reconstruction (primary home is Cluster 6).
 
 ## Cluster 6 — Multi-task / universal unified TS models
 
@@ -153,6 +169,11 @@ pages above; Cluster 6 is defined by task scope rather than backbone.
 - [../papers/totem.md](../papers/totem.md) — VQ-VAE tokenizer plus
   transformer, yielding a discrete universal representation reusable
   across tasks.
+- [../papers/tspulse.md](../papers/tspulse.md) — IBM Granite's
+  1.06M-parameter TSMixer with dual-space (time + FFT) masked
+  reconstruction and explicit disentanglement into temporal, spectral
+  and semantic embeddings; targets classification, imputation, anomaly
+  detection and similarity search rather than forecasting.
 - Secondary members: [../papers/moment.md](../papers/moment.md),
   [../papers/timer-xl.md](../papers/timer-xl.md),
   [../papers/chronos-2.md](../papers/chronos-2.md).

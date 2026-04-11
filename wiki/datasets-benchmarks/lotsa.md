@@ -22,6 +22,18 @@ LOTSA's main contribution relative to older TS corpora is scale-per-domain: earl
 - [MOIRAI](../papers/moirai.md) — created LOTSA and used it as the sole pretraining corpus.
 - [Moirai-MoE](../papers/moirai-moe.md) — reuses LOTSA with token-level sparse MoE routing.
 
+## Related / derived corpora
+
+- **Moirai-2 derivative mixture.** [Moirai 2.0](../papers/moirai-2.md)
+  uses a 36M-series, ~295B-observation mixture that combines a
+  non-leaking subset of LOTSA (`GIFT-Eval Pretrain`, 230B observations)
+  with Chronos-Mixup (30M synthetic series), KernelSynth
+  (1M / 1.02B points), and Salesforce-internal CloudOps telemetry
+  (~2.15M series / ~1.48B daily observations, proprietary). The
+  mixture is unnamed in the paper and not redistributable as a whole
+  because of the CloudOps component; the Moirai-2 leaf documents the
+  individual sources.
+
 ## Related wiki pages
 
 - [Masked encoder](../architectures/masked-encoder.md)

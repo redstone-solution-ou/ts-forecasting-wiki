@@ -41,6 +41,9 @@ the official GIFT-Eval leaderboard for its baselines:
 
 | Model | MASE (rel., lower better) | CRPS (rel., lower better) | Rank (avg over 97 configs) | Source |
 |---|---|---|---|---|
+| [Moirai-2.0-small](../papers/moirai-2.md) (11.4M) | 0.728 | 0.516 | — | Moirai 2.0, Table 1 (arXiv:2511.11698) |
+| [Moirai-2.0-base](../papers/moirai-2.md) (87.1M) | 0.732 | 0.525 | — | Moirai 2.0, Table 1 |
+| [Moirai-2.0-large](../papers/moirai-2.md) (305M) | 0.743 | 0.530 | — | Moirai 2.0, Table 1 |
 | Sundial | 0.673 | 0.472 | 9.062 | Sundial, Table 2 (arXiv:2502.00816) |
 | [TimesFM](../papers/timesfm.md) | 0.680 | 0.465 | 8.237 | Sundial, Table 2 |
 | TabPFN-TS | 0.748 | 0.480 | 8.268 | Sundial, Table 2 |
@@ -60,6 +63,21 @@ foundation models already close most of the gap to strong
 task-specific deep models like PatchTST and iTransformer on
 GIFT-Eval. See [methodology-caveats.md](methodology-caveats.md)
 for the skill-score vs. GM-relative conversion.
+
+The three `Moirai-2.0-*` rows in the Sundial-convention table
+are self-reported from the Moirai 2.0 paper (Table 1) rather than
+from Sundial's Table 2 — they are appended here because the paper
+uses the same "relative GM vs Seasonal Naive, lower is better"
+convention as Sundial's rows, and the Moirai 2.0 paper positions
+itself on the GIFT-Eval leaderboard. The paper reports the small
+variant as *ranked 5th by MASE and 6th by CRPS among 30 filtered
+foundation models* on GIFT-Eval, and explicitly documents that
+scaling from 11.4M to 87.1M to 305M monotonically worsens both
+metrics (0.728 → 0.732 → 0.743 MASE; 0.516 → 0.525 → 0.530 CRPS).
+The Chronos-2 Table 4 entry for "Moirai-2.0" above reports 48.4
+WQL skill score / 27.2 MASE skill score under a different
+aggregation, so the two rows are not directly comparable; see
+[methodology-caveats.md](methodology-caveats.md).
 
 ## 2. Chronos Benchmark II (27 zero-shot tasks, mostly short context)
 

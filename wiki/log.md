@@ -304,3 +304,79 @@ to cross-link the new pages. Flagged for a later pass: a dedicated
 origins, a shift-aware calibration benchmark, and leaf enrichments
 for TimesFM / MOMENT / Sundial with their training recipes (same
 shape as the Chronos / MOIRAI / Time-MoE edits done here).
+
+## [2026-04-12] ingest | Moirai 2.0 (arXiv:2511.11698)
+
+Salesforce's direct successor to [MOIRAI](papers/moirai.md).
+Abandons the masked-encoder + multi-patch + mixture-of-Student-t
+recipe of Moirai-1 for a plain decoder-only Transformer
+(RMSNorm / GLU / RoPE / causal MHA) with a single patch size, a
+9-quantile pinball head, and multi-token prediction for fast
+inference. Pretrained on a new unnamed 36M-series / ~295B-observation
+mixture combining non-leaking GIFT-Eval Pretrain, Chronos-Mixup,
+KernelSynth, and ~2.15M-series Salesforce-internal CloudOps
+telemetry (the last of which is proprietary, making the full
+mixture non-reproducible despite four of five sources being open).
+The 11.4M small is the *recommended* size because base (87.1M)
+and large (305M) monotonically worsen on GIFT-Eval with training
+data held fixed — a rare published negative-scaling result, which
+the scaling-laws concept page now cites. Multivariate and covariate
+support are dropped entirely versus Moirai-1, narrowing the task
+surface. Evaluation is GIFT-Eval only (Table 1, MASE 0.728 /
+CRPS 0.516 for small). Open weights at
+`Salesforce/moirai-2.0-R-small`; cluster placement pivots from
+Cluster 2 (Moirai-1) to Cluster 1 (decoder-only).
+
+## [2026-04-12] ingest | TSPulse (arXiv:2505.13033, ICLR 2026)
+
+IBM Granite team's analysis-side counterpart to [TTM](papers/ttm.md):
+same 1-5M parameter TSMixer backbone, same Monash + LibCity
+pretraining corpus, but the diagnostic-task destination instead of
+forecasting. 1.06M parameters total, 8 TSMixer blocks with
+softmax-gated attention, hidden `D = 24 = 3·pl`, patch 8,
+context 512. Pretrained with a dual-space masked reconstruction
+objective in time and frequency (FFT is computed over the
+masked input so the mask propagates through `rfft`; no separate
+frequency mask) producing three explicitly disentangled embedding
+views — TimeE, FFTE, and register-token RegE — routed through
+three different heads. Hybrid patch-level masking supports full
+and partial patches, fixing the block-mask bias of MOMENT and
+UniTS. Evaluates on TSB-AD anomaly, UEA-29 classification, LTSF
+imputation and a custom UCR+synthetic similarity suite, reporting
+wins over MOMENT, UniTS, VQShape, Chronos and TimesFM at 10-100x
+fewer parameters. Explicitly *not* a forecaster — the Limitations
+section defers forecasting to future work, and the
+benchmarks/state-of-the-art page now notes TSPulse as a
+non-forecaster in the multi-task cluster. Open weights at
+`ibm-granite/granite-timeseries-tspulse-r1`; code in
+`ibm-granite/granite-tsfm`. Cluster 6 primary, Cluster 5
+secondary.
+
+## [2026-04-12] ingest | SEMPO (arXiv:2510.19710, NeurIPS 2025)
+
+Lightweight NeurIPS 2025 foundation model from BIT + SMU + Tongji
+(mala-lab). 6.5M-parameter encoder-decoder transformer
+(`S = 6, H = 16, D_p = 256, L_p = 64, L = 512`, RMSNorm + SwiGLU)
+pretrained on a curated ~83M-point subset of UTSD in 10 hours on
+4× A6000-48G — one of the most reproducible pretraining budgets
+in the TS-FM literature. Two novel modules: **Energy-Aware
+Spectral Decomposition** (FFT the input, partition into high- and
+low-energy branches at a learnable threshold, apply independently
+parameterized multi-band frequency masks, iFFT — preserves
+low-energy-but-informative frequency components that Fourier-based
+TS methods typically ignore) and **Mixture-of-Prompts** (128
+learnable prompt experts, dense linear-softmax router with no
+top-k, reshaped via a 2-layer MLP into `S × 2 × D_p` key-value
+prefixes and concatenated into every self-attention layer —
+routes a prefix, not an FFN, so it is explicitly distinct from
+MoE). Two-stage training: Stage 1 reconstruction pretraining with
+EASD masking, Stage 2 MoP tuning with the backbone frozen.
+Headline: 23.1% MSE / 10.8% MAE reduction on TSLib zero-shot
+(Table 1, 12 out of 14 column wins vs Time-MoE-B/L, Timer,
+Moirai-S/B/L, Chronos-S/B/L, TimesFM, Moment) at 1.8x-100x fewer
+parameters and 1.3x-3700x fewer pretraining points. Figure 6
+reports ETTh1 inference at 22 s vs 205 s for Moirai-S and
+14,185 s for Chronos-L. Positioned in Cluster 5 even though the
+backbone is a transformer; the scaling-laws page now cites SEMPO
+as the cleanest "less is more" counter-narrative to the
+billion-parameter TS-FM trajectory.

@@ -63,6 +63,8 @@ Supervised fine-tuning on a target dataset still typically beats zero-shot by 5�
 - `[TTM](../papers/ttm.md)` — tiny MLP-Mixer outperforming larger FMs, arguing priors dominate scale.
 - `[Mamba4Cast](../papers/mamba4cast.md)` — synthetic-only pretraining, zero-shot as its only mode of operation.
 - `[LLMTime](../papers/llmtime.md)` — vanilla LLM as a zero-shot forecaster via ASCII tokenization.
+- `[Moirai 2.0](../papers/moirai-2.md)` — 11.4M decoder-only small variant, evaluated zero-shot on [GIFT-Eval](../datasets-benchmarks/gift-eval.md) only, ranks 5th by MASE and 6th by CRPS among pretrained foundation models; multivariate/covariate inputs are dropped entirely.
+- `[SEMPO](../papers/sempo.md)` — 6.5M transformer, 23.1% MSE / 10.8% MAE reduction on TSLib zero-shot versus billion-parameter baselines at 10x-100x fewer params and 10x-3000x fewer pretraining points (Table 1).
 
 ## Related wiki pages
 

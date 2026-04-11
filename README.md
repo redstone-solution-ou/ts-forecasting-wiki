@@ -60,12 +60,12 @@ The full set, in reading order:
 - [wiki/research/research.md](wiki/research/research.md) — the research
   corner: reading roadmap, open problems, comparison matrix,
   reproducibility table, contributing guide, glossary.
-- [wiki/papers/papers.md](wiki/papers/papers.md) — the 20 paper leaves.
+- [wiki/papers/papers.md](wiki/papers/papers.md) — the 23 paper leaves.
 
 ## Scope (as of 2026-04)
 
-Version 0 of the wiki covers 20 foundation-model papers published between
-2023 and 2025, spanning decoder-only autoregressive models, masked and
+Version 0 of the wiki covers 23 foundation-model papers published between
+2023 and early 2026, spanning decoder-only autoregressive models, masked and
 encoder-decoder models, mixture-of-experts variants, LLM-reprogramming
 approaches, lightweight non-transformer models, multi-task universal
 models, and the first continuous / flow-matching entrants. Additions and

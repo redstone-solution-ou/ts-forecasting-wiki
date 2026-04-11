@@ -62,6 +62,7 @@ A subtle failure mode across all approaches is *miscalibration*: a model can hav
 - `[Chronos-2](../papers/chronos-2.md)` — quantile decoder emitting a fixed set of quantiles, no sampling, no vocabulary.
 - `[Sundial](../papers/sundial.md)` — flow-matching velocity field, continuous-valued probabilistic output via ODE integration.
 - `[TimeGPT-1](../papers/timegpt.md)` — conformal intervals on top of a point forecaster, guaranteed coverage independent of the backbone.
+- `[Moirai 2.0](../papers/moirai-2.md)` — 9-level pinball quantile head on a decoder-only backbone, aligned with GIFT-Eval's CRPS metric; uses a depth-2 expand-collapse decoding procedure to autoregress a quantile *vector* without committing to the median or mismatching dimensions.
 
 ## Open questions
 
@@ -79,6 +80,7 @@ A subtle failure mode across all approaches is *miscalibration*: a model can hav
 - `[Chronos-2](../papers/chronos-2.md)` — quantile decoder replacing the vocabulary, direct multi-quantile output per horizon step.
 - `[Sundial](../papers/sundial.md)` — flow-matching objective yielding continuous probabilistic forecasts at [TimeBench](../datasets-benchmarks/timebench.md) scale.
 - `[TimeGPT-1](../papers/timegpt.md)` — conformal prediction wrapping a commercial point forecaster for calibrated intervals.
+- `[Moirai 2.0](../papers/moirai-2.md)` — nine-quantile pinball head on a decoder-only stack with an expand-then-collapse procedure for autoregressive multi-quantile decoding.
 
 ## Related wiki pages
 
