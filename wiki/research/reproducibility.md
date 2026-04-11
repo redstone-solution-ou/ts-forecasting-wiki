@@ -58,7 +58,11 @@ is one of the most under-appreciated facts about TS-FMs.
 ## Good models to build on right now
 
 If you are starting a project this week, these are the checkpoints with
-the best ratio of capability to friction.
+the best ratio of capability to friction. If you are starting a *training
+run* rather than a fine-tune, see
+[../benchmarks/training-a-small-model.md](../benchmarks/training-a-small-model.md)
+for the full recipe — corpus choice, curation pipeline, backbone and
+head options, and the parameter-count brackets that define "small."
 
 - **TTM** — for deployment-constrained work, CPU targets, or any
   project where you need to iterate fast. 1-5M parameters means you

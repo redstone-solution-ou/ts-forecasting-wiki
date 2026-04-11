@@ -21,18 +21,18 @@ values for the main contenders. Metrics are *skill score* (geometric
 mean improvement over Seasonal Naive; higher is better) under
 Weighted Quantile Loss ([WQL](../evaluation/metrics.md#23-wql--weighted-quantile-loss), probabilistic) and [MASE](../evaluation/metrics.md#17-mase--mean-absolute-scaled-error) (point).
 
-| Model | GIFT-Eval WQL skill score (%) | GIFT-Eval MASE skill score (%) | Source |
-|---|---|---|---|
-| Chronos-2 (120M) | 51.4 | 30.2 | Chronos-2, Table 4 (arXiv:2510.15821) |
-| TimesFM-2.5 | 51.0 | 29.5 | Chronos-2, Table 4 (reporting the GIFT-Eval leaderboard) |
-| TiRex | 50.2 | 27.6 | Chronos-2, Table 4 |
-| Toto-1.0 | 48.6 | 25.2 | Chronos-2, Table 4 |
-| Moirai-2.0 | 48.4 | 27.2 | Chronos-2, Table 4 |
-| COSMIC | 44.5 | 20.8 | Chronos-2, Table 4 |
-| [Sundial](../papers/sundial.md) | 44.1 | 25.0 | Chronos-2, Table 4 |
-| TabPFN-TS | 43.1 | 16.6 | Chronos-2, Table 4 |
-| Chronos-Bolt | 42.6 | 19.2 | Chronos-2, Table 4 |
-| Seasonal Naive | 0.0 | 0.0 | Chronos-2, Table 4 |
+| Model                           | GIFT-Eval WQL skill score (%) | GIFT-Eval MASE skill score (%) | Source                                                   |
+| ------------------------------- | ----------------------------- | ------------------------------ | -------------------------------------------------------- |
+| Chronos-2 (120M)                | 51.4                          | 30.2                           | Chronos-2, Table 4 (arXiv:2510.15821)                    |
+| TimesFM-2.5                     | 51.0                          | 29.5                           | Chronos-2, Table 4 (reporting the GIFT-Eval leaderboard) |
+| TiRex                           | 50.2                          | 27.6                           | Chronos-2, Table 4                                       |
+| Toto-1.0                        | 48.6                          | 25.2                           | Chronos-2, Table 4                                       |
+| Moirai-2.0                      | 48.4                          | 27.2                           | Chronos-2, Table 4                                       |
+| COSMIC                          | 44.5                          | 20.8                           | Chronos-2, Table 4                                       |
+| [Sundial](../papers/sundial.md) | 44.1                          | 25.0                           | Chronos-2, Table 4                                       |
+| TabPFN-TS                       | 43.1                          | 16.6                           | Chronos-2, Table 4                                       |
+| Chronos-Bolt                    | 42.6                          | 19.2                           | Chronos-2, Table 4                                       |
+| Seasonal Naive                  | 0.0                           | 0.0                            | Chronos-2, Table 4                                       |
 
 A separate reading of GIFT-Eval comes from the Sundial paper
 (Feb 2025), which uses the raw geometric-mean-relative MASE/[CRPS](../evaluation/metrics.md#21-crps--continuous-ranked-probability-score)

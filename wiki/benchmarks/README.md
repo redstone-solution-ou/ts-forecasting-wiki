@@ -30,6 +30,10 @@ rather than forcing a false ranking.
   univariate-only model (one series per call, no covariates) and
   want to pick the right suite to compare against 2024–2026 TS-FM
   SOTA.
+- [training-a-small-model.md](training-a-small-model.md) — the
+  training-side companion: which corpus to pretrain on (LOTSA by
+  default), which small TS-FMs set the "ceiling of the smallest"
+  bracket, and the 2026 data-curation recipe from Timer-S1.
 
 ## How to interpret these numbers
 

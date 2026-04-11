@@ -37,6 +37,10 @@ field — read these first, in order:
   — *"I want to benchmark my own model."* Practical recommendation
   for picking a comparison suite when your model is univariate-only
   (one series at a time, no covariates).
+- [benchmarks/training-a-small-model.md](benchmarks/training-a-small-model.md)
+  — *"I want to train my own TS-FM."* Practical recommendation for
+  which corpus to pretrain on, which small TS-FMs set the competitive
+  ceiling, and the 2026 data-curation recipe.
 
 The full research corner, including the reproducibility table,
 contributing guide and glossary, is at

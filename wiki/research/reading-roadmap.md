@@ -90,6 +90,12 @@ set of ablations against the canonical recipes above.
    concrete "pick this suite, report these metrics, use this
    protocol label" recipe for a univariate-only model that needs to
    compare against 2024–2026 TS-FM SOTA.
+10. [../benchmarks/training-a-small-model.md](../benchmarks/training-a-small-model.md)
+    — the training-side companion to the previous bullet, for readers
+    who are not just evaluating but pretraining. Recommends LOTSA as
+    the default corpus, walks through the Timer-S1 curation pipeline,
+    and names the "biggest of the smallest" TS-FMs you have to beat
+    to sit in the small-model bracket.
 
 ## Advanced track — "what are people arguing about?"
 
