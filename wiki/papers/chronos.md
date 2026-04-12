@@ -14,7 +14,7 @@ Chronos treats forecasting as language modeling on quantized time series. Values
 - Broad benchmarking across 42 datasets, showing strong zero-shot performance.
 
 ## Architecture at a glance
-Chronos is an encoder-decoder transformer based directly on the T5 family. Time series are preprocessed into discrete token sequences via mean-scaling and uniform binning into 4096 bins over the interval [-15, +15]. Training optimizes next-token cross-entropy, and forecasts are obtained by sampling multiple trajectories and dequantizing them to recover continuous predictive distributions.
+Chronos is an encoder-decoder transformer based directly on the T5 family. Time series are preprocessed into discrete token sequences via mean-scaling and uniform binning into 4096 bins over the interval [-15, +15]. Training optimizes next-token cross-entropy, and forecasts are obtained by sampling multiple trajectories and dequantizing them to recover continuous predictive distributions. Each token represents a single scalar timestep (1-in, 1-out); forecasting is autoregressive token-by-token, where each timestep is independently quantized into one of ~4096 bins (Ansari et al. Section 3).
 
 ## Why it matters
 Chronos showed that minimal tokenization plus an existing language-model architecture, without any TS-specific inductive bias, can compete with purpose-built time-series models. It crystallized the "language modeling for time series" viewpoint and became a standard baseline for subsequent TS foundation models.

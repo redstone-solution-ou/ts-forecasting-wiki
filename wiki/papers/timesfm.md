@@ -14,7 +14,7 @@ TimesFM introduces a decoder-only transformer pretrained as a general-purpose ze
 - Demonstrates that zero-shot forecasting with a single TS foundation model can rival dataset-specific supervised models.
 
 ## Architecture at a glance
-TimesFM is a GPT-style decoder-only transformer operating on patched real-valued tokens. Input patches are projected into the residual stream, and each output step predicts an entire output patch, shortening the autoregressive rollout. Pretraining uses a next-patch prediction loss on Google Trends, Wiki Pageviews, and synthetic seasonal/trend mixtures.
+TimesFM is a GPT-style decoder-only transformer operating on patched real-valued tokens. Input patches are projected into the residual stream, and each output step predicts an entire output patch, shortening the autoregressive rollout. Pretraining uses a next-patch prediction loss on Google Trends, Wiki Pageviews, and synthetic seasonal/trend mixtures. Input patch size is 32, output patch size is 128; forecasting is autoregressive rollout where the larger output patch (4x input) reduces the number of rollout steps needed to cover a given horizon (Das et al. Table 6).
 
 ## Why it matters
 TimesFM was among the first TS models to clearly demonstrate that a single pretrained transformer can generalize zero-shot across [Monash](../datasets-benchmarks/monash-archive.md), Darts, and ETT with quality comparable to supervised specialists, establishing the decoder-only patched paradigm for time-series foundation models.

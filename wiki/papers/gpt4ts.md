@@ -14,7 +14,7 @@ GPT4TS, also known as FPT or OFA, demonstrates that a frozen pretrained language
 - Theoretical and empirical analysis linking frozen self-attention to principal-component-like operations, motivating why a text LM transfers at all.
 
 ## Architecture at a glance
-GPT4TS takes a pretrained transformer and passes patched, RevIN-normalised time-series tokens through it. Self-attention and feed-forward layers are frozen; only LayerNorm parameters, positional embeddings, and the input/output linear projections are trained. The GPT2(6) variant (first six blocks of GPT-2) is the default configuration used across tasks.
+GPT4TS takes a pretrained transformer and passes patched, RevIN-normalised time-series tokens through it. Self-attention and feed-forward layers are frozen; only LayerNorm parameters, positional embeddings, and the input/output linear projections are trained. The GPT2(6) variant (first six blocks of GPT-2) is the default configuration used across tasks. Forecasting is direct: PatchTST-style patched tokens are processed through the frozen GPT-2, and the output is projected to the full forecast horizon H in a single pass (Zhou et al. Section 3).
 
 ## Why it matters
 GPT4TS is the canonical early demonstration that large language models can be repurposed as generic TS backbones with minimal parameter updates. It is the reference baseline that every later LLM-for-TS paper compares against, and its PCA interpretation of frozen self-attention is frequently cited as intuition for why cross-modality transfer works.

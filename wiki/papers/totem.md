@@ -14,7 +14,7 @@ TOTEM learns a cross-domain discrete time-series codebook via a VQ-VAE and evalu
 - Case against hand-engineered Fourier features and domain-specific preprocessing: only RevIN is used for normalisation, no frequency-space tricks.
 
 ## Architecture at a glance
-TOTEM trains a convolutional VQ-VAE whose codebook provides a discrete vocabulary for time-series patches. The encoder is a stack of strided 1D convolutions with dilation 1 so every time step contributes; the decoder mirrors it with transposed convolutions. Downstream transformers then consume the resulting token sequences for each task. The tokenizer is frozen after pretraining and reused across specialists and generalists.
+TOTEM trains a convolutional VQ-VAE whose codebook provides a discrete vocabulary for time-series patches. The encoder is a stack of strided 1D convolutions with dilation 1 so every time step contributes; the decoder mirrors it with transposed convolutions. Downstream transformers then consume the resulting token sequences for each task. The tokenizer is frozen after pretraining and reused across specialists and generalists. Tokens are VQ-VAE discrete codes from a learned codebook; downstream prediction operates over these discrete token sequences rather than continuous patches (Talukder et al. Section 3).
 
 ## Why it matters
 TOTEM anchors the discrete-tokenisation branch of TS foundation models. By quantifying specialist-versus-generalist trade-offs with a common codebook, it motivates subsequent approaches that combine VQ-style tokenisation with universal pretraining objectives and provides the cleanest evidence that a learned (rather than uniformly binned) discrete vocabulary is viable across many TS domains.

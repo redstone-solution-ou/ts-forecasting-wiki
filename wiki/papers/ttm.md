@@ -16,7 +16,7 @@ Tiny Time Mixers are compact non-transformer foundation models based on the TSMi
 - 1M-5M parameter models (TTM-Q, TTM-B, TTM-E, TTM-A) that beat much larger TS foundation models zero/few-shot on 11 evaluation datasets.
 
 ## Architecture at a glance
-TTM stacks TSMixer blocks that alternate feature-mixing and time-mixing MLPs over patched inputs. The backbone is channel-independent during pretraining, followed by an optional channel-mixing decoder and exogenous-variable mixer during fine-tuning. Adaptive patching rearranges the patch/feature dimensions across levels, resolution prefix tuning injects a frequency token, and RevIN handles distribution shift.
+TTM stacks TSMixer blocks that alternate feature-mixing and time-mixing MLPs over patched inputs. The backbone is channel-independent during pretraining, followed by an optional channel-mixing decoder and exogenous-variable mixer during fine-tuning. Adaptive patching rearranges the patch/feature dimensions across levels, resolution prefix tuning injects a frequency token, and RevIN handles distribution shift. Patch sizes are adaptive (multiple sizes via resolution prefix tuning that adjusts patch size to data frequency); forecasting is direct multi-step — the TSMixer outputs the full forecast horizon in one pass (Ekambaram et al. Section 4).
 
 ## Why it matters
 TTM makes the case that parameter count is not destiny for TS foundation models. By exploiting TS-specific inductive bias and multi-resolution training, a tiny MLP-Mixer serves as a practical, edge-deployable foundation model. Together with Mamba4Cast it anchors the argument that the transformer-by-default assumption inherited from NLP is not justified in TS.

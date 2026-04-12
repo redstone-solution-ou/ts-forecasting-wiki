@@ -15,7 +15,7 @@ LLMTime shows that off-the-shelf large language models such as GPT-3 and LLaMA-2
 - Demonstrations that LLMs can handle missing values via textual markers (`NaN`) and accept textual side information.
 
 ## Architecture at a glance
-LLMTime uses unmodified pretrained LLMs as forecasters. Numeric series are serialised into digit-level text with spaces between digits and commas between timesteps; decimals are dropped under a fixed-precision convention. Sampling next-token distributions and reversing the serialisation yields a mixture of per-bin uniform densities, which the paper shows can represent heavy-tailed and multimodal distributions competitively against GMMs and fixed bins.
+LLMTime uses unmodified pretrained LLMs as forecasters. Numeric series are serialised into digit-level text with spaces between digits and commas between timesteps; decimals are dropped under a fixed-precision convention. Sampling next-token distributions and reversing the serialisation yields a mixture of per-bin uniform densities, which the paper shows can represent heavy-tailed and multimodal distributions competitively against GMMs and fixed bins. Tokenization is at the per-digit level (1 text token per digit); forecasting is autoregressive digit-by-digit via the frozen LLM, with each numerical value serialized as a string of individual digit tokens (Gruver et al. Section 3).
 
 ## Why it matters
 LLMTime provided a provocative zero-shot baseline showing that language models trained only on text already contain enough sequence structure to forecast numeric time series. It crystallised the discrete-tokenisation-of-values idea and is the canonical counterexample to the view that TS forecasting requires TS-specific pretraining.

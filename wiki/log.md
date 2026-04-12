@@ -426,3 +426,18 @@ summed with uniform weights, 50% multiplicative trend, 3M series x 2048
 O(n^3)) and noted the spectral trade-off (fixed ARMA poles vs GP
 multi-scale composition). Updated the "Papers that exemplify this"
 bullet for TimesFM to match the expanded description.
+
+## [2026-04-12] refactor | Add patch in/out sizes and forecast method to paper leaves
+
+Added input patch size, output patch size, and forecasting strategy
+(direct multi-step vs autoregressive rollout) to the "Architecture at
+a glance" section of 17 paper leaves. Key findings documented:
+Chronos-2 uses patch_in=16, patch_out=16, direct multi-step up to 64
+output patches (1024 steps) in a single forward pass — same patch size
+as Sundial (16), matching the GIFT-Eval #1 model. TimesFM uses
+patch_in=32, patch_out=128 (4x asymmetric to reduce rollout steps).
+Timer/Timer-XL use patch=96. Chronos v1 uses scalar tokens (patch=1).
+Mamba4Cast does single-pass direct full-horizon with no patch
+tokenization. TTM uses adaptive patch sizes with direct multi-step
+output. 6 leaves skipped (info already present): moment, moirai,
+moirai-moe, moirai-2, timer-s1, timegpt.
