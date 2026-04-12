@@ -52,6 +52,7 @@ Last updated: 2026-04-12.
 - [concepts/scaling-laws.md](concepts/scaling-laws.md) — loss-vs-compute/data/params curves applied to TS-FMs
 - [concepts/synthetic-data-augmentation.md](concepts/synthetic-data-augmentation.md) — KernelSynth, TSMix, PFN priors, and friends
 - [concepts/value-quantization.md](concepts/value-quantization.md) — mapping real values to discrete bins or VQ codes
+- [concepts/hp-transfer-across-scales.md](concepts/hp-transfer-across-scales.md) — muP, poor man's muP, cross-shaped proxy search, and architectural stabilizers for scaling HPs
 - [concepts/zero-shot-forecasting.md](concepts/zero-shot-forecasting.md) — inference on unseen series with no gradient updates
 
 ## Datasets and corpora

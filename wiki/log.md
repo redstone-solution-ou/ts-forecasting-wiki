@@ -380,3 +380,20 @@ reports ETTh1 inference at 22 s vs 205 s for Moirai-S and
 backbone is a transformer; the scaling-laws page now cites SEMPO
 as the cleanest "less is more" counter-narrative to the
 billion-parameter TS-FM trajectory.
+
+## [2026-04-12] query-filed-back | HP transfer across scales concept page
+
+User asked about alternatives to muP for transferring hyperparameters
+across a model family (Tiny d=512 L=6 through Large d=1024 L=24) on
+a consumer-GPU budget. Filed the answer back as
+`wiki/concepts/hp-transfer-across-scales.md` covering five methods:
+(1) muP with reference to Yang et al. arXiv:2203.03466; (2) poor
+man's muP (the `lr ∝ 1/d` scaling rule derived from muP theory);
+(3) progressive transfer from previous size; (4) cross-shaped proxy
+search — training two cheap proxies at (same-depth, small-width) and
+(same-width, small-depth) to bracket the target; (5) architectural
+stabilizers (QK-Norm + Pre-RMSNorm + sigma-reparam) that reduce LR
+sensitivity to scale and make all other transfer methods more
+reliable. Includes a recommended workflow combining methods 1-5 for
+a 4090-class single-GPU setup. Cross-linked from concepts/concepts.md,
+concepts/scaling-laws.md, and wiki/index.md.

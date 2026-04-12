@@ -73,3 +73,4 @@ Sparse MoE scaling is trickier than dense. Load-balancing losses and router choi
 - [Mixture-of-experts](../architectures/mixture-of-experts.md)
 - [Flow-matching continuous](../architectures/flow-matching-continuous.md)
 - [Training recipes](../research/training-recipes.md) — the disclosed optimizer / LR / step / hardware values behind each scaling-curve point.
+- [HP transfer across scales](hp-transfer-across-scales.md) — muP, proxy search, and architectural stabilizers for transferring HPs from small to large models without re-tuning.

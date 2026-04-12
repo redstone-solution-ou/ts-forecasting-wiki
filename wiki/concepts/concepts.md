@@ -13,3 +13,4 @@ This section collects the recurring design ideas and training recipes that cut a
 - [RevIN normalization](revin-normalization.md) — reversible instance normalization as standard plumbing.
 - [Multi-task universal](multi-task-universal.md) — one model for forecast, classify, impute, anomaly.
 - [Synthetic data augmentation](synthetic-data-augmentation.md) — KernelSynth, TSMix, PFN priors, and friends.
+- [HP transfer across scales](hp-transfer-across-scales.md) — muP, poor man's muP, cross-shaped proxy search, and architectural stabilizers for tuning HPs once at small size and scaling up.
