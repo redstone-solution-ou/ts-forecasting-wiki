@@ -10,7 +10,8 @@ This section collects the recurring design ideas and training recipes that cut a
 - [Probabilistic forecasting](probabilistic-forecasting.md) — predictive distributions and quantiles, not point estimates.
 - [In-context learning](in-context-learning.md) — conditioning on related series or demonstrations at inference time.
 - [Scaling laws](scaling-laws.md) — loss-vs-compute/data/params curves for TS.
-- [RevIN normalization](revin-normalization.md) — reversible instance normalization as standard plumbing.
+- [Data normalization](data-normalization.md) — the full normalization landscape: RevIN, mean-scaling, partial-window, raw values, and why nobody differences.
+- [RevIN normalization](revin-normalization.md) — deep dive on RevIN mechanics and failure modes.
 - [Multi-task universal](multi-task-universal.md) — one model for forecast, classify, impute, anomaly.
 - [Synthetic data augmentation](synthetic-data-augmentation.md) — KernelSynth, TSMix, PFN priors, and friends.
 - [HP transfer across scales](hp-transfer-across-scales.md) — muP, poor man's muP, cross-shaped proxy search, and architectural stabilizers for tuning HPs once at small size and scaling up.

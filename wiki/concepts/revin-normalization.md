@@ -76,6 +76,7 @@ Empirically, removing RevIN drops zero-shot accuracy by large factors and almost
 
 ## Related wiki pages
 
+- [Data normalization](data-normalization.md) — the broader normalization landscape this page sits within (mean-scaling, partial-window, differencing, and why RevIN won)
 - [Patch tokenization](patch-tokenization.md)
 - [Zero-shot forecasting](zero-shot-forecasting.md)
 - [Value quantization](value-quantization.md)

@@ -48,7 +48,8 @@ Last updated: 2026-04-12.
 - [concepts/multi-task-universal.md](concepts/multi-task-universal.md) — one pretrained model for forecast, classify, impute, anomaly
 - [concepts/patch-tokenization.md](concepts/patch-tokenization.md) — grouping contiguous values into transformer tokens
 - [concepts/probabilistic-forecasting.md](concepts/probabilistic-forecasting.md) — predictive distributions and quantile heads vs point estimates
-- [concepts/revin-normalization.md](concepts/revin-normalization.md) — reversible instance normalization, standard plumbing for zero-shot
+- [concepts/data-normalization.md](concepts/data-normalization.md) — the full normalization landscape: RevIN, mean-scaling, partial-window, raw values, and why nobody differences
+- [concepts/revin-normalization.md](concepts/revin-normalization.md) — deep dive on RevIN mechanics and failure modes
 - [concepts/scaling-laws.md](concepts/scaling-laws.md) — loss-vs-compute/data/params curves applied to TS-FMs
 - [concepts/synthetic-data-augmentation.md](concepts/synthetic-data-augmentation.md) — KernelSynth, TSMix, PFN priors, and friends
 - [concepts/value-quantization.md](concepts/value-quantization.md) — mapping real values to discrete bins or VQ codes

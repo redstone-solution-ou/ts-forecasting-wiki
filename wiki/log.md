@@ -397,3 +397,20 @@ sensitivity to scale and make all other transfer methods more
 reliable. Includes a recommended workflow combining methods 1-5 for
 a 4090-class single-GPU setup. Cross-linked from concepts/concepts.md,
 concepts/scaling-laws.md, and wiki/index.md.
+
+## [2026-04-12] query-filed-back | Data normalization concept page
+
+User asked "how do people use the data as input? Do they differentiate?
+Do they all use RevIN?" Filed back as `wiki/concepts/data-normalization.md`
+covering the full normalization landscape: RevIN (the de facto standard),
+mean-scaling (Chronos), partial-window instance norm (Moirai-2),
+any-variate learned norm (MOIRAI), raw numerical text (LLMTime), z-score
+non-reversed (LTSF baselines only), and differencing + cumsum (not used
+by any TS-FM). Includes a detailed "why not differencing" section covering
+error accumulation under cumsum, loss function mismatch, the argument
+that RevIN already handles non-stationarity, patch tokenization awkwardness
+after differencing, and multi-step probabilistic forecasting complications.
+Summary comparison table mapping each method to its inverse quality, error
+accumulation behavior, and which papers use it. Cross-linked from
+concepts.md section hub, revin-normalization.md (which remains the
+RevIN-specific deep dive), and wiki/index.md.
