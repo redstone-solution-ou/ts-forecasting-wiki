@@ -414,3 +414,15 @@ Summary comparison table mapping each method to its inverse quality, error
 accumulation behavior, and which papers use it. Cross-linked from
 concepts.md section hub, revin-normalization.md (which remains the
 RevIN-specific deep dive), and wiki/index.md.
+
+## [2026-04-12] refactor | Expand TimesFM synthetic recipe in synthetic-data-augmentation.md
+
+The "Real + synthetic mixing (TimesFM)" entry was a one-liner. Expanded
+to document the full 4-component ARMA recipe from Das et al. Appendix
+A.8: piecewise linear trends (2-8 segments), ARMA(p,q) with 1<=p,q<=8,
+sin and cos waves with random periods, randomly enabled/disabled and
+summed with uniform weights, 50% multiplicative trend, 3M series x 2048
+= 6.1B points. Added computational comparison to KernelSynth (O(n) vs
+O(n^3)) and noted the spectral trade-off (fixed ARMA poles vs GP
+multi-scale composition). Updated the "Papers that exemplify this"
+bullet for TimesFM to match the expanded description.

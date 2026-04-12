@@ -27,7 +27,39 @@ y_mix = sum(lambda_i * normalize(y_i))
 
 The result is a novel series that inherits features from each source but is not literally any of them. This is cheap regularization that expands the effective training corpus.
 
-**3. Real + synthetic mixing (TimesFM).** Construct a training mixture that interleaves real corpora (Google Trends, Wiki Pageviews) with synthetic functions sampled from a hand-designed prior. The ratio is a hyperparameter; typical recipes keep real data at 50–90% of the mix with synthetic filling the gaps.
+**3. ARMA + trend + sinusoidal composition (TimesFM).** TimesFM's
+synthetic generator (Appendix A.8 of Das et al.) builds each series from
+four independently toggleable components:
+
+```
+I.   Piecewise linear trend    (2–8 random segments)
+II.  ARMA(p, q)                (1 ≤ p, q ≤ 8; coefficients from
+                                Gaussian or Uniform, then normalized)
+III. Sine wave                 (random period in [4, max_context/2],
+                                random phase)
+IV.  Cosine wave               (same period/phase sampling as sine)
+```
+
+For each synthetic series: randomly enable or disable each of I–IV,
+generate each component at length 2048, and sum them with uniformly
+sampled random weights. With 50% probability the trend is applied
+multiplicatively instead of additively (creating heteroskedastic
+series where variance scales with level). Total: 3M series × 2048
+time-points ≈ 6.1B synthetic data points.
+
+This is the most explicit and controllable recipe in the TS-FM
+literature — each component maps directly to a classical TS concept
+(AR memory, MA smoothing, deterministic trend, seasonality). It is
+computationally cheaper than KernelSynth (O(n) per series via AR
+filtering vs O(n³) or O(n log n) for GP sampling) and produces richer
+autoregressive structure at high (p, q) orders. The trade-off is that
+the ARMA spectral profile is fixed per series (one set of poles/zeros),
+whereas a composed GP kernel can create multi-scale interactions more
+naturally.
+
+The real+synthetic mixing ratio is a hyperparameter; TimesFM
+interleaves synthetic with Google Trends and Wikipedia pageviews in a
+~100B-point total corpus.
 
 **4. Prior-data Fitted Networks (PFN, used by Mamba4Cast).** The most extreme version: pretrain *only* on synthetic data sampled from a rich prior over TS generative processes. At every training step, draw a fresh batch from the prior and train the model to approximate the *Bayesian posterior predictive* under that prior:
 
@@ -75,7 +107,7 @@ Finally, synthetic data augmentation does not solve the *covariate* problem. Rea
 ## Papers that exemplify this
 
 - `[Chronos](../papers/chronos.md)` — KernelSynth (random-kernel GP samples) and TSMix (mixup across real series) alongside real pretraining data.
-- `[TimesFM](../papers/timesfm.md)` — synthetic functions blended with Google Trends and Wikipedia pageviews in a ~100B-point mixture.
+- `[TimesFM](../papers/timesfm.md)` — ARMA(p,q) up to (8,8) + piecewise linear trends + sin/cos waves, 4 components randomly composed, 3M series × 2048 = 6.1B synthetic points blended with Google Trends and Wikipedia pageviews in a ~100B-point total mixture.
 - `[Chronos-2](../papers/chronos-2.md)` — heavy synthetic augmentation to generate sibling panels for in-context group-attention training.
 - `[Mamba4Cast](../papers/mamba4cast.md)` — PFN pretraining from a rich TS prior, no real data, amortized Bayesian forecasting.
 - `[Sundial](../papers/sundial.md)` — synthetic components within the ~1T-point TimeBench mixture, enabling flow-matching at scale.
