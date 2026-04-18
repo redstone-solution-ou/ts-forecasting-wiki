@@ -77,6 +77,7 @@ Last updated: 2026-04-12.
 - [benchmarks/training-a-small-model.md](benchmarks/training-a-small-model.md) — where to train, the smallest competitors, the 2026 curation recipe
 - [benchmarks/univariate-benchmarking.md](benchmarks/univariate-benchmarking.md) — practical recommendation for univariate-only models vs TS-FM SOTA
 - [benchmarks/decision-guide.md](benchmarks/decision-guide.md) — "which model should I pick?" indexed by use-case axes (probabilistic, multivariate, compute budget, horizon)
+- [benchmarks/rebuilding-timebench.md](benchmarks/rebuilding-timebench.md) — practical recipe for assembling a TimeBench-style ~1T-point pretraining corpus from GIFT-Eval Pretrain + Time-300B + Chronos public corpus + synthetic generators, with the Timer-S1 leakage scrub
 
 ## Evaluation (methodology)
 

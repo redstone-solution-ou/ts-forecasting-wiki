@@ -427,6 +427,22 @@ O(n^3)) and noted the spectral trade-off (fixed ARMA poles vs GP
 multi-scale composition). Updated the "Papers that exemplify this"
 bullet for TimesFM to match the expanded description.
 
+## [2026-04-19] query-filed-back | Rebuilding-TimeBench practical guide
+
+Added `benchmarks/rebuilding-timebench.md`, a step-by-step recipe for
+assembling a TimeBench-equivalent ~1T-point pretraining corpus from
+only publicly available data. Starting point is `GIFT-Eval Pretrain`
+(230B obs, already scrubbed). Additions are Time-300B, the Chronos
+public corpus, KernelSynth / TSMix / canonical signal synthetics, and
+optionally the Time Series Pile. Documents the mandatory Timer-S1
+curation pipeline (causal imputation, k-sigma/IQR, ADF filter,
+GIFT-Eval leakage scrub, resampling, value-flipping) to apply on
+every real-data layer. Provides a cumulative size-budget worksheet
+and an explicit list of what a public rebuild cannot faithfully
+reproduce (TimeBench weights, CloudOps component, Timer-S1 filter
+thresholds). Cross-linked from index.md; intended as a companion to
+`benchmarks/training-a-small-model.md`.
+
 ## [2026-04-19] refactor | Expand Timer-S1 tokenizer description
 
 Enriched `papers/timer-s1.md` "Architecture at a glance" with the

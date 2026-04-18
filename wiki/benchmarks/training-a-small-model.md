@@ -154,7 +154,9 @@ resampling and value-flipping augmentation). As of the Timer-S1
 preprint, the full mixture has not been re-released in auditable
 form — only the public snapshots it reuses. The pipeline itself is
 applicable on top of LOTSA or Time-300B even if you are not training
-on TimeBench. The contribution is the pipeline, not the name.
+on TimeBench. The contribution is the pipeline, not the name. See
+[rebuilding-timebench.md](rebuilding-timebench.md) for a step-by-step
+recipe to rebuild a TimeBench-equivalent corpus from public sources.
 
 ### 5. Synthetic-only
 
