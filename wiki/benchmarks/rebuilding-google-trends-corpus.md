@@ -239,6 +239,77 @@ G-TAB popularity calibration + sparsity filter (§3b) to prune down
 to 25-50k head queries. This three-axis strategy covers more of the
 topical space than any single published method.
 
+### 3e. Cost comparison and start-small-then-grow recipe
+
+For TS-FM pretraining, not all methods above are equally good. The
+econometric methods (Ross backward induction, Scott-Varian BSTS,
+Kohns-Bhattacharjee BSTS, Ferrara-Simoni Lasso) share two features
+that make them a poor fit:
+
+1. **They all require a target series** — "the keywords that best
+   predict unemployment". Pretraining does not have one target;
+   optimizing the seed pool against any specific target biases the
+   corpus toward that target's domain.
+2. **They do not extend incrementally.** Adding new candidate
+   keywords requires re-running the selection against the target
+   series. If you build v1, then want a bigger v2, you redo the
+   work.
+
+The top-down methods (GT verticals, Wikipedia top-pageview,
+`pytrends.related_queries`, LLM expansion) are both cheap per
+candidate *and* incrementally extensible.
+
+Cost × extensibility of each method (rough orders of magnitude):
+
+| Method | GT requests per candidate | Compute cost | Needs target? | Extensible? |
+|---|---|---|---|---|
+| Backward induction (Ross 2013) | ~10 (N samples against target) | cheap regressions | yes, one per target | no — refit on expansion |
+| BSTS spike-slab (Scott-Varian) | ~10 | moderate MCMC | yes | no — refit |
+| BSTS horseshoe (Kohns) | ~10 | moderate MCMC | yes | no |
+| Lasso pre-screen (Ferrara-Simoni) | ~10 | cheap | yes | no |
+| GT verticals walk | few hundred total (not per candidate) | zero | no | yes — re-walk when Google adds |
+| Wikipedia top-N pageviews | 0 GT | zero (bulk download) | no | yes — raise N |
+| `pytrends.related_queries` expansion | ~1 per seed, ~25 yielded | zero | no | yes — more rounds |
+| LLM expansion (Meta RTTP) | 0 GT | moderate LLM API | no | yes — more seed topics |
+| G-TAB popularity filter (once) | ~5 per candidate (one-time) | zero extra | no | yes — cache and only run on new candidates |
+
+**Recommended start-small-then-grow recipe:**
+
+1. **v1 seed pool (minimal GT cost).** Wikipedia top-100k English
+   pageview titles (free bulk download, zero GT) + full GT
+   verticals walk (few hundred GT requests) + one round of
+   `pytrends.related_queries` on the top 1k seeds (~1k GT
+   requests). Yield: 25-50k candidate queries for a few thousand
+   GT requests total. See §3a bullet points for the loader links.
+2. **One-time popularity filter via G-TAB (the expensive step).**
+   Calibrate each candidate; drop those below the sparsity
+   threshold at your target granularity. ~5 GT requests per
+   candidate, so ~200k GT requests for a 40k pool. **Cache the
+   calibration results on disk** — this is the reusable artifact.
+3. **Download + stitch series for survivors** (see §6-7). This is
+   the biggest line item, ~1-10M GT requests, but only for the
+   ~20-30k keywords that passed step 2.
+4. **v2 expansion (additive).** Raise Wikipedia pageview rank from
+   100k to 500k; run more `related_queries` rounds; walk new GT
+   verticals. Run the G-TAB filter **only on the new candidates**
+   — the cached v1 results are unchanged. Download + stitch the
+   new survivors. v2 cost scales with new candidates only, not the
+   union.
+
+**On backward induction specifically.** Useful if your downstream
+task is a single target (say, nowcasting an economic indicator).
+Not useful for TS-FM pretraining, which needs broad topical
+coverage. Reference it to understand the econometric heritage, but
+do not run it for corpus construction.
+
+**On LLM-based expansion specifically.** The Meta RTTP paper shows
+LLMs can generate high-recall candidate queries from seed topics or
+documents. This is an effective v2-expansion tool — feed v1's
+top-performing queries back into an LLM and ask for related terms,
+then filter through G-TAB. Complementary to, not a replacement for,
+Wikipedia pageview seeds (which catch long-tail named entities the
+LLM may hallucinate).
+
 ## 4. Plan the time range and granularities
 
 TimesFM's frequency mix:
