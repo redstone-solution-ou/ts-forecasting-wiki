@@ -78,6 +78,7 @@ Last updated: 2026-04-12.
 - [benchmarks/univariate-benchmarking.md](benchmarks/univariate-benchmarking.md) — practical recommendation for univariate-only models vs TS-FM SOTA
 - [benchmarks/decision-guide.md](benchmarks/decision-guide.md) — "which model should I pick?" indexed by use-case axes (probabilistic, multivariate, compute budget, horizon)
 - [benchmarks/rebuilding-timebench.md](benchmarks/rebuilding-timebench.md) — practical recipe for assembling a TimeBench-style ~1T-point pretraining corpus from GIFT-Eval Pretrain + Time-300B + Chronos public corpus + synthetic generators, with the Timer-S1 leakage scrub
+- [benchmarks/wikipedia-pageviews-leakage.md](benchmarks/wikipedia-pageviews-leakage.md) — concrete audit of Wikipedia-derived series in GIFT-Eval (test: none; Pretrain: Wiki-Rolling + Kaggle Web Traffic Weekly + Extended Web Traffic), with scrub procedure for adding raw Wikimedia on top
 
 ## Evaluation (methodology)
 

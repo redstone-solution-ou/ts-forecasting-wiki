@@ -427,6 +427,23 @@ O(n^3)) and noted the spectral trade-off (fixed ARMA poles vs GP
 multi-scale composition). Updated the "Papers that exemplify this"
 bullet for TimesFM to match the expanded description.
 
+## [2026-04-19] query-filed-back | Wikipedia-pageviews leakage audit against GIFT-Eval
+
+Added `benchmarks/wikipedia-pageviews-leakage.md`. Verified against
+the GIFT-Eval paper (arXiv:2410.10393) that the **test split contains
+zero Wikipedia-derived series** — all Web/CloudOps test datasets are
+CloudOps (BizITObs + Bitbrains), so folding raw Wikimedia data into a
+pretraining corpus does not leak w.r.t. GIFT-Eval test. Enumerated
+the three Wikipedia-derived datasets inside GIFT-Eval Pretrain
+(Table 14: Wiki-Rolling 47,675 series / 40.6M obs via GluonTS;
+Kaggle Web Traffic Weekly 145,063 series / 16.5M obs via Monash;
+Extended Web Traffic 145,063 series / 370.9M obs via Monash) and
+documented the dedup procedure for layering raw Wikimedia pageviews
+on top of GiftEvalPretrain. Flagged that no dedicated scrub utility
+is published — GiftEvalPretrain is the existing "tool" — and
+provided the reconstructable ~50-line recipe. Cross-linked from
+index.md and rebuilding-timebench.md.
+
 ## [2026-04-19] query-filed-back | Rebuilding-TimeBench practical guide
 
 Added `benchmarks/rebuilding-timebench.md`, a step-by-step recipe for

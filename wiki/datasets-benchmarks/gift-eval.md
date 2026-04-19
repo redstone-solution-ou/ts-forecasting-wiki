@@ -28,3 +28,5 @@ The practical effect is that a new TS foundation model is expected to publish GI
 - [Monash Archive](monash-archive.md)
 - [Zero-shot forecasting](../concepts/zero-shot-forecasting.md)
 - [LOTSA](lotsa.md)
+- [../benchmarks/wikipedia-pageviews-leakage.md](../benchmarks/wikipedia-pageviews-leakage.md) — concrete audit: GIFT-Eval test has no Wikipedia series; GIFT-Eval Pretrain includes Wiki-Rolling + Kaggle Web Traffic (weekly + extended).
+- [../benchmarks/rebuilding-timebench.md](../benchmarks/rebuilding-timebench.md) — how to assemble a TimeBench-style corpus that stays GIFT-Eval-clean.
