@@ -176,7 +176,7 @@ Two Python scripts handled the mechanical rewrite:
   section READMEs, and replaced them with the correct new relative
   path. 61 link targets rewritten across 18 files.
 - `/tmp/fix_readme_labels.py` — second pass on link labels whose
-  visible text still said "README.md" (e.g.,
+  visible text still said "README.md" (e.g.
   `[../architectures/README.md](../architectures/architectures.md)`
   became `[../architectures/architectures.md](../architectures/architectures.md)`).
   48 labels rewritten across 18 files.
@@ -426,6 +426,172 @@ summed with uniform weights, 50% multiplicative trend, 3M series x 2048
 O(n^3)) and noted the spectral trade-off (fixed ARMA poles vs GP
 multi-scale composition). Updated the "Papers that exemplify this"
 bullet for TimesFM to match the expanded description.
+
+## [2026-04-19] query-filed-back | Data-section expansion + Google Trends page
+
+Expanded `datasets-benchmarks/` into a comprehensive "data section"
+covering every named TS-FM dataset, their types, usage, known leakage
+status, and scrub tooling. New pages created:
+
+- `datasets-benchmarks/datasets-benchmarks.md` — rewritten as the
+  data-section hub with summary tables for corpora and benchmarks.
+- `datasets-benchmarks/dataset-types.md` — 8-axis taxonomy
+  (pretraining vs eval, real vs synthetic, univariate vs
+  multivariate, domain, frequency, license, release form, deprecation).
+- `datasets-benchmarks/evaluation-benchmarks.md` — consolidated
+  catalog of active vs historical vs retired evaluation suites.
+- `datasets-benchmarks/leakage-map.md` — cross-reference matrix of
+  pretraining corpora × evaluation benchmarks, verified against
+  primary sources (GIFT-Eval Tables 13/14, Moirai-MoE Fig 3,
+  Chronos §5.1, Chronos-2 Table 3).
+- `datasets-benchmarks/scrub-tools.md` — catalog of public tooling:
+  GiftEvalPretrain, `uni2ts`, Timer-S1 pipeline (documented but
+  unreleased), pytrends, trendecon, G-TAB, reconstructable
+  ~50-line scrub recipe.
+- `datasets-benchmarks/google-trends-data.md` — every known way to
+  obtain Google Trends time-series data, including the TimesFM
+  corpus description, pytrends, BigQuery, G-TAB, trendecon, and
+  open contribution opportunities.
+
+Two new paper PDFs added to `papers/` as references for the Google
+Trends page:
+
+- `gtab_2007.13861.pdf` — Robert West, "Calibration of Google Trends
+  Time Series", CIKM 2020. G-TAB method.
+- `gtrends-proper_2104.03065.pdf` — Medeiros & Pires, "The Proper
+  Use of Google Trends in Forecasting Models", arXiv:2104.03065.
+
+Updated `index.md` with all new entries. This expansion was
+submitted via a PR branch (`data-section-expansion`) and merged
+after two self-review iterations.
+
+## [2026-04-19] lint + audit | Leakage-claim verification against primary sources
+
+Full audit of leakage and overlap claims across the wiki, verified
+against the source PDFs in `papers/` and the GIFT-Eval paper
+(arXiv:2410.10393) fetched from arxiv. Every claim is now traceable
+to a specific table/figure. Notable corrections and enrichments:
+
+1. **Chronos v1 `papers/chronos.md`**: rewrote the Benchmark II
+   overlap claim. The Chronos paper's own footnote 5 states Benchmark
+   II leakage risk is "minimal" — Benchmark II is not the leakage
+   source. The load-bearing overlap is **Benchmark I** (in-domain)
+   whose datasets (M4 Daily/Hourly/Monthly/Weekly, Electricity, ETT,
+   KDD Cup 2018, Temperature-Rain, Pedestrian Counts, London Smart
+   Meters) directly overlap GIFT-Eval test per GIFT-Eval Table 13.
+   Also documented: Chronos pretraining-only set includes `Wiki Daily
+   (100k)` = 100,001 Wikipedia articles daily (Chronos Table 3).
+
+2. **TimesFM `papers/timesfm.md`**: replaced the fabricated
+   "22k-query / ~68M-series" with the verified numbers from TimesFM
+   Table 1 and §2: ~22k Google Trends head queries, "all Wikimedia
+   pageviews" (~300B source points before mixing), 3M synthetic
+   series (6.1B points), plus M4 / Electricity / Traffic / Weather /
+   Favorita as explicit real-dataset additions.
+
+3. **MOIRAI `papers/moirai.md`**: added that GIFT-Eval paper §F.2
+   explicitly retrains MOIRAI on `GiftEvalPretrain` for a
+   leakage-free comparison and refers to the original as
+   `Moirai-Leakage`. Effect grows with prediction length.
+
+4. **`datasets-benchmarks/gift-eval.md`**: enriched with the full
+   23-test-dataset list (Table 13) grouped by domain, plus the
+   GIFT-Eval Pretrain composition (88 datasets / 4.5M series / 230B
+   obs). Made explicit that the Web/CloudOps test subset is zero
+   Wikipedia — all entries are BizITObs + Bitbrains CloudOps.
+
+5. **`datasets-benchmarks/time-300b.md`**: added the real domain
+   breakdown (Nature 90.50% of observations) and the Web-domain
+   dataset listing from Time-MoE Table 10, including the three
+   Wikipedia-derived entries (Kaggle Web Traffic Weekly, Extended
+   Web Traffic, Wiki-Rolling) plus Wiki Daily (100k).
+
+6. **`datasets-benchmarks/lotsa.md`**: added the four Wikipedia-derived
+   datasets in LOTSA with per-dataset series counts from MOIRAI
+   Table 14. Clarified that the Wikipedia content in LOTSA does not
+   produce GIFT-Eval test leakage by itself (test has no Wikipedia);
+   the leakage vector is shared Monash / M4 / ETT / Electricity
+   entries, which `GiftEvalPretrain` scrubs out.
+
+7. **`evaluation/protocols.md`**: rewrote the "Known leakage cases"
+   section with verbatim citations from Moirai-MoE Figure 3 and
+   Table 2 captions, Chronos-2 §5.1, GIFT-Eval §F.2. Added the
+   fev-bench per-model leakage percentages from Chronos-2 Table 3
+   (Moirai-2.0 28% is the highest; Chronos-2 / Chronos-Bolt /
+   COSMIC / TabPFN-TS at 0%).
+
+8. **`benchmarks/rebuilding-timebench.md`**: corrected Chronos
+   corpus size to 890K series / 84B observations (was "tens of B"),
+   Time-300B Nature fraction to 90.50%, and the leakage discussion
+   to reflect that Chronos v1's problem is Benchmark I, not
+   Benchmark II. Added a "crucial finding" callout: raw Wikimedia
+   pageviews do not leak against GIFT-Eval test.
+
+9. **`benchmarks/wikipedia-pageviews-leakage.md`**: added a
+   cross-corpus Wikipedia-content table showing that LOTSA,
+   Time-300B, Chronos v1, and TimesFM all already include
+   Wikipedia-derived data, so layering raw Wikimedia on top is
+   primarily a deduplication concern.
+
+10. **`benchmarks/training-a-small-model.md`**: replaced vague
+    "train on LOTSA with Timer-S1 curation" recommendation with a
+    direct pointer to `Salesforce/GiftEvalPretrain` as the simplest
+    clean-starting-point for a GIFT-Eval-targeted run.
+
+**Lint pass concurrent with the audit.** No broken relative links
+(two apparent failures in `log.md` were inside backticks and render
+as inline code). No orphan pages. All 23 paper leaves have the
+required template sections. Concept pages
+`data-normalization.md` and `hp-transfer-across-scales.md` were
+under the ≥3-concept / ≥2-architecture cross-link requirement;
+added the missing cross-links. Architecture pages all pass the
+cross-link check. 24 paper leaves use `## In the knowledge graph`
+instead of `## Related wiki pages` — this is template-correct for
+paper leaves per CLAUDE.md and is not a lint violation.
+
+## [2026-04-19] query-filed-back | Wikipedia-pageviews leakage audit against GIFT-Eval
+
+Added `benchmarks/wikipedia-pageviews-leakage.md`. Verified against
+the GIFT-Eval paper (arXiv:2410.10393) that the **test split contains
+zero Wikipedia-derived series** — all Web/CloudOps test datasets are
+CloudOps (BizITObs + Bitbrains), so folding raw Wikimedia data into a
+pretraining corpus does not leak w.r.t. GIFT-Eval test. Enumerated
+the three Wikipedia-derived datasets inside GIFT-Eval Pretrain
+(Table 14: Wiki-Rolling 47,675 series / 40.6M obs via GluonTS;
+Kaggle Web Traffic Weekly 145,063 series / 16.5M obs via Monash;
+Extended Web Traffic 145,063 series / 370.9M obs via Monash) and
+documented the dedup procedure for layering raw Wikimedia pageviews
+on top of GiftEvalPretrain. Flagged that no dedicated scrub utility
+is published — GiftEvalPretrain is the existing "tool" — and
+provided the reconstructable ~50-line recipe. Cross-linked from
+index.md and rebuilding-timebench.md.
+
+## [2026-04-19] query-filed-back | Rebuilding-TimeBench practical guide
+
+Added `benchmarks/rebuilding-timebench.md`, a step-by-step recipe for
+assembling a TimeBench-equivalent ~1T-point pretraining corpus from
+only publicly available data. Starting point is `GIFT-Eval Pretrain`
+(230B obs, already scrubbed). Additions are Time-300B, the Chronos
+public corpus, KernelSynth / TSMix / canonical signal synthetics, and
+optionally the Time Series Pile. Documents the mandatory Timer-S1
+curation pipeline (causal imputation, k-sigma/IQR, ADF filter,
+GIFT-Eval leakage scrub, resampling, value-flipping) to apply on
+every real-data layer. Provides a cumulative size-budget worksheet
+and an explicit list of what a public rebuild cannot faithfully
+reproduce (TimeBench weights, CloudOps component, Timer-S1 filter
+thresholds). Cross-linked from index.md; intended as a companion to
+`benchmarks/training-a-small-model.md`.
+
+## [2026-04-19] refactor | Expand Timer-S1 tokenizer description
+
+Enriched `papers/timer-s1.md` "Architecture at a glance" with the
+patch-embedder details from the paper's §3.1 Eq. 3: each P=16 patch is
+concatenated with a P-length binary padding mask, and the embedder is
+a weight-tied residual network `R^{2P} → R^D` (32 → 1024), not a
+linear projection. Added that no additive positional embedding is
+used (relative position comes exclusively from RoPE inside attention,
+Eq. 5-6) and that `N = ⌈T/P⌉` gives N=180 at pretraining context
+T=2880 and N=720 after stage-2 RoPE context extension to T=11520.
 
 ## [2026-04-12] refactor | Add patch in/out sizes and forecast method to paper leaves
 

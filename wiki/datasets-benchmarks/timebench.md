@@ -28,3 +28,4 @@ Like LOTSA, the [Time Series Pile](./time-series-pile.md), and Time-300B, TimeBe
 - [Flow-matching continuous](../architectures/flow-matching-continuous.md)
 - [Synthetic data augmentation](../concepts/synthetic-data-augmentation.md)
 - [Time-300B](time-300b.md)
+- [../benchmarks/rebuilding-timebench.md](../benchmarks/rebuilding-timebench.md) — practical recipe for building a TimeBench-style corpus from public sources.

@@ -27,3 +27,4 @@ The archive has been central to the zero-shot evaluation of modern TS foundation
 
 - [GIFT-Eval](gift-eval.md)
 - [Zero-shot forecasting](../concepts/zero-shot-forecasting.md)
+- [../benchmarks/wikipedia-pageviews-leakage.md](../benchmarks/wikipedia-pageviews-leakage.md) — Monash includes `Kaggle Web Traffic Weekly` (145,063 Wikipedia articles) and `Extended Web Traffic`; page gives the scrub procedure.
