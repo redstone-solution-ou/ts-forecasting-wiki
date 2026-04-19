@@ -427,6 +427,37 @@ O(n^3)) and noted the spectral trade-off (fixed ARMA poles vs GP
 multi-scale composition). Updated the "Papers that exemplify this"
 bullet for TimesFM to match the expanded description.
 
+## [2026-04-19] query-filed-back | Rebuilding-Google-Trends-corpus guide
+
+Added `benchmarks/rebuilding-google-trends-corpus.md`, a practical
+end-to-end recipe for assembling a TimesFM-quality Google Trends
+pretraining corpus extended through present-day data. Covers:
+
+1. Seed-query selection (Google "Year in Search", Wikipedia
+   top-pageviews, domain seeds, `pytrends.related_queries`
+   expansion; empirical ~22k "head queries" cutoff based on
+   sparsity).
+2. Temporal scope & granularity plan (hourly recent-5y, daily/
+   weekly/monthly 2007-today).
+3. G-TAB anchor-bank construction and per-query calibration.
+4. Medeiros-Pires repeated-sampling protocol (N=5-20 averaged).
+5. Temporal-slice stitching via shared anchors (robust against
+   dormant-then-popular queries).
+6. Frequency reconciliation using Chow-Lin disaggregation in the
+   trendecon style (monthly -> weekly -> daily consistency).
+7. Quality audits: variance, anchor-consistency, Datastore
+   cross-check.
+8. Storage format (sharded Parquet), release channel (HuggingFace
+   Datasets), leakage status (Google Trends not in any canonical
+   TS-FM benchmark).
+9. Budget estimate: ~low-millions API calls, 6-12 months wall-clock
+   on a single `pytrends` IP.
+10. What cannot be reproduced (22k query list, server-side DP,
+    absolute volumes).
+
+Cross-linked from `index.md` and `rebuilding-timebench.md`
+(companion recipe).
+
 ## [2026-04-19] query-filed-back | Data-section expansion + Google Trends page
 
 Expanded `datasets-benchmarks/` into a comprehensive "data section"
