@@ -177,10 +177,13 @@ Google Trends at scale. The paper's §2 "Data" describes:
 - **Release status.** The exact 22k-query list is **not released**.
   The TimesFM paper §7 "Reproducibility" says the aggregation is
   public but the specific slice is not.
-- **Differential privacy.** "Google Trends data is differentially
-  private" per TimesFM §2 — a property that matters for ethics but
-  also means the raw pageview counts have been perturbed before
-  aggregation.
+- **Differential privacy.** TimesFM §8 "Data Privacy" (verbatim):
+  *"Note that most of our data sources are publicly available and
+  are aggregated i.e no individual user activity constitutes a
+  time-point. Further the Google Trends data is differentially
+  private."* This DP property applies only to Google Trends, not to
+  Wikipedia Pageviews; the latter is aggregate pageview counts
+  without a published DP mechanism.
 
 If you want to reproduce the TimesFM Google Trends component
 ingredient-for-ingredient: you need a seed list of 22k head queries
@@ -191,11 +194,23 @@ ingredient-for-ingredient: you need a seed list of 22k head queries
 ## 6. Published Google Trends corpora (as of 2026-04)
 
 No "LOTSA for Google Trends" exists. The field lacks a released,
-calibrated, leakage-audited Google Trends corpus. Available
-alternatives:
+calibrated, leakage-audited Google Trends *time-series* corpus.
+Available alternatives:
 
 - **TimesFM internal corpus** — described but not released.
-- **Google Trends Datastore** — small curated topical datasets only.
+- **Google Trends Datastore** (`googletrends.github.io/data/`) —
+  small curated topical datasets only.
+- **HuggingFace `ronantakizawa/trending-words-google`.** The only
+  Google-Trends-derived dataset I could find on HuggingFace Hub
+  (searched 2026-04). Contents: top-ranked Google "Year in Search"
+  terms from 2001–2024, 93 categories, 2,784 entries. **Columns:**
+  `word`, `year`, `tag` (category), `rank`. **Granularity is
+  yearly**, and the dataset is a **ranked top-terms list**, not a
+  search-interest time series. License: CC-BY-4.0. For TS-FM
+  pretraining this dataset is **not useful** — the granularity and
+  format do not match what a forecasting model consumes. It is
+  useful for topical trend analysis and NLP work on trending-term
+  vocabularies.
 - **Per-paper microcorpora** — numerous economics / epidemiology
   papers publish small Google Trends datasets alongside their
   replication code. Examples: Choi & Varian 2011 "Predicting the
@@ -205,7 +220,8 @@ alternatives:
 Building a new, releasable Google Trends corpus at TimesFM scale is
 an **open contribution opportunity** the field would benefit from.
 The technical prerequisites — G-TAB + `trendecon` — are solved; the
-missing pieces are API budget and a committed maintainer.
+missing pieces are API budget and a committed maintainer. As of the
+2026-04 snapshot of the HuggingFace Hub, no such dataset exists.
 
 ## 7. Leakage considerations for Google Trends data
 
@@ -241,12 +257,15 @@ paper folder for reference:
 
 Additional reading not fetched as PDF leaves:
 
-- Eichenauer et al., "Obtaining consistent time series from Google
-  Trends", *Economic Inquiry* 60(2), 2022 — `trendecon`'s paper.
+- Eichenauer, Indergand, Martínez, Sax, "Obtaining consistent time
+  series from Google Trends", *Economic Inquiry* 60(2), 2022 —
+  `trendecon`'s canonical paper. There is a working-paper preprint
+  "Constructing Daily Economic Sentiment Indices Based on Google
+  Trends", KOF Working Paper 20-484 (2020).
 - Choi & Varian, "Predicting the Present with Google Trends",
-  *Economic Record*, 2012 — foundational paper.
-- Varian, "Nowcasting with Google Trends", *Economic Record*, 2023
-  — updated review.
+  *Economic Record*, 2012 — foundational nowcasting paper.
+- Nowcasting-with-Google-Trends literature more broadly: applied
+  macro / epidemiology papers that use GT as exogenous features.
 
 ## Related wiki pages
 

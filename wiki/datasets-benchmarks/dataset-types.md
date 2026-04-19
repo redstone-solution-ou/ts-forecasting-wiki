@@ -16,7 +16,7 @@ model trains on. Examples: [LOTSA](lotsa.md) (27B obs, 9 domains),
 **Evaluation benchmark.** Curated set of test windows with fixed
 splits and metrics. Examples: [GIFT-Eval](gift-eval.md) test split
 (23 datasets / 144k series), Chronos Benchmark II (27 datasets),
-fev-bench (98 tasks), LTSF (ETT/Weather/ECL).
+fev-bench (100 tasks), LTSF (ETT/Weather/ECL).
 
 **Both.** Some datasets act as both. `Monash Archive` is a curated
 evaluation archive whose raw data also leaks into every major
@@ -59,9 +59,11 @@ attention, Chronos-2 group attention, Timer-XL TimeAttention).
 
 **Covariate-informed.** Target series plus known-future exogenous
 variables (retail demand + price / promo, energy demand + weather
-forecast). fev-bench's 42-covariate-task subset is the first
-large-scale covariate-informed benchmark. Very few TS-FMs support
-covariates natively; see [benchmarks/state-of-the-art.md](../benchmarks/state-of-the-art.md).
+forecast). fev-bench's 42-task covariates subset (Chronos-2 §5.2,
+out of 100 total fev-bench tasks per the fev-bench paper abstract)
+is the first large-scale covariate-informed benchmark. Very few
+TS-FMs support covariates natively; see
+[benchmarks/state-of-the-art.md](../benchmarks/state-of-the-art.md).
 
 ## Axis 4 — Domain
 

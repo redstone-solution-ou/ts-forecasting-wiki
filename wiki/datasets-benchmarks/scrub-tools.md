@@ -1,9 +1,9 @@
-# Scrub Tools — Code for Leakage Removal and Corpus Curation
+# Scrub Tools and Dataset Loaders for Leakage Removal and Corpus Curation
 
-This page is a catalog of the public code you would actually run to
-remove leakage from a TS-FM pretraining corpus, or to curate a raw
-time-series dump into training-ready data. It is organized by
-increasing level of bespoke effort required.
+This page is a catalog of the public code that supports TS-FM data
+work: scrub / leakage-removal tooling in sections 1-4, and general
+dataset-loading libraries useful in the same pipelines in section 5.
+Section 6 gives a compute-cost sanity check.
 
 ## 1. Ready-to-use: curated leakage-free corpora
 
@@ -98,9 +98,9 @@ The [Timer-S1](../papers/timer-s1.md) paper documents the most
 detailed public TS-FM data-curation pipeline — but the code is not
 released. You can reconstruct it from the paper text. The steps are:
 
-1. **Causal mean imputation** for missing values (no future-into-past
-   leakage through the imputer). Timer-S1 §4.2 does not specify the
-   window length.
+1. **Causal mean imputation** for missing values — the imputer uses
+   only past observations to fill gaps. Timer-S1 §4.2 does not
+   specify the window length.
 2. **Outlier removal** via k-σ or IQR on shifting windows. Specific
    thresholds are not stated.
 3. **ADF predictability filter.** Series that fail the Augmented
@@ -121,8 +121,10 @@ nor the final TimeBench mixture has been published as of 2026-04.
 ## 4. Reconstructable recipe — the scrub
 
 None of the 1-2 libraries above provides a general "scrub arbitrary
-TS data against benchmark X" utility. The following recipe is the
-typical open-source reconstruction. It is ~50 lines of Python.
+TS data against benchmark X" utility. The sketch below is an
+illustrative starting point, not a published implementation; expect
+to adjust the fingerprint function, dedup thresholds, and I/O
+format for your own corpus.
 
 ```python
 # Pseudocode: scrub raw TS data against benchmark X
@@ -162,6 +164,9 @@ metadata and exclude by dataset name + series-id.
 
 ## 5. External libraries worth knowing
 
+Google-Trends-specific tools (these are calibration tools, relevant
+to the Google-Trends slice of the scrub story):
+
 - **`pytrends`** (unofficial Python Google Trends API). Rate-limited;
   aggregates vary over time. See
   [google-trends-data.md](google-trends-data.md).
@@ -171,14 +176,18 @@ metadata and exclude by dataset name + series-id.
 - **`G-TAB`** (Google Trends Anchor Bank, Robert West, EPFL).
   Calibrates multiple Google Trends queries onto a common scale by
   chaining requests against anchor queries. Paper:
-  [papers/gtab_2007.13861.pdf](../../papers/gtab_2007.13861.pdf).
+  [../../papers/gtab_2007.13861.pdf](../../papers/gtab_2007.13861.pdf).
+
+General TS dataset loaders (not scrub tools — included here because
+they fit into the same pipelines and provide consistent interfaces
+for the raw series a scrub runs over):
+
 - **`gluonts.dataset.repository`** (AWS). Loads Wiki-Rolling,
-  electricity, traffic, and other standard TS datasets with
-  consistent interfaces.
-- **`darts`** (Unit8). Has dataset loaders for ETT, Electricity,
-  Weather; useful for sanity-check pipelines.
-- **`functime`** (polars-based forecasting library). Curated dataset
-  loaders with licensing metadata.
+  electricity, traffic, and other standard TS datasets.
+- **`darts`** (Unit8). Dataset loaders for ETT, Electricity,
+  Weather.
+- **`functime`** (polars-based forecasting library). Curated
+  dataset loaders with licensing metadata.
 
 ## 6. Rough cost of reproducing TimeBench
 

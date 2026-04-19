@@ -99,7 +99,7 @@ Chronos-2 pretraining.
 | Sundial | 24.1 | 9.5 | Chronos-2, Table 5 |
 | Seasonal Naive | 0.0 | 0.0 | Chronos-2, Table 5 |
 
-## 3. fev-bench (98 tasks: 32 univariate / 26 multivariate / 42 covariates)
+## 3. fev-bench (100 tasks per the fev-bench abstract; Chronos-2 §5.2 analytic split: 32 univariate / 26 multivariate / 42 covariates)
 
 fev-bench (Shchur et al. 2025) is the newest of the three suites and
 the first to stress multivariate and covariate-informed forecasting

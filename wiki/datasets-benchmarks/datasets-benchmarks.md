@@ -36,7 +36,7 @@ of the structure of this section.
 | [GIFT-Eval Pretrain](gift-eval.md) (LOTSA subset) | [Moirai 2.0](../papers/moirai-2.md) | ~230B | ~4.5M | 7 domains | yes (`Salesforce/GiftEvalPretrain`) | **clean by construction** |
 | [Time-300B](time-300b.md) | [Time-MoE](../papers/time-moe.md) | ~309B | ~48M | Nature 90.5%, 9 domains nominally | yes | unaudited; overlaps public Monash/ETT/Wikipedia |
 | [Time Series Pile](time-series-pile.md) | [MOMENT](../papers/moment.md) | < LOTSA | — | multi-task (forecast/class/anomaly/impute) | yes (`AutonLab/Timeseries-PILE`) | yes, via Monash inclusion |
-| [TimeBench](timebench.md) | [Sundial](../papers/sundial.md) / [Timer-S1](../papers/timer-s1.md) | ~1T | — | real + synthetic, 9+ domains | **no** (inputs are public; full mix not released) | Timer-S1 explicitly scrubs GIFT-Eval test |
+| [TimeBench](timebench.md) | [Sundial](../papers/sundial.md) / [Timer-S1](../papers/timer-s1.md) | ~1T (Sundial); exact per-source weighting not published | — | real + synthetic, domain itemization not publicly released | **no** (inputs are public; full mix not released) | Timer-S1 explicitly scrubs GIFT-Eval test |
 
 For how the field got here (27B → 230B → 309B → 1T) and which
 corpus to pick for your own training, see
@@ -50,7 +50,7 @@ and [../benchmarks/rebuilding-timebench.md](../benchmarks/rebuilding-timebench.m
 | [Monash Archive](monash-archive.md) | 2021 | dozens of datasets | only strict for models that held out the specific test splits | **still reported** for historical continuity — every TS-FM paper has a Monash row, usually asterisked for leakage |
 | [GIFT-Eval](gift-eval.md) | 2024 | 23 test datasets / 144k series / 177M obs | zero-shot by construction; paired with `GIFT-Eval Pretrain` for fair comparison | **current SOTA yardstick** |
 | Chronos Benchmark II | 2024 | 27 zero-shot datasets | held out during [Chronos](../papers/chronos.md) and [Chronos-2](../papers/chronos-2.md) pretraining | still reported by successors |
-| fev-bench | 2025 | 98 tasks (32 univariate / 26 multivariate / 42 covariates) | leakage-audited per model | **current leaderboard** for multivariate + covariate claims |
+| fev-bench | 2025 | 100 tasks, split by Chronos-2 §5.2 into 32 univariate / 26 multivariate / 42 covariates subsets (fev-bench abstract: "100 forecasting tasks ... including 46 with covariates") | leakage-audited per model | **current leaderboard** for multivariate + covariate claims |
 | LTSF (ETT, Weather, ECL) | 2021-2023 | 6 datasets × 4 horizons | in-corpus for models that trained on the underlying raw data | still reported for historical continuity |
 
 See [evaluation-benchmarks.md](evaluation-benchmarks.md) for the

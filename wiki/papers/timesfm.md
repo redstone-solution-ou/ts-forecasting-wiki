@@ -49,4 +49,5 @@ Cite TimesFM as the canonical reference for the decoder-only patched TS foundati
 - **Cluster:** [Decoder-only autoregressive TS-FMs](../foundation-models/taxonomy.md#cluster-1--decoder-only-autoregressive-ts-fms)
 - **Architecture family:** [Decoder-only autoregressive](../architectures/decoder-only-autoregressive.md)
 - **Related concepts:** [patch tokenization](../concepts/patch-tokenization.md), [zero-shot forecasting](../concepts/zero-shot-forecasting.md), [scaling laws](../concepts/scaling-laws.md), [synthetic data augmentation](../concepts/synthetic-data-augmentation.md)
+- **Data sources:** [Google Trends](../datasets-benchmarks/google-trends-data.md), [Wikipedia pageviews](../benchmarks/wikipedia-pageviews-leakage.md)
 - **See also:** [timer](./timer.md), [lag-llama](./lag-llama.md), [time-moe](./time-moe.md)

@@ -274,8 +274,10 @@ are not comparable across papers. See
   Benchmark II (27 held-out datasets). MASE and WQL. Fixed last-h
   window per series.
 - **Chronos-2**: GIFT-Eval (97 tasks) + Chronos-II (27 tasks) +
-  fev-bench (98 tasks, 42 covariate). MASE/WQL/SQL skill score,
-  bootstrap CIs on aggregate.
+  fev-bench (100 tasks total per the fev-bench abstract, split by
+  Chronos-2 §5.2 into 32 univariate / 26 multivariate / 42
+  covariates subsets). MASE/WQL/SQL skill score, bootstrap CIs on
+  aggregate.
 - **MOIRAI**: Monash (multivariate splits) + LOTSA hold-out + LTSF
   suite + 6-dataset CRPS table (Table 5). Mixed MASE / MSE / MAE /
   CRPS.
@@ -311,3 +313,10 @@ are not comparable across papers. See
   — the architectural meaning of zero-shot.
 - [../datasets-benchmarks/datasets-benchmarks.md](../datasets-benchmarks/datasets-benchmarks.md)
   — the suites whose protocols are listed above.
+- [../datasets-benchmarks/leakage-map.md](../datasets-benchmarks/leakage-map.md)
+  — cross-reference matrix of pretraining corpora × evaluation
+  benchmarks, the complement to this page's leakage-cases section.
+- [../datasets-benchmarks/scrub-tools.md](../datasets-benchmarks/scrub-tools.md)
+  — public tooling for removing the leakage catalogued here.
+- [../datasets-benchmarks/evaluation-benchmarks.md](../datasets-benchmarks/evaluation-benchmarks.md)
+  — the suites in use today versus retired.

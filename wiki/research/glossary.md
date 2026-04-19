@@ -140,10 +140,11 @@ sentences each, with cross-links to deeper pages where one exists.
   autoregressive decoders to drift at long horizons. TimesFM's
   `P_out > P_in` trick and Timer-S1's Serial-Token Prediction are
   different mitigations.
-- **fev-bench.** A 98-task benchmark (32 univariate / 26 multivariate
-  / 42 covariate) introduced by Shchur et al. 2025 and featured in
-  [Chronos-2](../papers/chronos-2.md); the first TS-FM benchmark to
-  stress covariate-informed forecasting at scale.
+- **fev-bench.** A 100-task benchmark (Shchur et al. 2025,
+  arXiv:2509.26468) split by [Chronos-2](../papers/chronos-2.md) §5.2
+  into 32 univariate / 26 multivariate / 42 covariates analytic
+  subsets; the first TS-FM benchmark to stress covariate-informed
+  forecasting at scale.
 - **Group attention.** The attention pattern in Chronos-2 that lets
   tokens at the same timestamp across series in a panel exchange
   information while preserving temporal causality within each

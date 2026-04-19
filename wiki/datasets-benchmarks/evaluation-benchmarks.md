@@ -33,9 +33,14 @@ and *why* you would report it.
 
 ### fev-bench
 
-- **Paper.** Shchur et al., 2025 (AWS).
-- **Scale.** 98 tasks: 32 univariate / 26 multivariate / 42
-  covariate-informed.
+- **Paper.** Shchur et al., "fev-bench: A realistic benchmark for
+  time series forecasting models" (arXiv:2509.26468, 2025).
+- **Scale.** The fev-bench paper abstract states "100 forecasting
+  tasks across seven domains, including 46 with covariates".
+  [Chronos-2](../papers/chronos-2.md) §5.2 splits these 100 tasks
+  into three analytic subsets: **32 univariate** (single target, no
+  covariates), **26 multivariate** (multiple targets, no covariates),
+  and **42 covariates** (at least one past-only or known covariate).
 - **Metric.** Scaled Quantile Loss skill score (higher better), plus
   median runtime per task, plus a **Leakage (%)** column reporting
   per-baseline overlap with the eval set ([Chronos-2](../papers/chronos-2.md)
@@ -52,10 +57,13 @@ and *why* you would report it.
 - **Scale.** 27 zero-shot datasets, short-context emphasis.
 - **Zero-shot status.** Strict — explicitly held out during
   [Chronos](../papers/chronos.md) and
-  [Chronos-2](../papers/chronos-2.md) pretraining. Chronos paper
-  footnote 5 says the residual leakage risk is "minimal given that
-  the datasets bear no overlap beyond high-level conceptual
-  categorization."
+  [Chronos-2](../papers/chronos-2.md) pretraining. Chronos §5
+  footnote 5 (verbatim): *"From a rigorous standpoint, to prevent
+  information leakage, the start time of any dataset within this
+  category must be after the timestamp of the last observation from
+  the pretraining dataset and Benchmark I. Nevertheless, we consider
+  the risk to be minimal given that the datasets bear no overlap
+  beyond high-level conceptual categorization."*
 - **Metrics.** MASE skill score, WQL skill score.
 - **Use today.** Still widely reported, especially for short-context
   univariate probabilistic work. Note that the 2024-era numbers are
@@ -68,8 +76,10 @@ and *why* you would report it.
 
 - **Paper.** Godahewa et al., 2021 (NeurIPS Datasets & Benchmarks).
 - **Scale.** Dozens of datasets across energy, transport, weather,
-  retail, finance, tourism. ~29 datasets are the "standard Monash
-  benchmark" subset used by most TS-FMs.
+  retail, finance, tourism. Most TS-FM papers report on a "standard
+  Monash benchmark" subset that varies by paper; [Moirai-MoE](../papers/moirai-moe.md)
+  Figure 3 reports on 29 datasets, which is the most commonly
+  cited-as-canonical subset.
 - **Zero-shot status.** **Complicated.** Monash ships fixed splits,
   but because LOTSA, Time-300B, the Time Series Pile, and the
   [Chronos](../papers/chronos.md) corpus all include Monash datasets,
