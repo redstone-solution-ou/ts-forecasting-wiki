@@ -83,28 +83,49 @@ Sections 3-10 below walk each stage.
 ## 3. Pick the seed query list
 
 This is the highest-leverage decision. Bad query selection → corpus
-is narrow or noise-dominated. Good practices:
+is narrow or noise-dominated. Good practices below; see §3d for the
+published-methodology references.
 
 ### 3a. Mix of discovery sources
 
-- **Google Trends' own top-charts.** Google Trends publishes
-  "Year in Search" top lists per year. Pull 2001–present. Their
-  HuggingFace redistribution `ronantakizawa/trending-words-google`
-  (see [../datasets-benchmarks/google-trends-data.md](../datasets-benchmarks/google-trends-data.md))
+- **Google Trends categories (verticals) as the top-down spine.**
+  Google Trends organizes queries under ~25 top-level categories
+  (e.g., `All Categories > Jobs and Education > Jobs`, which
+  includes "jobs", "resume", "careers"). Walking the vertical tree
+  is the canonical starting seed; see Ross (2013) in §3d.
+- **Google Trends' own top-charts.** "Year in Search" top lists per
+  year, 2001–present. HuggingFace redistribution
+  `ronantakizawa/trending-words-google` (see
+  [../datasets-benchmarks/google-trends-data.md](../datasets-benchmarks/google-trends-data.md))
   has 2,784 entries — a clean source of ~top-100-per-year queries.
-- **Wikipedia article titles.** The top-100k English Wikipedia
-  articles by pageview (Wikimedia Pageviews API) double as a
-  high-recall "things people search for" list. This is the trick
-  TimesFM implicitly uses by pairing Wikipedia Pageviews with
-  Google Trends — the two corpora cover similar topical space.
+- **Wikipedia article titles, ranked by pageviews.** The top-100k
+  English Wikipedia articles by pageview (via the Wikimedia
+  Pageviews API) double as a high-recall "things people search
+  for" list. This is the trick TimesFM implicitly uses by pairing
+  Wikipedia Pageviews with Google Trends — the two corpora cover
+  overlapping topical space.
+- **Search-log head lists.** Kaggle's 2017 "Web Traffic Time Series
+  Forecasting" competition dataset is a 145,063-article Wikipedia
+  snapshot that already encodes "what was searched in 2015-2017".
+  Useful as a coverage benchmark to check your seed list does not
+  miss obvious categories.
 - **Domain seeds.** If you want good coverage on specific domains
-  (health, finance, sports), seed with domain glossaries. For
-  example, ICD-10 disease names for health queries, SP500 tickers
-  + company names for finance.
-- **Programmatic expansion with `related_queries`.** Once you have
-  an initial seed of ~1k, use `pytrends.related_queries` to
-  discover terms Google itself considers related. Two rounds of
-  expansion usually saturate coverage per domain.
+  (health, finance, sports), seed with domain glossaries: ICD-10
+  disease names for health, SP500 tickers + company names for
+  finance, WordNet noun synsets for broad English coverage.
+- **Programmatic expansion with `related_queries` / `suggestions`.**
+  Once you have an initial seed of ~1k, use
+  `pytrends.related_queries` and the autocomplete / `suggestions`
+  endpoint to discover terms Google itself considers related. Two
+  rounds of expansion usually saturate coverage per domain.
+- **LLM-based expansion (newer, 2024+ literature).** A recent line
+  of work uses an LLM to generate candidate queries from a seed
+  topic or a document (e.g., Meta's RTTP "Real-Time Trend
+  Prediction via Continually-Aligned LLM Query Generation",
+  arXiv:2601.17567). For a pretraining corpus this is useful for
+  high-recall expansion but introduces LLM-specific biases; treat
+  LLM outputs as candidates to filter through the popularity filter
+  in §3b rather than as finished lists.
 
 ### 3b. Popularity filter
 
@@ -133,6 +154,63 @@ yourself margin: some queries will drop during later quality audits.
   (2020 "coronavirus") contribute a short signal. Mix in queries
   with stable long-run interest to balance the pretraining
   distribution.
+
+### 3d. Published keyword-selection methodology
+
+The nowcasting-with-Google-Trends literature has been working on
+this exact problem since 2011. Key references:
+
+- **Ross (2013), "Nowcasting with Google Trends: a keyword
+  selection method."** *Fraser of Allander Institute Economic
+  Commentary*, 37(2). Introduces the **backward induction method**:
+  start from Google Trends verticals as coarse seeds, test each
+  candidate keyword's predictive power against a target series in
+  a simple autoregressive model, iteratively prune keywords whose
+  p-values fail a significance threshold. Retains only statistically
+  significant contributors. Simple, interpretable, reproducible —
+  and it anticipates most modern sparsity-plus-variance filters.
+- **Choi & Varian (2012), "Predicting the Present with Google
+  Trends",** *Economic Record* — the foundational paper that
+  established verticals-as-seeds as the default entry point.
+- **Ferrara & Simoni (2019), "When are Google data useful to
+  nowcast GDP?",** uses correlation-with-target and Lasso-based
+  filtering on a large candidate pool.
+- **Scott & Varian (2014), "Predicting the Present with Bayesian
+  Structural Time Series",** introduces **spike-and-slab** priors
+  for automated keyword selection inside a BSTS nowcasting model —
+  the Bayesian formalization of "pick the ~20 most predictive
+  keywords from a larger candidate pool".
+- **Bock (2020), "Nowcasting Growth using Google Trends Data: A
+  Bayesian Structural Time Series Model",** arXiv:2011.00938.
+  Extends the spike-and-slab approach with **horseshoe** priors
+  for heavier-tailed sparsity. The paper's sensitivity analysis
+  shows keyword-selection protocol matters roughly as much as
+  model architecture for nowcasting accuracy.
+- **Medeiros & Pires (2021),** `gtrends-proper_2104.03065.pdf`
+  local copy. Warns that naïve keyword selection on a single GT
+  sample can produce "arbitrary conclusions by chance" because
+  of Bernoulli resampling noise; their §3 prescribes
+  repeated-sample averaging *before* any keyword-selection
+  statistics are computed.
+- **Google Correlate (deprecated 2019-12-15).** Historically the
+  canonical tool: you fed in a target series, Google returned
+  queries whose time-series correlated with it. Shut down for low
+  usage. No direct replacement exists today; the closest
+  substitutes are Google Trends autocomplete, topical seed
+  expansion, and LLM-based query generation.
+- **Topic-model–based coverage.** Seeded topic models (e.g.,
+  `keyATM` in R) and embedding-based expansions (BERTopic) are
+  standard NLP tools for ensuring a candidate pool has broad
+  topical coverage before it goes through the popularity filter.
+  Used less often than the econometric methods above, but
+  complementary.
+
+Pragmatic synthesis for a TimesFM-scale rebuild: **combine
+vertical-walk (Ross 2013) + Wikipedia top-pageview list + LLM-based
+expansion** to build a candidate pool of ~200k queries, then apply
+G-TAB popularity calibration + sparsity filter (§3b) to prune down
+to 25-50k head queries. This three-axis strategy covers more of the
+topical space than any single published method.
 
 ## 4. Plan the time range and granularities
 
