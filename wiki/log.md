@@ -1003,3 +1003,29 @@ section already encodes the rule for this project; the README
 already has the human-facing prose. The `llm-wiki.md` paragraph
 closes the loop so a fresh wiki-builder picking up the generic
 pattern gets the convention from the start.
+
+## [2026-04-27] schema | Fix concept-node reachability promise — entry-point → leaf, not leaf → leaf
+
+User correction: I had written the reader-side promise as
+"any leaf is reachable from any other leaf in two or three hops
+via concept nodes" in three places (`llm-wiki.md`, `README.md`,
+`CLAUDE.md`). The correct framing is "any leaf is reachable from
+a top-level entry point — an overview, the index, a section hub —
+in two or three hops via concept nodes." The leaf-to-leaf framing
+was an over-claim; inter-leaf reachability is not the relevant
+guarantee, and pursuing it would inflate cross-link counts on
+leaves themselves rather than on the concept nodes where the
+comparative content actually lives.
+
+Changes:
+- `llm-wiki.md` — one sentence in the concept-node paragraph
+  rewritten to entry-point → leaf framing.
+- `README.md` — the "TS-JEPA vs TS2Vec" example replaced with an
+  "overview → taxonomy → JEPA concept → ts-jepa leaf" walkthrough,
+  which both illustrates the corrected promise and emphasizes that
+  the concept node carries comparative *why* on the way.
+- `CLAUDE.md` — same one-sentence rewrite in the cross-link
+  discipline section.
+
+The leaf-to-leaf historical claim is preserved in this log file
+(prior log entries) per the append-only rule.
