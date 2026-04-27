@@ -43,16 +43,19 @@ Three properties make a page a concept node:
   that a reader who lands on it understands not just what the idea
   is, but how the candidates differ and which one to pick when.
 
-The practical effect is that any leaf is reachable from any other
-leaf in two or three hops via concept nodes. To answer "how does
-[TS-JEPA](wiki/papers/ts-jepa.md) compare to
-[TS2Vec](wiki/concepts/contrastive-representation-learning.md)?", a
-reader can follow either paper into its concept page
-([JEPA](wiki/concepts/joint-embedding-predictive-architecture.md) or
-[contrastive learning](wiki/concepts/contrastive-representation-learning.md)),
-read the comparative section, and end up at the other paper. The
-leaves themselves do not need to enumerate every comparison — the
-concept nodes carry that load.
+The practical effect is that any leaf is reachable from a top-level
+entry point — `wiki/overview.md`, `wiki/index.md`, or a section hub
+— in two or three hops via concept nodes. A reader who arrives at
+[overview.md](wiki/overview.md) wanting to understand JEPA-style
+time-series models can follow it into
+[foundation-models/taxonomy.md](wiki/foundation-models/taxonomy.md),
+then into
+[concepts/joint-embedding-predictive-architecture.md](wiki/concepts/joint-embedding-predictive-architecture.md),
+then into
+[papers/ts-jepa.md](wiki/papers/ts-jepa.md) — three hops, no dead
+ends. The concept node carries the comparative content along the
+way, so a reader picks up the *why* of each link rather than just
+landing on a destination they have to interpret cold.
 
 When adding a new paper, the workflow is: create the leaf, then
 update the concept and architecture nodes it relates to so the new

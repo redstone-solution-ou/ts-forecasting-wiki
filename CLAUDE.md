@@ -318,11 +318,12 @@ properties make a page a concept node:
   section that summarizes how the linked artifacts differ and when
   to pick which.
 
-The reader-side promise is that any leaf is reachable from any
-other leaf in two or three hops via concept nodes. The author-side
-promise is that adding a new paper means updating the relevant
-concept nodes' comparative sections, not just dropping a leaf and
-hoping someone connects it later.
+The reader-side promise is that any leaf is reachable from a
+top-level entry point (an overview, the index, a section hub) in
+two or three hops via concept nodes. The author-side promise is
+that adding a new paper means updating the relevant concept
+nodes' comparative sections, not just dropping a leaf and hoping
+someone connects it later.
 
 Minimum link counts:
 
