@@ -4,7 +4,7 @@ One-line catalog of every page in the wiki. Updated on every ingest,
 query-filed-back, and lint pass. Read this before drilling into the
 knowledge graph.
 
-Last updated: 2026-04-26.
+Last updated: 2026-04-27.
 
 (Enrichment pass on 2026-04-12 added four new pages:
 [benchmarks/decision-guide.md](benchmarks/decision-guide.md),
@@ -40,6 +40,7 @@ Last updated: 2026-04-26.
 - [architectures/llm-reprogramming.md](architectures/llm-reprogramming.md) — frozen or aligned LLM backbones (Time-LLM, GPT4TS, LLMTime)
 - [architectures/masked-encoder.md](architectures/masked-encoder.md) — BERT-style masked-patch reconstruction (MOMENT, MOIRAI)
 - [architectures/mixture-of-experts.md](architectures/mixture-of-experts.md) — sparse top-k routing for billion-scale TS-FMs (Time-MoE, Moirai-MoE, Timer-S1)
+- [architectures/jepa-latent-prediction.md](architectures/jepa-latent-prediction.md) — predict the latent embedding of a masked window under an EMA target encoder (LaT-PFN, TS-JEPA, MTS-JEPA)
 
 ## Concepts
 
@@ -56,6 +57,7 @@ Last updated: 2026-04-26.
 - [concepts/hp-transfer-across-scales.md](concepts/hp-transfer-across-scales.md) — muP, poor man's muP, cross-shaped proxy search, and architectural stabilizers for scaling HPs
 - [concepts/zero-shot-forecasting.md](concepts/zero-shot-forecasting.md) — inference on unseen series with no gradient updates
 - [concepts/contrastive-representation-learning.md](concepts/contrastive-representation-learning.md) — InfoNCE, hierarchical, and triplet-based pretraining (CPC, TS2Vec, TNC, T-Loss); the representation-learning track parallel to forecasting TS-FMs
+- [concepts/joint-embedding-predictive-architecture.md](concepts/joint-embedding-predictive-architecture.md) — JEPA: latent-space prediction with EMA target encoder; non-reconstructive self-supervision that complements contrastive learning
 
 ## Datasets and corpora (the "data" section)
 
@@ -138,6 +140,9 @@ Papers are listed in chronological order by the date on the arXiv metadata, olde
 - [papers/moirai-2.md](papers/moirai-2.md) — Salesforce decoder-only successor to MOIRAI with 9-quantile pinball head; 11.4M small beats its own 87M and 305M siblings on GIFT-Eval (2025-11)
 - [papers/timer-s1.md](papers/timer-s1.md) — Tsinghua/ByteDance 8.3B sparse-MoE with Serial-Token Prediction, GIFT-Eval SOTA (2026-03)
 - [papers/tspulse.md](papers/tspulse.md) — IBM Granite 1.06M TSMixer with dual-space time+FFT masked reconstruction for multi-task analysis, ICLR 2026 (2026-03)
+- [papers/lat-pfn.md](papers/lat-pfn.md) — WAIR JEPA + PFN hybrid trained on synthetic data with normalized abstract time axis; first JEPA-for-TS (2024-05)
+- [papers/ts-jepa.md](papers/ts-jepa.md) — KTH/NYU/Flatiron clean four-component JEPA-for-TS, 70% mask, L1 latent loss; first systematic JEPA-for-TS study (2025-09)
+- [papers/mts-jepa.md](papers/mts-jepa.md) — Purdue/RPI/Stony Brook multi-resolution JEPA + soft codebook for multivariate anomaly *prediction*, top F1 + AUC on MSL/SMAP/SWaT/PSM (2026-02)
 
 ### Pre-FM precursors and baselines
 

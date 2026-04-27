@@ -711,3 +711,65 @@ representation learning as a first-class topic. The schema in
 `CLAUDE.md` should probably grow a sentence acknowledging this, but
 the change was deferred until a few more representation-learning
 sources land — single page is not yet a critical mass.
+
+## [2026-04-27] ingest | LaT-PFN, TS-JEPA, MTS-JEPA + new Cluster 8 + concept-node doc
+
+User asked for three JEPA-style papers and flagged that the
+"concept node = graph hub" pattern was implicit but not documented.
+Three coordinated changes:
+
+**1. New Cluster 8 — JEPA / latent-space prediction.** Added to
+`foundation-models/taxonomy.md` (summary table + cluster body),
+with the same naming convention as Clusters 1–7. The user picked
+"add a new cluster" over "fold into Cluster 2" because predicting
+in latent space rather than input space is a sharply different
+pretraining objective and three real papers are now in flight.
+
+**2. Three new paper leaves and two new concept hubs.**
+
+Source PDFs: `papers/lat-pfn_2405.10093.pdf`,
+`papers/ts-jepa_2509.25449.pdf`, `papers/mts-jepa_2602.04643.pdf`.
+
+Leaves: `wiki/papers/lat-pfn.md`, `wiki/papers/ts-jepa.md`,
+`wiki/papers/mts-jepa.md`. All three follow the standard leaf
+template; cluster slot points at Cluster 8.
+
+Concept hub: `wiki/concepts/joint-embedding-predictive-architecture.md`
+covers the JEPA principle (latent target, EMA bookkeeping,
+collapse-prevention) with comparisons across LaT-PFN, TS-JEPA,
+MTS-JEPA, and contrast points to contrastive learning and masked
+encoders.
+
+Architecture hub: `wiki/architectures/jepa-latent-prediction.md`
+mirrors Cluster 8, with pseudocode, a comparison to masked-encoder
+and decoder-only families, and per-paper design-choice rows.
+
+Updates: `wiki/papers/papers.md` (Cluster 8 grouping + new rows),
+`wiki/concepts/concepts.md`, `wiki/architectures/architectures.md`,
+`wiki/index.md`, `wiki/research/comparison-matrix.md`,
+`wiki/research/reproducibility.md`,
+`wiki/evaluation/what-was-evaluated.md`. Last updated bumped to
+2026-04-27.
+
+**3. Concept-node principle now documented.**
+
+Added a "Reading the wiki: concept nodes as graph hubs" section to
+the top-level `README.md` with the prose definition (three
+properties: defines a family, points outward with reasoning, carries
+comparative content) and the two-or-three-hop reachability promise.
+
+Amended the `## Cross-link discipline` section in `CLAUDE.md` with
+the machine-enforceable version: a concept node must link to ≥3
+paper leaves in its "Papers that exemplify this" section, must
+carry comparative content, and concept-node creation/maintenance is
+now part of the ingest workflow.
+
+Updated `## Canonical paper slugs` from "as of 2026-04-12" with 23
+slugs to "as of 2026-04-27" with 26 TS-FM slugs (organized by
+cluster, including the three new Cluster 8 entries) plus 1 pre-FM
+precursor (`tide`). Updated `## Canonical cluster taxonomy` from 7
+to 8 clusters.
+
+`llm-wiki.md` was deliberately not edited (CLAUDE.md anti-pattern:
+"Do not edit `llm-wiki.md`; it is the reference copy of the generic
+pattern").
