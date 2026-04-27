@@ -11,3 +11,4 @@ Time-series foundation models have converged on a small set of architecture fami
 - [LLM reprogramming](llm-reprogramming.md) — frozen or aligned LLM backbones ([Time-LLM](../papers/time-llm.md), [GPT4TS](../papers/gpt4ts.md), [LLMTime](../papers/llmtime.md)).
 - [Lightweight non-transformer](lightweight-non-transformer.md) — MLP-Mixer and SSM alternatives ([TTM](../papers/ttm.md), [Mamba4Cast](../papers/mamba4cast.md)).
 - [Flow-matching continuous](flow-matching-continuous.md) — continuous generative objectives without vocabularies ([Sundial](../papers/sundial.md)).
+- [JEPA / latent-target prediction](jepa-latent-prediction.md) — predict the *embedding* of a masked or future window under an EMA target encoder, not the input itself ([LaT-PFN](../papers/lat-pfn.md), [TS-JEPA](../papers/ts-jepa.md), [MTS-JEPA](../papers/mts-jepa.md)).

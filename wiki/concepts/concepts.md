@@ -16,3 +16,4 @@ This section collects the recurring design ideas and training recipes that cut a
 - [Synthetic data augmentation](synthetic-data-augmentation.md) — KernelSynth, TSMix, PFN priors, and friends.
 - [HP transfer across scales](hp-transfer-across-scales.md) — muP, poor man's muP, cross-shaped proxy search, and architectural stabilizers for tuning HPs once at small size and scaling up.
 - [Contrastive representation learning](contrastive-representation-learning.md) — InfoNCE-style pretraining via positive/negative discrimination (CPC, TS2Vec, TNC, T-Loss); the representation-learning track that runs parallel to forecasting-only TS-FMs.
+- [Joint-embedding predictive architecture](joint-embedding-predictive-architecture.md) — JEPA: predict the *latent* embedding of a masked or future window under an EMA target encoder, not the input itself ([LaT-PFN](../papers/lat-pfn.md), [TS-JEPA](../papers/ts-jepa.md), [MTS-JEPA](../papers/mts-jepa.md)).

@@ -302,8 +302,35 @@ is the one at the root.
 
 ## Cross-link discipline
 
+The wiki is a graph held together by a small set of **concept nodes**
+that act as hubs. A concept node is a page in `wiki/concepts/`,
+`wiki/architectures/`, or the `wiki/foundation-models/taxonomy.md`
+cluster index whose primary job is to compare, contrast, and bridge
+the papers below it — not to introduce a single artifact. Three
+properties make a page a concept node:
+
+- It defines an idea or family that multiple papers instantiate
+  differently.
+- It points outward: links to several leaves and to several other
+  concept nodes, with the *why* of each link, not just the URL.
+- It carries comparative content: a "design choices in the
+  literature", "trade-offs and failure modes", or "open questions"
+  section that summarizes how the linked artifacts differ and when
+  to pick which.
+
+The reader-side promise is that any leaf is reachable from any
+other leaf in two or three hops via concept nodes. The author-side
+promise is that adding a new paper means updating the relevant
+concept nodes' comparative sections, not just dropping a leaf and
+hoping someone connects it later.
+
+Minimum link counts:
+
 - Concept → concept: ≥3
 - Concept → architecture: ≥2
+- Concept → ≥3 paper leaves (in "Papers that exemplify this") —
+  if the paper count drops below this, fold the page into a sibling
+  concept node rather than letting it orphan.
 - Architecture → concept: ≥3
 - Architecture → sibling architecture: ≥2
 - Paper leaf → complete "In the knowledge graph" block (cluster,
@@ -311,6 +338,10 @@ is the one at the root.
 - Broken relative links are a lint failure. Fix on sight.
 - When you rename or delete a page, grep for inbound links and update
   them in the same commit.
+
+A high-level prose summary of the concept-node pattern lives in the
+top-level [README.md](README.md) for human readers; this section is
+the machine-enforceable version.
 
 ## Workflows
 
@@ -399,16 +430,39 @@ Run when asked, or after a batch of ingests. A full lint pass checks:
 - Do not skip log entries for non-trivial changes. The log is how
   future sessions understand what happened.
 
-## Canonical paper slugs (as of 2026-04-12)
+## Canonical paper slugs (as of 2026-04-27)
 
-23 paper leaves exist. Use these slugs in all cross-links:
+26 TS-FM paper leaves plus one pre-FM precursor. Use these slugs in
+all cross-links:
 
 ```
-timesfm       chronos        chronos-2     moment        moirai
-moirai-moe    timer          timer-xl      timer-s1      lag-llama
-timegpt       time-moe       time-llm      gpt4ts        llmtime
-ttm           units          totem         sundial       mamba4cast
-moirai-2      tspulse        sempo
+# Cluster 1 — Decoder-only autoregressive
+timesfm       timer          timer-xl      timer-s1      lag-llama
+timegpt       moirai-2
+
+# Cluster 2 — Masked-encoder / encoder-decoder
+chronos       chronos-2      moment        moirai
+
+# Cluster 3 — Mixture-of-experts
+time-moe      moirai-moe
+
+# Cluster 4 — LLM-adapted / reprogramming
+time-llm      gpt4ts         llmtime
+
+# Cluster 5 — Lightweight / non-transformer
+ttm           mamba4cast     sempo
+
+# Cluster 6 — Multi-task / universal
+units         totem          tspulse
+
+# Cluster 7 — Continuous / flow-matching
+sundial
+
+# Cluster 8 — JEPA / latent-space prediction
+lat-pfn       ts-jepa        mts-jepa
+
+# Pre-FM precursors and baselines (no cluster)
+tide
 ```
 
 When ingesting a new paper, pick a slug by lowercasing the model short
@@ -421,7 +475,7 @@ name and hyphenating. Register the new slug in:
 
 ## Canonical cluster taxonomy
 
-The 7-cluster taxonomy lives in `wiki/foundation-models/taxonomy.md`.
+The 8-cluster taxonomy lives in `wiki/foundation-models/taxonomy.md`.
 H2 headings use these exact names so anchors are stable:
 
 1. `## Cluster 1 — Decoder-only autoregressive TS-FMs`
@@ -431,6 +485,7 @@ H2 headings use these exact names so anchors are stable:
 5. `## Cluster 5 — Lightweight / non-transformer FMs`
 6. `## Cluster 6 — Multi-task / universal unified TS models`
 7. `## Cluster 7 — Continuous / flow-matching FMs`
+8. `## Cluster 8 — JEPA / latent-space prediction`
 
 A paper may belong to multiple clusters (primary + secondary). The
 summary table in `taxonomy.md` is the source of truth.

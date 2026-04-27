@@ -34,6 +34,9 @@ hook each.
 | SEMPO       | 2025-10 | 5       | Encoder-decoder transformer      | EASD masked recon + MoP tuning| 6.5M                        |
 | Moirai 2.0  | 2025-11 | 1       | Decoder-only transformer         | 9-quantile pinball + MTP      | 11.4M / 87.1M / 305M        |
 | TSPulse     | 2026-03 | 6 (+5)  | TSMixer (MLP-Mixer)              | Dual-space time+FFT masked    | 1.06M                       |
+| LaT-PFN     | 2024-05 | 8       | JEPA + PFN (CNN embedder)        | Latent prediction on synth    | small (A10G-trainable)      |
+| TS-JEPA     | 2025-09 | 8       | JEPA (transformer)               | L1 latent prediction          | <1M (encoder)               |
+| MTS-JEPA    | 2026-02 | 8       | JEPA + multi-res + soft codebook | KL latent + reconstruction    | —                           |
 
 ## Cluster 1 — Decoder-only autoregressive TS-FMs
 
@@ -191,6 +194,38 @@ Primary architecture page:
 - [../papers/sundial.md](../papers/sundial.md) — flow-matching on
   continuous patch tokens; pretrained on ~1T points and treats
   forecasting as continuous generative modeling.
+
+## Cluster 8 — JEPA / latent-space prediction
+
+These models predict the *latent embedding* of a masked or future
+portion of the input — produced by an EMA target encoder — instead of
+reconstructing the input itself. The objective is structurally close to
+Cluster 2's masked-encoder family but with the prediction target moved
+out of input space, which is supposed to make the encoder discard
+unpredictable noise rather than memorize it. All three current members
+are small (sub-1M to single-A10G-trainable); none has yet been scaled
+to the [Time-MoE](../papers/time-moe.md) or [Timer-S1](../papers/timer-s1.md)
+brackets, so the cluster's headroom is open.
+
+Primary architecture page:
+[../architectures/jepa-latent-prediction.md](../architectures/jepa-latent-prediction.md).
+Concept hub: [../concepts/joint-embedding-predictive-architecture.md](../concepts/joint-embedding-predictive-architecture.md).
+
+- [../papers/lat-pfn.md](../papers/lat-pfn.md) — first JEPA-for-TS,
+  combined with the PFN in-context Bayesian framework; trained
+  exclusively on a context-aware synthetic prior with a normalized
+  abstract time axis. Beats ARIMA / FBProphet / ForecastPFN zero-shot
+  and beats TS2Vec on UCR-128 classification despite TS2Vec being
+  trained on those datasets.
+- [../papers/ts-jepa.md](../papers/ts-jepa.md) — first systematic
+  JEPA-for-TS study; controlled comparison against MAE, TS2Vec, and
+  autoregressive at matched encoder capacity. Strong on classification,
+  competitive on long-horizon forecasting, loses short-term to
+  autoregressive.
+- [../papers/mts-jepa.md](../papers/mts-jepa.md) — multi-resolution
+  JEPA + soft codebook bottleneck for multivariate anomaly *prediction*
+  (early warning). Top F1 and AUC across MSL / SMAP / SWaT / PSM, with
+  an analytical non-collapse certificate from the codebook geometry.
 
 ## Related wiki pages
 

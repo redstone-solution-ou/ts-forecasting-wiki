@@ -6,6 +6,9 @@ This directory is the leaf layer of the wiki; each page summarizes one research 
 
 | Paper | arXiv | Date | Venue | Cluster | Link |
 | --- | --- | --- | --- | --- | --- |
+| LaT-PFN | [2405.10093](https://arxiv.org/abs/2405.10093) | 2024-05 | preprint | JEPA / latent-space prediction | [lat-pfn](./lat-pfn.md) |
+| TS-JEPA | [2509.25449](https://arxiv.org/abs/2509.25449) | 2025-09 | NeurIPS 2024 Workshop | JEPA / latent-space prediction | [ts-jepa](./ts-jepa.md) |
+| MTS-JEPA | [2602.04643](https://arxiv.org/abs/2602.04643) | 2026-02 | preprint | JEPA / latent-space prediction | [mts-jepa](./mts-jepa.md) |
 | TimesFM | [2310.10688](https://arxiv.org/abs/2310.10688) | 2024-04 | ICML 2024 | Decoder-only autoregressive | [timesfm](./timesfm.md) |
 | Chronos | [2403.07815](https://arxiv.org/abs/2403.07815) | 2024-11 | TMLR 2024 | Masked-encoder / encoder-decoder | [chronos](./chronos.md) |
 | Chronos-2 | [2510.15821](https://arxiv.org/abs/2510.15821) | 2025-10 | preprint | Masked-encoder / encoder-decoder | [chronos-2](./chronos-2.md) |
@@ -70,6 +73,11 @@ This directory is the leaf layer of the wiki; each page summarizes one research 
 
 ### [Cluster 7 — Continuous / flow-matching FMs](../foundation-models/taxonomy.md#cluster-7--continuous--flow-matching-fms)
 - [Sundial](./sundial.md)
+
+### [Cluster 8 — JEPA / latent-space prediction](../foundation-models/taxonomy.md#cluster-8--jepa--latent-space-prediction)
+- [LaT-PFN](./lat-pfn.md)
+- [TS-JEPA](./ts-jepa.md)
+- [MTS-JEPA](./mts-jepa.md)
 
 ## Pre-FM precursors and baselines
 

@@ -21,6 +21,45 @@ at the current wave of time-series foundation models (TS-FMs).
   section and across to related nodes so that a reader can walk the graph
   rather than hunt through a flat list.
 
+## Reading the wiki: concept nodes as graph hubs
+
+Most pages in the wiki are *leaves*: a single paper, a single dataset,
+a single benchmark table. The wiki's structure is held together by a
+smaller set of **concept nodes** that act as graph hubs. A concept
+node is a page in `wiki/concepts/` (cross-cutting ideas),
+`wiki/architectures/` (model families), or
+`wiki/foundation-models/taxonomy.md` (the cluster hierarchy) whose
+primary job is to compare, contrast, and bridge — not to introduce a
+single artifact.
+
+Three properties make a page a concept node:
+
+- It defines an idea or a family that multiple papers instantiate
+  differently.
+- It points outward: it links to several leaves and to several other
+  concept nodes, with the *why* of each link, not just the bare URL.
+- It contains a comparative section ("design choices in the
+  literature", "trade-offs and failure modes", "open questions") so
+  that a reader who lands on it understands not just what the idea
+  is, but how the candidates differ and which one to pick when.
+
+The practical effect is that any leaf is reachable from any other
+leaf in two or three hops via concept nodes. To answer "how does
+[TS-JEPA](wiki/papers/ts-jepa.md) compare to
+[TS2Vec](wiki/concepts/contrastive-representation-learning.md)?", a
+reader can follow either paper into its concept page
+([JEPA](wiki/concepts/joint-embedding-predictive-architecture.md) or
+[contrastive learning](wiki/concepts/contrastive-representation-learning.md)),
+read the comparative section, and end up at the other paper. The
+leaves themselves do not need to enumerate every comparison — the
+concept nodes carry that load.
+
+When adding a new paper, the workflow is: create the leaf, then
+update the concept and architecture nodes it relates to so the new
+entry joins the comparative discussions. Cross-link discipline
+(minimum link counts per page type, comparative-section requirement)
+is documented in [CLAUDE.md](CLAUDE.md).
+
 ## Start here
 
 - [wiki/overview.md](wiki/overview.md) — the wiki entry point and map of the
