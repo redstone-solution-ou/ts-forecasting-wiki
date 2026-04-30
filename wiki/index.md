@@ -4,7 +4,7 @@ One-line catalog of every page in the wiki. Updated on every ingest,
 query-filed-back, and lint pass. Read this before drilling into the
 knowledge graph.
 
-Last updated: 2026-04-27.
+Last updated: 2026-04-30.
 
 (Enrichment pass on 2026-04-12 added four new pages:
 [benchmarks/decision-guide.md](benchmarks/decision-guide.md),
@@ -163,3 +163,7 @@ Papers are listed in chronological order by the date on the arXiv metadata, olde
 - [papers/kohns-nowcast.md](papers/kohns-nowcast.md) — Kohns & Bhattacharjee (Heriot-Watt) COVID-era BSTS + Google Trends mixed-frequency nowcasting of U.S. real GDP (2020-11)
 - [papers/gtrends-proper.md](papers/gtrends-proper.md) — Medeiros & Pires (PUC-Rio) "Proper Use of Google Trends" — documents per-request sampling noise + repeated-sampling stitching (2021-04)
 - [papers/rttp.md](papers/rttp.md) — Meta Real-Time Trend Prediction via continually-aligned LLM query generation; cold-start trend detection (2026-01)
+
+### Benchmark methodology
+
+- [papers/aksu-gift-eval.md](papers/aksu-gift-eval.md) — Aksu et al. (Salesforce) GIFT-Eval benchmark + paired non-leaking `GiftEvalPretrain` corpus; first published clean Moirai-on-GiftEvalPretrain numbers and the only per-dataset LOTSA→GIFT-Eval leakage audit (2024-10)

@@ -110,3 +110,11 @@ Foundational and follow-up methodology papers for using Google Trends data for n
 | Kohns-Bhattacharjee | [2011.00938](https://arxiv.org/abs/2011.00938) | 2020-11 | J. of Forecasting 2022 | COVID-era extension of Scott-Varian BSTS for U.S. real GDP growth nowcasting with mixed-frequency variable selection | [kohns-nowcast](./kohns-nowcast.md) |
 | Medeiros-Pires (proper GT) | [2104.03065](https://arxiv.org/abs/2104.03065) | 2021-04 | preprint | Documents per-request sampling-noise problem in raw Google Trends data; repeated-sampling-and-stitching procedure | [gtrends-proper](./gtrends-proper.md) |
 | RTTP (Meta) | [2601.17567](https://arxiv.org/abs/2601.17567) | 2026-01 | preprint | Cold-start trend detection via continually-aligned LLM query generation; bridges Google-Trends-style methodology with modern LLM reprogramming | [rttp](./rttp.md) |
+
+## Benchmark methodology references
+
+Papers that introduce or formalize evaluation benchmarks rather than forecasting models. They do not map to the eight-cluster TS-FM taxonomy but are repeatedly cited as the canonical reference for a specific benchmark protocol.
+
+| Paper | arXiv | Date | Venue | Role | Link |
+| --- | --- | --- | --- | --- | --- |
+| GIFT-Eval (Aksu et al.) | [2410.10393](https://arxiv.org/abs/2410.10393) | 2024-10 | preprint (Salesforce AI Research) | Introduces the GIFT-Eval benchmark + paired non-leaking `GiftEvalPretrain` corpus; first published `Moirai` family retrained on a leakage-free corpus; only per-dataset quantification of LOTSA→GIFT-Eval leakage in the literature | [aksu-gift-eval](./aksu-gift-eval.md) |
