@@ -1266,3 +1266,68 @@ parallel commit; `kg-rag-wiki/CLAUDE.md` already had the rule baked
 in, so only its `llm-wiki.md` needed the edit.
 
 No content layer changes; this is purely schematic.
+
+## [2026-04-30] ingest | GIFT-Eval benchmark paper (Aksu et al., arXiv:2410.10393)
+
+Triggered by a query: "is there a model that trains only on
+`GiftEvalPretrain` and nothing else, and what does it score?"
+The wiki referenced GIFT-Eval §F.2 in `gift-eval.md`,
+`leakage-map.md`, and `protocols.md` but never quoted the actual
+numbers, leaving the canonical "what does training on
+`GiftEvalPretrain` alone get you" question unanswered. Closed the
+gap by ingesting the benchmark paper as a proper leaf and
+extending the dataset page with the headline reference numbers.
+
+New artifacts:
+
+- `papers/aksu-gift-eval_2410.10393.pdf` — paper PDF.
+- `wiki/papers/aksu-gift-eval.md` — new leaf following the
+  benchmark-methodology pattern (similar shape to `choi-varian.md`
+  / `scott-varian.md`: no TS-FM cluster, links into the
+  benchmarks / datasets-benchmarks / evaluation hubs instead).
+
+Touched pages:
+
+- `wiki/datasets-benchmarks/gift-eval.md` — replaced the
+  stub leakage-audit paragraph with a full sub-section ("What you
+  should expect from `GiftEvalPretrain` alone") that cites Table 10
+  with concrete MAPE / CRPS / Rank values for the retrained
+  Moirai_S/B/L plus reference rows for PatchTST, iTransformer,
+  Chronos-L, TimesFM-1, Seasonal Naive. Added "Leakage-audit
+  detail (§F.2 / Table 23)" sub-section quantifying the leakage
+  delta on the eight overlap datasets (e.g., `loop_seattle 5T`
+  medium-MAPE 0.33 vs 0.85 for Moi-Leak.L vs Moi.L). Extended
+  the "Papers that use this" list with five additional cross-links.
+- `wiki/papers/papers.md` — added new "Benchmark methodology
+  references" section with the Aksu et al. row.
+- `wiki/index.md` — added new "Benchmark methodology" subsection
+  under Papers; bumped Last-updated to 2026-04-30.
+
+Headline numbers extracted (Aksu et al. Table 10, all 97 configs,
+relative to Seasonal Naive, lower is better):
+
+| Model | Corpus | MAPE | CRPS | Rank |
+|---|---|---|---|---|
+| Moirai-Large (retrained) | `GiftEvalPretrain` only | 0.864 | 0.593 | 5.99 |
+| Moirai-Base (retrained) | `GiftEvalPretrain` only | 1.01 | 0.648 | 7.57 |
+| Moirai-Small (retrained) | `GiftEvalPretrain` only | 0.882 | 0.642 | 7.81 |
+| PatchTST (full-shot reference) | per-dataset | 0.860 | 0.563 | 5.72 |
+
+Two findings worth recording:
+
+1. Moirai-Large retrained on `GiftEvalPretrain` alone is statistically
+   tied with full-shot PatchTST in aggregate Rank (5.99 vs 5.72),
+   despite using a corpus ~25× smaller than LOTSA. So the *floor*
+   for "training on `GiftEvalPretrain` alone" is roughly parity with
+   the best per-dataset deep-learning baseline — useful calibration
+   for anyone trying to replicate or beat this.
+2. Moirai-Base is *worse* than Moirai-Small (MAPE 1.01 vs 0.882) on
+   the clean corpus — a reverse-scaling artifact in the original
+   Moirai-1 family, foreshadowing the same pattern documented in
+   [Moirai 2.0](papers/moirai-2.md). Cross-linked from
+   `concepts/scaling-laws.md` could be useful in a future lint pass.
+
+The paper itself measures **MAPE** (not MASE). The successor public
+leaderboard reported by `Sundial` Table 2 / `Chronos-2` Table 4 uses
+MASE-derived skill scores, so the values here are not directly
+comparable to those tables. This is now flagged on the dataset page.
