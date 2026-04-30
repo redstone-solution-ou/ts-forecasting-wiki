@@ -93,6 +93,7 @@ Last updated: 2026-04-30.
 
 - [evaluation/evaluation.md](evaluation/evaluation.md) — index and reading order for metrics, protocols, and per-paper evaluations
 - [evaluation/comparability-checklist.md](evaluation/comparability-checklist.md) — seven-item checklist for whether two papers' numbers can be compared
+- [evaluation/metrics-cheatsheet.md](evaluation/metrics-cheatsheet.md) — intuitive read-first guide to MASE/MAPE/CRPS/WQL/SQL, GM-aggregation, and skill scores; worked example + unit-mismatch diagnostic
 - [evaluation/metrics.md](evaluation/metrics.md) — every point and probabilistic metric used in TS-FM papers, with formulas and failure modes
 - [evaluation/probabilistic-evaluation.md](evaluation/probabilistic-evaluation.md) — CRPS, WQL, quantile loss, calibration vs sharpness
 - [evaluation/protocols.md](evaluation/protocols.md) — splits, rolling-origin, horizon and context conventions, what "zero-shot" means

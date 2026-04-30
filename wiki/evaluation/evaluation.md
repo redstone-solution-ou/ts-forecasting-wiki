@@ -12,6 +12,10 @@ section teaches the procedure.
 
 ## Sub-pages
 
+- [metrics-cheatsheet.md](metrics-cheatsheet.md) — read-this-first
+  intuitive guide to MASE / MAPE / CRPS / WQL / SQL, their
+  geometric-mean variants, and skill-score wrappers. Includes a
+  worked numerical example and a unit-mismatch diagnostic.
 - [metrics.md](metrics.md) — the flagship reference. Every point and
   probabilistic metric that appears in TS-FM papers, with formulas,
   interpretation, failure modes, and which papers use which.
