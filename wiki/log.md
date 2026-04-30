@@ -1331,3 +1331,38 @@ The paper itself measures **MAPE** (not MASE). The successor public
 leaderboard reported by `Sundial` Table 2 / `Chronos-2` Table 4 uses
 MASE-derived skill scores, so the values here are not directly
 comparable to those tables. This is now flagged on the dataset page.
+
+## [2026-04-30] query-filed-back | Metrics cheatsheet for MASE/MAPE/CRPS/WQL/SQL + GM aggregation + skill scores
+
+Triggered by a query asking for a unified pedagogical explanation of
+the metric vocabulary on TS-FM leaderboards (`GM-CRPS`, `GM-WQL`,
+`MASE`, `GM-MASE`, `MAPE`, `GM-MAPE`). The existing
+[`evaluation/metrics.md`](evaluation/metrics.md) is a comprehensive
+technical reference but reads as such — formulas first, intuition
+secondary. Created a complementary read-first page focused on plain-
+English meaning and unit-diagnostic value.
+
+New page:
+
+- `wiki/evaluation/metrics-cheatsheet.md` — organized as the **four
+  operations under every leaderboard cell** (per-point error →
+  per-series score → Seasonal-Naive normalization → cross-dataset
+  geometric mean → optional skill-score wrapper). Each step is
+  explained in plain English with a worked numerical example. The
+  page closes with a "diagnosing a unit mismatch in your own
+  pipeline" walkthrough that surfaces the most common bugs:
+  forgetting the per-series Seasonal-Naive normalization (step 3),
+  confusing arithmetic vs geometric aggregation, and the
+  `gluonts.mean_weighted_sum_quantile_loss` factor-of-2 vs
+  GIFT-Eval's CRPS-from-quantiles approximation.
+
+Touched pages:
+
+- `wiki/evaluation/evaluation.md` — added the new cheatsheet to the
+  sub-pages list as the read-first companion to `metrics.md`.
+- `wiki/index.md` — added the cheatsheet entry under Evaluation.
+
+The cheatsheet does **not** duplicate `metrics.md`'s rigorous
+formulas; it links into it for math and edge-case detail. The two
+pages are now layered: cheatsheet for vocabulary and operations,
+metrics.md for formulas and per-paper usage citations.
